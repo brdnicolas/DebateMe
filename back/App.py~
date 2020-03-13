@@ -1,0 +1,80 @@
+import os
+from json import dump
+from random import randint
+
+from flask import Flask, request, jsonify, render_template, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+
+# init app
+from sqlalchemy import ForeignKey
+
+app = Flask(
+    __name__,
+    static_folder="./src/dist/static",
+    template_folder="./src/dist"
+)
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
+
+
+class Game(db.Model):
+    __tablename__ = 'game'
+    _id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300))
+    price = db.Column(db.Float)
+
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+
+class Player(db.Model):
+    __tablename__ = 'player'
+    _id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    favorite_game = db.Column(db.Integer, ForeignKey('game._id'))
+
+    def __init__(self, name, favorite_game):
+        self.name = name
+        self.favorite_game = favorite_game
+
+
+class GamesSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Game
+
+    _id = ma.auto_field()
+    name = ma.auto_field()
+    price = ma.auto_field()
+
+
+class PlayersSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Player
+
+    _id = ma.auto_field()
+    name = ma.auto_field()
+    favorite_game = ma.auto_field()
+
+
+game_schema = GamesSchema()
+games_schema = GamesSchema(many=True)
+
+player_schema = PlayersSchema()
+players_schema = PlayersSchema(many=True)
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_path(path):
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
