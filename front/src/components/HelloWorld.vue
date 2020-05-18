@@ -277,6 +277,7 @@ footer {
   flex-direction: row;
   padding-left:12.5%;
   padding-right: 12.5%;
+  align-items: center;
 }
 .profil-card .bottom h1 {
 }
