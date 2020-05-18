@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
@@ -19,11 +18,17 @@ export default class App extends Vue {}
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: 'Roboto', sans-serif;
+}
+body {
+  background:white;
+}
+html {
+  width:100vw;
+  overflow-x:hidden;
+}
+* {
+  margin:0;
+  padding:0;
 }
 </style>
