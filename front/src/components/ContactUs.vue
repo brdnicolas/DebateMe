@@ -16,8 +16,8 @@
                         <h4>Email</h4>
                         <input type="email" placeholder="Entrez votre email"/>
                         <h4>Raison de votre message</h4>
-                        <select>
-                            <option disabled value="">Veuillez choisir une raison</option>
+                        <select v-model="selectRaison">
+                            <option disabled>{{selectRaison}}</option>
                             <option>Je veux signaler un problème 😥</option>
                             <option>C'est un message d'amour 👉🏼👈🏼</option>
                             <option>Je veux me plaindre ! 😡</option>
@@ -39,7 +39,12 @@
         components: {
             headerComponent,
             footerComponent
-        }
+        },
+	data () {
+		return {
+			selectRaison:"Veuillez choisir une raison"
+		}
+	}
     })
     export default class HelloWorld extends Vue {
     }
