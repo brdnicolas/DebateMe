@@ -17,6 +17,11 @@ default: &default
   password: TenezMesBonsDebats
   socket: /var/run/mysqld/mysqld.sock
 
+# Comment if you're local
+  host: hugovast.tech
+  port: 3306
+  database: DebateMe
+
 development:
   <<: *default
   database: DebateMe

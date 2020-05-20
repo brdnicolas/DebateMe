@@ -1,0 +1,15 @@
+class CreatePosts < ActiveRecord::Migration[6.0]
+  def change
+    create_table :posts do |t|
+      t.text :content
+      t.boolean :isAnonym
+      t.integer :up
+      t.integer :down
+      t.references :user, null: false, foreign_key: true
+      # t.references :post, null: true, foreign_key: true
+      # t.references :question, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
