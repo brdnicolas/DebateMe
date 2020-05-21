@@ -10,24 +10,23 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
+            name: 'Landing Page',
             component: Home,
         },
         {
-            path: '/about',
-            name: 'about',
-            component: () => import(/* webpackChunkName: "about" */ './components/About.vue'),
+            path: '/APropos',
+            name: 'A Propos',
+            component: () => import(/* webpackChunkName: "about" */ './components/APropos.vue'),
         },
         {
-            path: '/contactUs',
-            name: 'contactUs',
+            path: '/Contact',
+            name: 'Contactez Nous',
             component: () => import(/* webpackChunkName: "about" */ './components/ContactUs.vue'),
         },
         {
-            path: '/accueil',
+            path: '/Accueil',
             name: 'Accueil',
             component: () => import(/* webpackChunkName: "about" */ './components/Accueil.vue'),
         },
-
     ],
 });
