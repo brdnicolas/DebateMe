@@ -23,5 +23,11 @@ export default new Router({
             name: 'contactUs',
             component: () => import(/* webpackChunkName: "about" */ './components/ContactUs.vue'),
         },
+        {
+            path: '/accueil',
+            name: 'Accueil',
+            component: () => import(/* webpackChunkName: "about" */ './components/Accueil.vue'),
+        },
+
     ],
 });

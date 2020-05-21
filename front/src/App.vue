@@ -18,6 +18,7 @@
   html {
     width:100vw;
     overflow-x:hidden;
+    scroll-behavior: smooth;
   }
   * {
     margin:0;
