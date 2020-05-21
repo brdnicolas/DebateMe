@@ -4,7 +4,7 @@ RSpec.describe 'V1 Posts API' do
   # Initialize the test data
   let!(:user) { create(:user) }
   let(:user_id) { user.id }
-  let!(:posts) { create_list(:post, 20, user_id:  user_id) }
+  let!(:posts) { create_list(:post, 20, user_id:  user.id) }
   let(:id) { posts.first.id }
 
   # Test suite for GET /users/:user_id/posts
@@ -29,7 +29,7 @@ RSpec.describe 'V1 Posts API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find user/)
+        expect(response.body).to match(/Couldn't find User/)
       end
     end
   end
@@ -56,17 +56,12 @@ RSpec.describe 'V1 Posts API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find post/)
+        expect(response.body).to match(/Couldn't find Post/)
       end
     end
   end
 
   # Test suite for POST /users/:user_id/posts
-  #       t.text :content
-  #       t.boolean :isAnonym
-  #       t.integer :up
-  #       t.integer :down
-  #       t.references :user, null: false, foreign_key: true
   describe 'POST /users/:user_id/posts' do
     let(:valid_attributes) { { content: 'Black Puppet', isAnonym: false, up: 50, down: 4, user_id: 136 } }
 
@@ -103,8 +98,8 @@ RSpec.describe 'V1 Posts API' do
       end
 
       it 'updates the post' do
-        updated_post = post.find(id)
-        expect(updated_post.name).to match(/Purple Puppet/)
+        updated_post = Post.find(id)
+        expect(updated_post.content).to match(/Purple Puppet/)
       end
     end
 
@@ -116,7 +111,7 @@ RSpec.describe 'V1 Posts API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find post/)
+        expect(response.body).to match(/Couldn't find Post/)
       end
     end
   end

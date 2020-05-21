@@ -5,7 +5,7 @@ RSpec.describe 'V1 Users API', type: :request do
   let!(:users) { create_list(:user, 10) }
   let(:user_id) { users.first.id }
 
-  # Test suite for GET /todos
+  # Test suite for GET /users
   describe 'GET /users' do
     # make HTTP get request before each example
     before { get '/users' }
@@ -21,7 +21,7 @@ RSpec.describe 'V1 Users API', type: :request do
     end
   end
 
-  # Test suite for GET /todos/:id
+  # Test suite for GET /users/:id
   describe 'GET /users/:id' do
     before { get "/users/#{user_id}" }
 
@@ -49,7 +49,7 @@ RSpec.describe 'V1 Users API', type: :request do
     end
   end
 
-  # Test suite for POST /todos
+  # Test suite for POST /users
   describe 'POST /users' do
     # valid payload
     let(:valid_attributes) { { username: 'beeleebob', firstname: 'hugz', lastname: 'papi', email: 'trou@gmail.com', password_digest: 'adawdw', isPremium: 0, isBan: 0 } }
@@ -80,7 +80,7 @@ RSpec.describe 'V1 Users API', type: :request do
     end
   end
 
-  # Test suite for PUT /todos/:id
+  # Test suite for PUT /users/:id
   describe 'PUT /users/:id' do
     let(:valid_attributes) { { email: 'blabla@gmail.com' } }
 
@@ -97,7 +97,7 @@ RSpec.describe 'V1 Users API', type: :request do
     end
   end
 
-  # Test suite for DELETE /todos/:id
+  # Test suite for DELETE /users/:id
   describe 'DELETE /users/:id' do
     before { delete "/users/#{user_id}" }
 
