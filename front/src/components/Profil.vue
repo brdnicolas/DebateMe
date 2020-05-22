@@ -172,12 +172,10 @@
     }
     .quoteleft {
         width:100px;
-        opacity: 40%;
         padding-bottom:60px;
     }
     .quoteright {
         width:100px;
-        opacity: 40%;
         padding-top:20px;
     }
     .profil-citation > p {
