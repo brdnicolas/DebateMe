@@ -28,5 +28,11 @@ export default new Router({
             name: 'Accueil',
             component: () => import(/* webpackChunkName: "about" */ './components/Accueil.vue'),
         },
+        {
+            path: '/Profil/:name',
+            name: 'Profil',
+            component: () => import(/* webpackChunkName: "about" */ './components/Profil.vue'),
+        },
+
     ],
 });
