@@ -7,7 +7,7 @@
 
 - Sur macOS: `brew install rbenv && rbenv init`
 
-- `rbenv install ruby-2.5.0`
+- `rbenv install 2.5.0`
 
 - `$ gem install rails -v 6.0.3.1`
 
