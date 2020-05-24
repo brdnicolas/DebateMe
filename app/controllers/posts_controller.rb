@@ -33,7 +33,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:content, :isAnonym, :up, :down, :user_id)
+    params.permit(:content, :isAnonym, :up, :down)
   end
 
   def set_user

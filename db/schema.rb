@@ -10,30 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_141740) do
+ActiveRecord::Schema.define(version: 2020_05_23_135651) do
 
-  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.text "content"
-    t.boolean "isAnonym"
-    t.integer "up"
-    t.integer "down"
+    t.boolean "isAnonym", default: false
+    t.integer "up", default: 0
+    t.integer "down", default: 0
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.text "documentation"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.bigint "theme_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["theme_id"], name: "index_questions_on_theme_id"
+  end
+
+  create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "firstname"
     t.string "lastname"
     t.string "password_digest"
     t.string "email"
-    t.boolean "isPremium"
-    t.boolean "isBan"
+    t.boolean "isPremium", default: false
+    t.boolean "isBan", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "posts", "users"
+  add_foreign_key "questions", "themes"
 end

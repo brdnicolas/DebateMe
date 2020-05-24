@@ -116,8 +116,8 @@ RSpec.describe 'V1 Posts API' do
     end
   end
 
-  # Test suite for DELETE /users/:id
-  describe 'DELETE /users/:id' do
+  # Test suite for DELETE /users/:user_id/posts/:id
+  describe 'DELETE /users/:user_id/posts/:id' do
     before { delete "/users/#{user_id}/posts/#{id}" }
 
     it 'returns status code 204' do
