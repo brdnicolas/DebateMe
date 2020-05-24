@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :authorize_request, only: :create
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -9,8 +10,10 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.create!(user_params) # '!' is here for raise an AR::RecordInvalid exception
-    json_response(@user, :created)
+    user = User.create!(user_params)
+    auth_token = AuthenticateUser.new(user.email, user.password).call
+    response = { message: Message.account_created, auth_token: auth_token }
+    json_response(response, :created)
   end
 
   # GET /users/:id
@@ -34,7 +37,7 @@ class UsersController < ApplicationController
 
   def user_params
     # whitelist params
-    params.permit(:username, :firstname, :lastname, :password_digest, :email, :isPremium, :isBan)
+    params.permit(:username, :firstname, :lastname, :password, :password_confirmation, :email, :isPremium, :isBan)
   end
 
   def set_user

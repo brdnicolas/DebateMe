@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   # GET /users/:user_id/posts
   def index
-    json_response(@user.posts)
+    json_response(current_user.posts)
   end
 
   # GET /users/:user_id/posts/:id
@@ -12,10 +12,10 @@ class PostsController < ApplicationController
     json_response(@post)
   end
 
-  # POST /users/:user_id/posts
+  # POST /posts
   def create
-    @user.posts.create!(post_params)
-    json_response(@user, :created)
+    @post = current_user.posts.create!(post_params)
+    json_response(@post, :created)
   end
 
   # PUT /users/:user_id/posts/:id
