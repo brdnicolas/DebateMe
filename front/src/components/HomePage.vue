@@ -6,10 +6,10 @@
         <h3 class="name">Debate Me</h3>
       </div>
       <div class="right">
-        <button id="log" class ="button" onclick="this.showModalLogin = true" @click="disableScroll">
+        <button id="log" class ="button" @click="showLogin">
           Connexion
         </button>
-        <button id="sign" class ="button" @click="showModalSignin = true">
+        <button id="sign" class ="button" @click="showSignIn">
           Inscription
         </button>
 
@@ -18,21 +18,22 @@
 
     <!-- POPUP -->
     <transition name ="fade" appear>
-      <div v-on:click.self="hidePopUpLogin" class="modal-overlayLogin" v-if="showModalLogin"  >
+      <div v-on:click.self="hidePopUpLogin($event)" class="modal-overlayLogin" v-if="showModalLogin"  >
 
         <form class="logbox">
           <img class="logoLogin" src="../assets/img/logo2.png" @click="showModalLogin = false"/>
+          <p style="margin-left:52px;color:red;">{{error}}</p>
           <h1>EMAIL</h1>
-          <input class="textarea" type="email">
+          <input v-model="connexionEmail" name="email" class="textarea" type="email">
           <h1>MOT DE PASSE</h1>
-          <input class="textarea" type="password">
+          <input v-model="connexionPassword" class="textarea" type="password">
           <div class="remember">
             <input class="checkbox" type="checkbox">
             <h2>SE SOUVENIR DE MOI</h2>
           </div>
           <div class="logs">
-            <button type="submit" class="Login">CONNEXION</button>
-            <button type="button" class="Signin">INSCRIPTION</button>
+            <button type="submit" class="Login" @click="ConnexionPOST($event,connexionEmail,connexionPassword)">CONNEXION</button>
+            <button type="button" class="Signin" @click="ChangeToInscription($event)">INSCRIPTION</button>
           </div>
           <p class="ForgetPassword"><a href="#"> Mot de passe oublié ?</a> Nous allons vous envoyer un mail.</p>
         </form>
@@ -40,25 +41,26 @@
     </transition>
 
     <transition name ="fade" appear>
-      <div v-on:click.self="hidePopUpSignIn" class="modal-overlayLogin" v-if="this.showModalSignin"  >
+      <div v-on:click.self="hidePopUpSignIn($event)" class="modal-overlayLogin" v-if="this.showModalSignin"  >
 
         <form class="logboxSignIn">
           <img class="logoLogin" src="../assets/img/logo2.png" @click="showModalLogin = false"/>
+          <p style="margin-left:52px;color:red;">{{error}}</p>
           <h1>EMAIL</h1>
-          <input class="textarea" type="email">
+          <input v-model="inscriptionEmail" class="textarea" type="email">
           <h1>MOT DE PASSE</h1>
-          <input class="textarea" type="password">
+          <input v-model="inscriptionPassword" class="textarea" type="password">
           <h1>CONFIRMATION MOT DE PASSE</h1>
-          <input class="textarea" type="password">
+          <input v-model="inscriptionPasswordRe" class="textarea" type="password">
           <h1>PSEUDO</h1>
-          <input class="textarea" type="password">
+          <input v-model="inscriptionPseudo" class="textarea" type="text">
           <h1>PRÉNOM</h1>
-          <input class="textarea" type="password">
+          <input v-model="inscriptionFirstName" class="textarea" type="text">
           <h1>NOM</h1>
-          <input class="textarea" type="password">
+          <input v-model="inscriptionLastName" class="textarea" type="text">
           <div class="logs">
-            <button type="submit" class="Login">CONNEXION</button>
-            <button type="button" class="Signin">INSCRIPTION</button>
+            <button type="button" class="Login" @click="ChangeToLogin($event)">CONNEXION</button>
+            <button type="submit" class="Signin" @click="InscriptionPost($event,inscriptionEmail,inscriptionPassword,inscriptionPasswordRe,inscriptionPseudo,inscriptionFirstName,inscriptionLastName)">S'INSCRIRE</button>
           </div>
         </form>
       </div>
@@ -185,6 +187,7 @@
   import { Component, Vue } from 'vue-property-decorator'
   import headerComponent from '@/components/mini-components/header.vue'
   import footerComponent from '@/components/mini-components/footer.vue'
+  import axios from "axios"
   @Component({
     components: {
       headerComponent,
@@ -192,23 +195,65 @@
     },
   })
   export default class HomePage extends Vue {
+    mounted() {
+      this.checkToken();
+    }
     showModalLogin: boolean;
     showModalSignin: boolean;
+    connexionEmail: string;
+    connexionPassword: string;
+    inscriptionEmail: string;
+    inscriptionPassword: string;
+    inscriptionPasswordRe: string;
+    inscriptionPseudo: string;
+    inscriptionFirstName: string;
+    inscriptionLastName: string;
+    error: string;
 
     constructor() {
       super();
+      this.error = "";
       this.showModalLogin= false;
       this.showModalSignin= false;
+      this.connexionEmail = "";
+      this.connexionPassword = "";
+      this.inscriptionEmail = "";
+      this.inscriptionPassword = "";
+      this.inscriptionPasswordRe = "";
+      this.inscriptionPseudo = "";
+      this.inscriptionFirstName = "";
+      this.inscriptionLastName = "";
     }
 
-    disableScroll(): void {
+    checkToken(): void {
+      if(localStorage.token) {
+        window.location.href = '/accueil';
+      }
+    }
+
+    showLogin(): void {
       const ele = document.getElementById("html");
       this.showModalLogin = true;
       if (ele) {
         ele.style.overflow = 'hidden'
       }
     }
-    hidePopUpLogin(e: CustomEvent): void {
+    ChangeToInscription(e: Event): void {
+      this.hidePopUpLogin(e);
+      this.showSignIn();
+    }
+    ChangeToLogin(e: Event): void {
+      this.hidePopUpSignIn(e);
+      this.showLogin();
+    }
+    showSignIn(): void {
+      const ele = document.getElementById("html");
+      this.showModalSignin = true;
+      if (ele) {
+        ele.style.overflow = 'hidden'
+      }
+    }
+    hidePopUpLogin(e: Event): void {
       e.stopPropagation();
       this.showModalLogin = false;
       const ele = document.getElementById("html");
@@ -217,14 +262,53 @@
 
       }
     }
-    hidePopUpSignIn(e: CustomEvent): void {
+    hidePopUpSignIn(e: Event): void {
       e.stopPropagation();
       this.showModalSignin = false;
       const ele = document.getElementById("html");
       if (ele) {
         ele.style.overflowY = "auto"
-
       }
+    }
+    ConnexionPOST(e: Event, email: string,password: string): void {
+      e.preventDefault();
+      if (!email || !password) {
+        this.error = "Veuillez remplir tous les champs.";
+        return;
+      }
+      axios.post('https://api.hugovast.tech/auth/login', {
+        email: email,
+        password: password
+      }).then(function (response) {
+        localStorage.token = response.data.auth_token;
+        window.location.href = '/accueil';
+      });
+    }
+    InscriptionPost(e: Event, email: string,password: string, repassword: string, username: string, firstname: string, lastname: string): void {
+      e.preventDefault();
+      if (password !== repassword) {
+        this.error = "Les mots de passe ne sont pas identiques.";
+        return;
+      }
+      if (!email || !password || !repassword || !username || !firstname || !lastname ) {
+        this.error = "Veuillez remplir tous les champs.";
+        return;
+      }
+      axios.post('https://api.hugovast.tech/register', {
+        email: email,
+        password: password,
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        password_confirmation: repassword,
+      }).then(function (response) {
+        localStorage.token = response.data.auth_token;
+        window.location.href = '/accueil';
+      })
+      .catch(error => {
+        this.error = "Une erreur s'est produite."
+      });
     }
   }
 </script>
