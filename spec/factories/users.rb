@@ -7,6 +7,5 @@ FactoryBot.define do
     password { 'foobar' }
     isPremium { Faker::Number.between(from: 0, to: 1) }
     isBan { 0 }
-
   end
 end

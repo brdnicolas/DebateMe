@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   end
 
   post '/auth/login' => 'authentication#authenticate'
-  post '/register', to: 'users#create'
+  post '/register'   => 'users#create'
+  get '/users/search/:search' => 'users#search_by_name'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

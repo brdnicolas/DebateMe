@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: :create
+  skip_before_action :authorize_request, only: [ :create, :search_by_name ]
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -31,6 +31,12 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     head :no_content
+  end
+
+  # GET /users/search/:search
+  def search_by_name
+    @users = User.where("username LIKE ?", "%" + params[:search] + "%")
+    json_response(@users)
   end
 
   private
