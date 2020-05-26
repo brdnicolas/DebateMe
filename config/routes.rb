@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post '/auth/login' => 'authentication#authenticate'
   post '/auth/register'   => 'users#create'
 
-  get '/users/search/:search' => 'users#search_by_name'
+  get '/users/search/:search' => 'users#search'
 
   get '/users/:user_id/posts' => 'posts#search_index'
   get '/users/:user_id/posts/:id' => 'posts#search_show'
