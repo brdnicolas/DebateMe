@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
   get '/ping' => 'test#ping'
 
-  resources :users do
-    resources :posts
-  end
+  resources :users
+  resources :posts
+
   resources :themes do
     resources :questions
   end
 
   post '/auth/login' => 'authentication#authenticate'
-  post '/register'   => 'users#create'
+  post '/auth/register'   => 'users#create'
+
   get '/users/search/:search' => 'users#search_by_name'
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/users/:user_id/posts' => 'posts#search_index'
+  get '/users/:user_id/posts/:id' => 'posts#search_show'
+  delete '/users/:user_id/post/:id' => 'posts#search_destroy'
 end

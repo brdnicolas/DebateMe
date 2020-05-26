@@ -5,9 +5,9 @@ class CreatePosts < ActiveRecord::Migration[6.0]
       t.boolean :isAnonym, default: false
       t.integer :up, default: 0
       t.integer :down, default: 0
-      t.references :user, null: false, foreign_key: true
-      # t.references :post, null: true, foreign_key: true
-      # t.references :question, null: false, foreign_key: true
+      t.references(:user, null: false, type: :bigint)
+      t.references :subpost
+      t.references :question, null: false, foreign_key: true
 
       t.timestamps
     end

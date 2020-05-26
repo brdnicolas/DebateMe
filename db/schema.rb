@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_135651) do
+ActiveRecord::Schema.define(version: 2020_05_20_141740) do
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.text "content"
@@ -18,8 +18,12 @@ ActiveRecord::Schema.define(version: 2020_05_23_135651) do
     t.integer "up", default: 0
     t.integer "down", default: 0
     t.bigint "user_id", null: false
+    t.bigint "subpost_id"
+    t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_posts_on_question_id"
+    t.index ["subpost_id"], name: "index_posts_on_subpost_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -52,6 +56,6 @@ ActiveRecord::Schema.define(version: 2020_05_23_135651) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "posts", "users"
+  add_foreign_key "posts", "questions"
   add_foreign_key "questions", "themes"
 end
