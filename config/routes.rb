@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   get '/users/:user_id/posts' => 'posts#search_index'
   get '/users/:user_id/posts/:id' => 'posts#search_show'
   delete '/users/:user_id/post/:id' => 'posts#search_destroy'
+
+  get '/questions/:id/posts' => 'questions#get_posts'
 end

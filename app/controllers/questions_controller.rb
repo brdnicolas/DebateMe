@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_theme
+  skip_before_action :set_theme, only: [:get_posts]
+  skip_before_action :authorize_request
   before_action :set_theme_question, only: [:show, :update, :destroy]
 
   # GET /themes/:id/questions
@@ -16,6 +18,15 @@ class QuestionsController < ApplicationController
   # GET /themes/:id/questions/:id
   def show
     json_response(@question)
+  end
+
+  # GET /questions/:id/posts
+  def get_posts
+    set_question
+    posts = []
+    @question.posts
+
+    json_response(posts)
   end
 
   # PUT /themes/:id/questions/:id
@@ -47,5 +58,6 @@ class QuestionsController < ApplicationController
 
   def set_theme_question
     @question = @theme.questions.find_by!(id: params[:id]) if @theme
+
   end
 end
