@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: [ :create, :search_by_name ]
-  before_action :set_user, only: [:show]
+  skip_before_action :authorize_request, only: [ :create, :search ]
+  before_action :set_user, only: [:update, :destroy, :show]
 
   # GET /users
   def index
@@ -21,20 +21,20 @@ class UsersController < ApplicationController
     json_response(@user)
   end
 
-  # PUT /users
+  # PUT /users/:id
   def update
-    current_user.update(user_params)
+    @user.update(user_params)
     head :no_content
   end
 
-  # DELETE /users
+  # DELETE /users/:id
   def destroy
-    current_user.destroy
+    @user.destroy
     head :no_content
   end
 
   # GET /users/search/:search
-  def search_by_name
+  def search
     @users = User.where("username LIKE ?", "%" + params[:search] + "%")
     json_response(@users)
   end
