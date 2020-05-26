@@ -1,14 +1,10 @@
 <template>
-    <div class="card">
+    <div @click="RedirectToQuestion" class="card">
         <img src="../../assets/tmp/corona.png"/>
-        <h3>Devrons-nous tester toute la population de France pour faire disparaitre au plus vite le coronavirus?</h3>
+        <h3>{{titre}}</h3>
         <div class="upvote">
             <div class="date-sujet">
-                <p>1er juillet 2020</p>
-            </div>
-            <div>
-                <p>35</p>
-                <img alt="up" src="../../assets/icon/up.png"/>
+                <p>{{this.fromnow}}</p>
             </div>
         </div>
     </div>
@@ -16,12 +12,34 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
+    import moment from 'moment'
     @Component
     export default class Header extends Vue {
+        @Prop({default: "Attente d'informations"})
+        titre: string | undefined;
+        @Prop({default: "Attente d'informations"})
+        date: string | undefined;
+        @Prop({default: 1})
+        id: number | undefined;
+        @Prop({default: 1})
+        themeid: number | undefined;
+
+        fromnow: string;
+        constructor() {
+            super();
+            this.fromnow = "";
+        }
+
+        created() {
+            moment.locale('fr');
+            this.fromnow = moment(this.date).fromNow()
+        }
+        RedirectToQuestion(): void {
+            window.location.href = '/theme/' + this.themeid + '/question/' + this.id;
+        }
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .date-sujet p {
         margin-left:10px;

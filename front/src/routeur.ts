@@ -33,6 +33,10 @@ export default new Router({
             name: 'Profil',
             component: () => import(/* webpackChunkName: "about" */ './components/Profil.vue'),
         },
-
+        {
+            path: '/Theme/:idTheme/Question/:idQuestion',
+            name: "Question",
+            component: () => import(/* webpackChunkName: "about" */ './components/Question.vue'),
+        }
     ],
 });

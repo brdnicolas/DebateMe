@@ -13,6 +13,7 @@
     "disable-scroll": "^0.5.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
+    "vue-moment": "^4.1.0",
     "vue-property-decorator": "^8.4.1",
     "vue-router": "^3.1.6",
     "vue-typed": "^2.1.4",
