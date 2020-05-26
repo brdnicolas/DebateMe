@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_user, only: [:search_index,:search_show, :search_destroy]
   before_action :set_user_post, only: [:show, :update, :destroy, :search_show, :search_destroy]
+  skip_before_action :authorize_request, only: [ :search_show, :search_index ]
   # GET /posts
   def index
     json_response(current_user.posts)
@@ -59,4 +60,5 @@ class PostsController < ApplicationController
     @user ||= current_user
     @post = @user.posts.find_by!(id: params[:id]) if @user
   end
+
 end

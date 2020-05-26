@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authorize_request, only: [ :create, :search_by_name ]
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show]
 
   # GET /users
   def index
@@ -21,15 +21,15 @@ class UsersController < ApplicationController
     json_response(@user)
   end
 
-  # PUT /users/:id
+  # PUT /users
   def update
-    @user.update(user_params)
+    current_user.update(user_params)
     head :no_content
   end
 
-  # DELETE /users/:id
+  # DELETE /users
   def destroy
-    @user.destroy
+    current_user.destroy
     head :no_content
   end
 
