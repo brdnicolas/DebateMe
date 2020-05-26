@@ -7,68 +7,8 @@
             <div class="categories-container">
                 <img @click="SwipeLeft" alt="swipe-left" src="../assets/icon/row.png" />
                 <ul id="categories" class="categories">
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
-                    </li>
-                    <li>
-                        <img src="../assets/categories/nature.jpg" title="nature"/>
+                    <li v-for="item in this.themes" :key="item.created_at">
+                        <img :class="'theme' + item.id" id="notselected" @click="ChangeTheme($event,item.id)" :alt="item.name" :title="item.name" src="../assets/categories/nature.jpg"/>
                     </li>
                 </ul>
                 <img @click="SwipeRight" alt="swipe-right" src="../assets/icon/row2.png" />
@@ -94,19 +34,17 @@
 
         </div>
         <div class="card-list">
-            <cardComponent/>
-            <cardComponent/>
-            <cardComponent/>
-            <cardComponent/>
+            <cardComponent v-for="item in this.listePostes" :themeid="idThemeActuel" :id="item.id" :key="item.id" :titre="item.title" :date="item.created_at.slice(0,10)"/>
         </div>
         <footerComponent/>
     </div>
 </template>
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator'
+    import { Component, Vue, Watch } from 'vue-property-decorator'
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import cardComponent from '@/components/mini-components/card.vue'
+    import axios from "axios";
     @Component({
         components: {
             headerComponent,
@@ -115,6 +53,73 @@
         },
     })
     export default class ContactUs extends Vue {
+        themes: Record<string, any>;
+        listePostes: Record<string, any>;
+        idThemeActuel: number;
+        constructor() {
+            super();
+            this.themes = {};
+            this.listePostes = {};
+            this.idThemeActuel = 1;
+        }
+        mounted() {
+            this.getThemes();
+            this.getPostesByTheme();
+        }
+        computed() {
+            const element = document.getElementById("categories");
+            if (element) {
+                console.log(element.firstChild);
+            }
+        }
+
+
+        @Watch('idThemeActuel')
+        onPropertyChanged(value: string, oldValue: string) {
+            this.getPostesByTheme();
+        }
+
+        async getThemes(): Promise<void> {
+            let rep = null;
+            await axios.get('https://api.hugovast.tech/themes', {
+                headers: {
+                    Authorization: localStorage.token //the token is a variable which holds the token
+                }
+            }).then(function (response) {
+               rep = response.data;
+               console.log(response.data)
+            });
+            if (rep)
+                this.themes = rep;
+        }
+
+        async getPostesByTheme(): Promise<void> {
+            let rep = null;
+            await axios.get("https://api.hugovast.tech/themes/" + this.idThemeActuel + "/questions", {
+                headers: {
+                    Authorization: localStorage.token //the token is a variable which holds the token
+                }
+            }).then(function (response) {
+                rep = response.data;
+                console.log(rep);
+            });
+            if (rep)
+                this.listePostes = rep;
+        }
+
+        ChangeTheme(e: Event, id: number): void {
+            const target = e.target as HTMLTextAreaElement;
+            const selected = document.getElementById('selected');
+            if (selected) {
+                selected.id = 'notselected';
+            }
+            if (target) {
+                target.id = 'selected';
+            }
+            this.idThemeActuel = id;
+        }
+
+
         SwipeLeft (): void {
             const ele = document.getElementById("categories");
             if(ele != null) {
@@ -182,6 +187,7 @@
     }
     .explore-category {
         width:80vw;
+        min-width: 80vw;
         margin-left:10vw;
     }
     .explore-category > h1 {
@@ -211,6 +217,7 @@
     }
     .categories {
         margin-top:30px;
+        min-width: calc(80vw - 120px);
         display:flex;
         flex-direction: row;
         list-style: none;
@@ -226,5 +233,18 @@
         border: 2px solid #E6654A;
         margin-left:15px;
         margin-right:15px;
+        cursor:pointer;
+    }
+    #selected {
+        display: flex;
+        min-height: min-content;
+        width:70px;
+        height:70px;
+        object-fit: cover;
+        border-radius: 50px;
+        border: 2px solid #1569ff;
+        margin-left:15px;
+        margin-right:15px;
+        cursor:pointer;
     }
 </style>
