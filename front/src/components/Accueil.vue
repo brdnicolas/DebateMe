@@ -1,6 +1,7 @@
 <template>
     <div class="contactUs">
         <headerComponent />
+        <button @click="deconnexion">Deconnexion</button>
 
         <div class="explore-category">
             <h1>Explorer les catégories</h1>
@@ -47,7 +48,6 @@
             <p>Parmis les nouveautés, nous avons <span>mis à jour les différents thèmes</span> et le formulaire de contact. Nous comptons sur vos <span>retours</span> dans le formulaire de contact <a href="/contact">ici</a> afin que nous puissions vite nous améliorer !</p>
 
         </div>
-
         <footerComponent/>
     </div>
 </template>
@@ -76,6 +76,7 @@
         }
         mounted() {
             this.getThemes();
+            this.checkToken();
         }
         computed() {
             const element = document.getElementById("categories");
@@ -87,6 +88,17 @@
         @Watch('idThemeActuel')
         onPropertyChanged(value: string, oldValue: string) {
             this.getPostesByTheme();
+        }
+
+        deconnexion(): void {
+            localStorage.token = "";
+            window.location.href = '/';
+        }
+
+        checkToken(): void {
+            if(localStorage.token === "") {
+                window.location.href = '/';
+            }
         }
 
         async getThemes(): Promise<void> {

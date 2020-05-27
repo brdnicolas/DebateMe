@@ -47,6 +47,15 @@
 	}
     })
     export default class HelloWorld extends Vue {
+        mounted() {
+            this.checkToken();
+        }
+        checkToken(): void {
+            if(localStorage.token === "") {
+                window.location.href = '/';
+            }
+        }
+
     }
 </script>
 <style scoped>

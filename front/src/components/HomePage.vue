@@ -226,7 +226,7 @@
     }
 
     checkToken(): void {
-      if(localStorage.token) {
+      if(localStorage.token != "") {
         window.location.href = '/accueil';
       }
     }
@@ -294,7 +294,7 @@
         this.error = "Veuillez remplir tous les champs.";
         return;
       }
-      axios.post('https://api.hugovast.tech/register', {
+      axios.post('https://api.hugovast.tech/auth/register', {
         email: email,
         password: password,
         username: username,

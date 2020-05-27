@@ -67,6 +67,13 @@
         mounted() {
             this.getComments();
             this.getQuestion();
+            this.checkToken();
+        }
+
+        checkToken(): void {
+            if(localStorage.token === "") {
+                window.location.href = '/';
+            }
         }
 
         async postComment(): Promise<void> {
