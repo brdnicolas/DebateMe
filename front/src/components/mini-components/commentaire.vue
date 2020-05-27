@@ -17,12 +17,17 @@
                 <p>...</p>
             </div>
         </div>
-        <p class="date">Posté le 10 juin</p>
+        <p class="date">{{this.date}}</p>
         <p class="message">{{commentaire.content}}</p>
         <div class="bottom">
-            <div>
+            <div class="upvote" :id="'upvote' + this.commentaire.id">
                 <img src="../../assets/icon/upvote.png"/>
-                <h2>Upvote</h2>
+                <h2 @click="upVote" >Upvoted</h2>
+                <p>{{commentaire.up}}</p>
+            </div>
+            <div class="upvoted" :id="'upvoted' + this.commentaire.id">
+                <img src="../../assets/icon/upvoted.png"/>
+                <h2 @click="upVote">Upvote</h2>
                 <p>{{commentaire.up}}</p>
             </div>
             <div>
@@ -42,11 +47,10 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import axios from "axios";
+    import moment from 'moment'
     @Component
     export default class Header extends Vue {
 
-        @Prop({default: "Attente d'informations"})
-        username: string | undefined;
         @Prop({default: "Attente d'informations"})
         message: string | undefined;
         @Prop({default:true})
@@ -55,48 +59,77 @@
         commentaire: object | undefined;
         @Prop({default:1})
         questionID: number | undefined;
-        user: object;
+        @Prop({default:{}})
+        user: object | undefined;
+        @Prop({default:[]})
+        votes: Array<number> | undefined;
+
+        date: string;
+        voted: boolean;
+
 
         constructor() {
             super();
-            this.user = {};
+            this.date = "";
+            this.voted = false;
         }
 
         created() {
-            this.getUser(this.username);
+            moment.locale('fr');
+            if (this.commentaire)
+                this.date = moment((this.commentaire as Record<string, any>).created_at).fromNow()
         }
+
         mounted() {
-            console.log(this.questionID);
+            console.log(this.votes);
+            if(this.votes?.includes((this.user as Record<string,any>).id)) {
+                this.voted = true;
+            } else {
+                this.voted = false;
+            }
+            this.updateVoteCSS();
         }
 
         // PAS QUESTION MAIS LE COMMENTAIR ID PLUTOT. DONC ENLEVER LE PROPS QUESTION ID DES DEUX COTES STP
 
         async upVote(): Promise<void> {
-            await axios.get("https://api.hugovast.tech/posts/" + this.questionID + "/vote",{
+            await axios.get("https://api.hugovast.tech/posts/" + (this.commentaire as Record<string, any>).id + "/vote",{
                 headers: {
                     Authorization: localStorage.token //the token is a variable which holds the token
                 }
             });
+            this.$emit('refresh');
+
+            this.voted = !this.voted;
+            this.updateVoteCSS();
         }
 
         // PROBLEME : LES UPVOTES JE SAIS PAS COMMENT LES UPDATES CAR CA SE TROUVE DE L'AUTRE COTE DU PROPS.
 
-        async getUser(user: string|undefined): Promise<void> {
-            let rep = null;
-            await axios.get("https://api.hugovast.tech/users/search/" + user, {
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
+        updateVoteCSS(): void {
+            if(this.voted) {
+                const upvote = document.getElementById("upvote" + (this.commentaire as Record<string,any>).id);
+                const upvoted = document.getElementById("upvoted" + (this.commentaire as Record<string,any>).id);
+                if (upvote && upvoted) {
+                    upvoted.style.display = "none";
+                    upvote.style.display = "flex";
                 }
-            }).then(function (response) {
-                rep = response.data[0];
-            });
-            if (rep)
-                this.user = rep;
+            } else {
+                const upvote = document.getElementById("upvote" + (this.commentaire as Record<string,any>).id);
+                const upvoted = document.getElementById("upvoted" + (this.commentaire as Record<string,any>).id);
+                if (upvote && upvoted) {
+                    upvoted.style.display = "flex";
+                    upvote.style.display = "none";
+                }
+            }
         }
+
     }
+
 </script>
 
 <style scoped>
+
     .date {
         font-size:13px;
         color:#749cd7;
@@ -190,5 +223,11 @@
         font-weight: 400;
         margin-left:10px;
         margin-top:3px;
+    }
+    .upvoted h2 {
+        color:#a7a7a7;
+    }
+    .upvote h2 {
+        color: #1864ff;
     }
 </style>

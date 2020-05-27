@@ -32,7 +32,7 @@
         </div>
 
         <div class="listComments">
-            <commentaire v-for="item in this.posts" :questionID="question.id" :commentaire="item"  :key="item.id" :username="item.username"/>
+            <commentaire v-on:refresh="getComments" v-for="item in this.posts" :votes="item.votes_id" :questionID="question.id" :commentaire="item.post"  :key="item.id" :user="item.user"/>
         </div>
         <footerComponent/>
 
@@ -58,13 +58,17 @@
         question: object;
         date: string;
         switchValue: boolean;
+        user: object;
+        votesID: number;
 
         constructor() {
             super();
-            this.posts = {};
+            this.posts = [];
             this.question = {};
             this.date = "";
             this.switchValue = false;
+            this.user = {};
+            this.votesID = 0;
         }
 
         created() {
@@ -132,19 +136,24 @@
         }
 
         async getComments(): Promise<void> {
-            let rep = null;
+            //let rep = null;
+            let posts = [null];
+
             await axios.get("https://api.hugovast.tech/questions/" + this.$route.params.idQuestion + "/posts", {
                 headers: {
                     Authorization: localStorage.token //the token is a variable which holds the token
                 }
             }).then(function (response) {
-                rep = response.data;
+                posts = response.data;
             })
                 /*.catch(function (error) {
             })*/
             ;
-            if (rep)
-                this.posts = rep;
+            if (posts) {
+                this.posts = posts;
+            }
+            /*if (rep)
+                this.posts = rep;*/
         }
         async getQuestion(): Promise<void> {
             let rep = null;
