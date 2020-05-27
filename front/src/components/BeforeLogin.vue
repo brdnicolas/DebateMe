@@ -300,7 +300,7 @@
         password_confirmation: repassword,
       }).then(function (response) {
         localStorage.token = response.data.auth_token;
-        window.location.href = '/accueil';
+        window.location.href = '/home';
       })
       .catch(error => {
         this.error = "Une erreur s'est produite."

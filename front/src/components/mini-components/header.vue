@@ -12,7 +12,6 @@
                 <img class="profil-icon" src="../../assets/icon/profil.png">
                 <p class="notif_nb">5</p>
             </div>
-
         </header>
     </div>
 </template>

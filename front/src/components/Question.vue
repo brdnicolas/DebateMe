@@ -1,10 +1,11 @@
 <template>
     <div class="post">
-        <img src="../assets/tmp/corona.png"/>
+        <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back.png"/>
+        <img class="image_poste" src="../assets/tmp/corona.png"/>
         <h1 class="titre">Question : {{question.title}}</h1>
         <div class="icons">
             <div class="left">
-                <div><img src="../assets/icon/book.png"/> Documentation</div>
+                <div @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
                 <div><img src="../assets/icon/comment.png"/> 532</div>
                 <div><img src="../assets/icon/share.png"/> Share</div>
             </div>
@@ -55,15 +56,16 @@
         date: string;
         switchValue: boolean;
 
-
         constructor() {
             super();
             this.posts = {};
-            this.question = {};
+            this.question = {documentation:"Aucune documentation",};
             this.date = "";
             this.switchValue = false;
-
         }
+
+
+
         mounted() {
             this.getComments();
             this.getQuestion();
@@ -97,6 +99,10 @@
                 }
             }
             this.getComments();
+        }
+
+        showDocu(): void {
+            this.$alert((this.question as Record<string, any>).documentation);
         }
 
         async getComments(): Promise<void> {
@@ -139,6 +145,31 @@
 </script>
 
 <style scoped>
+    .back {
+        transition:0.5s;
+        position: absolute;
+        top: 0;
+        left:0;
+        margin:30px;
+        width:20px;
+        height:20px;
+        object-fit: contain;
+        background:whitesmoke;
+        padding:10px;
+        border-radius:20px;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(102,102,102,1);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(102,102,102,1);
+        box-shadow: 0px 0px 5px 0px rgba(102,102,102,1);
+        cursor:pointer;
+    }
+
+    .back:hover {
+        transition:0.5s;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(5,5,5,1);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(5,5,5,1);
+        box-shadow: 0px 0px 5px 0px rgba(5,5,5,1);
+    }
+
     .listComments {
         padding-bottom:50px;
     }
@@ -187,7 +218,7 @@
         font-size: 18px;
         text-transform: uppercase;
     }
-    .post img {
+    .post .image_poste {
         width:100vw;
         height:40vh;
         object-fit: cover;
@@ -201,6 +232,9 @@
         display:flex;
         flex-direction: row;
         align-items: center;
+    }
+    .left div:first-child {
+        cursor: pointer;
     }
     .right {
         margin-right:60px;
