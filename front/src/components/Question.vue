@@ -18,6 +18,7 @@
 
 
         <div id="writecomment" class="writecomment">
+            <p class="errorPostComment">{{this.errorPostComment}}</p>
             <textarea
                     id="message"
                     placeholder="Écrivez votre plus beau commentaire !"
@@ -34,6 +35,7 @@
         <div class="listComments">
             <commentaire v-on:refresh="getComments" v-for="item in this.posts" :votes="item.votes_id" :questionID="question.id" :commentaire="item.post"  :key="item.id" :user="item.user"/>
         </div>
+        <div id="bottom"/>
         <footerComponent/>
 
     </div>
@@ -60,6 +62,7 @@
         switchValue: boolean;
         user: object;
         votesID: number;
+        errorPostComment: string;
 
         constructor() {
             super();
@@ -69,6 +72,7 @@
             this.switchValue = false;
             this.user = {};
             this.votesID = 0;
+            this.errorPostComment = "";
         }
 
         created() {
@@ -110,8 +114,14 @@
 
         async postComment(): Promise<void> {
             let rep = false;
+            const content = (document.getElementById("message") as HTMLInputElement);
+            if(content.value.length < 50) {
+                this.errorPostComment = "Veuillez écrire un texte de plus 50 charactères ..";
+                return;
+            }
+            this.errorPostComment = "";
             await axios.post("https://api.hugovast.tech/posts",{
-                content: (document.getElementById("message") as HTMLInputElement).value,
+                content: content.value,
                 'question_id' : this.$route.params.idQuestion,
                 'isAnonym':this.switchValue
             },{
@@ -180,6 +190,10 @@
 </script>
 
 <style scoped>
+    .errorPostComment {
+        color:#FF8F86;
+        padding-bottom:10px;
+    }
     #banner {
         background:white;
     }

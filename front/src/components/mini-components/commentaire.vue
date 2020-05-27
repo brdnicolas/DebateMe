@@ -40,7 +40,6 @@
                 <h2>Share</h2>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -81,7 +80,6 @@
         }
 
         mounted() {
-            console.log(this.votes);
             if(this.votes?.includes((this.user as Record<string,any>).id)) {
                 this.voted = true;
             } else {
@@ -101,6 +99,9 @@
             this.$emit('refresh');
 
             this.voted = !this.voted;
+
+            console.log(this.voted);
+
             this.updateVoteCSS();
         }
 
