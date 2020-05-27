@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/auth/register'   => 'users#create'
 
   get '/users/search/:search' => 'users#search'
+  get '/users/me' => 'users#self_show'
 
   get '/users/:user_id/posts' => 'posts#search_index'
   get '/users/:user_id/posts/:id' => 'posts#search_show'
@@ -19,7 +20,6 @@ Rails.application.routes.draw do
 
   get '/questions/:id/posts' => 'questions#get_posts'
 
-  get '/posts/:id/up' => 'posts#up_vote'
-  get '/posts/:id/down' => 'posts#down_vote'
+  get '/posts/:id/vote' => 'posts#vote'
 
 end

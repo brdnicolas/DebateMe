@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     json_response(@user)
   end
 
+  # GET /users/me
+  def self_show
+    json_response(current_user)
+  end
+
   # PUT /users/:id
   def update
     @user.update(user_params)

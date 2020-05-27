@@ -47,22 +47,10 @@ class PostsController < ApplicationController
     head :no_content
   end
 
-  def up_vote
+  def vote
     @post = Post.find(params[:id])
-    if UserHasVote.records?(current_user.id, @post.id).count == 0
-      UserHasVote.create({user_id: current_user.id, post_id: @post.id })
-      @post.up_vote
-    end
-    head :no_content
-  end
-
-  def down_vote
-    @post = Post.find(params[:id])
-    unless (vote = UserHasVote.records?(current_user.id, @post.id)).nil?
-      vote.destroy
-      @post.down_vote
-    end
-    head :no_content
+    vote = UserHasVote.records(current_user.id, @post.id)
+    vote.count == 0 ? create_vote : destroy_vote(vote.first)
   end
 
   private
@@ -78,6 +66,18 @@ class PostsController < ApplicationController
   def set_user_post
     @user ||= current_user
     @post = @user.posts.find_by!(id: params[:id]) if @user
+  end
+
+  def create_vote
+    UserHasVote.create({user_id: current_user.id, post_id: @post.id })
+    @post.up_vote
+    json_response('vote')
+  end
+
+  def destroy_vote(vote)
+    vote.destroy
+    @post.down_vote
+    json_response('no vote')
   end
 
 end
