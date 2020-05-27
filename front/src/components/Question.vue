@@ -2,19 +2,22 @@
     <div class="post">
         <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back.png"/>
         <img class="image_poste" src="../assets/tmp/corona.png"/>
-        <h1 class="titre">Question : {{question.title}}</h1>
-        <div class="icons">
-            <div class="left">
-                <div @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
-                <div><img src="../assets/icon/comment.png"/> 532</div>
-                <div><img src="../assets/icon/share.png"/> Share</div>
-            </div>
-            <div class="right">
-                <p>Créé le {{this.date}}</p>
+        <div id="banner">
+            <h1 class="titre">{{question.title}}</h1>
+            <div class="icons">
+                <div class="left">
+                    <div @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
+                    <div><img src="../assets/icon/comment.png"/> 532</div>
+                    <div><img src="../assets/icon/share.png"/> Share</div>
+                </div>
+                <div class="right">
+                    <p>Créé le {{this.date}}</p>
+                </div>
             </div>
         </div>
 
-        <div class="writecomment">
+
+        <div id="writecomment" class="writecomment">
             <textarea
                     id="message"
                     placeholder="Écrivez votre plus beau commentaire !"
@@ -29,7 +32,7 @@
         </div>
 
         <div class="listComments">
-            <commentaire v-for="item in this.posts" :commentaire="item"  :key="item.id" :username="item.username"/>
+            <commentaire v-for="item in this.posts" :questionID="question.id" :commentaire="item"  :key="item.id" :username="item.username"/>
         </div>
         <footerComponent/>
 
@@ -59,12 +62,35 @@
         constructor() {
             super();
             this.posts = {};
-            this.question = {documentation:"Aucune documentation",};
+            this.question = {};
             this.date = "";
             this.switchValue = false;
         }
 
+        created() {
+            window.addEventListener('scroll', this.handleScroll);
+        }
+        destroyed () {
+            window.removeEventListener('scroll', this.handleScroll);
+        }
 
+
+        handleScroll(): void {
+            const banner = document.getElementById("banner");
+            const padding = document.getElementById("writecomment");
+            if (banner) {
+                const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                if (window.pageYOffset > 40 * h / 100 && padding) {
+                    banner.className = "sticky";
+                    const px = (banner.offsetHeight + 3).toString() + "px";
+                    padding.style.paddingTop = px;
+                } if(window.pageYOffset <= 40 * h / 100 && padding) {
+                    banner.className = "nique";
+                    padding.style.paddingTop = "0px";
+                }
+            }
+
+        }
 
         mounted() {
             this.getComments();
@@ -145,6 +171,14 @@
 </script>
 
 <style scoped>
+    #banner {
+        background:white;
+    }
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+    }
     .back {
         transition:0.5s;
         position: absolute;
@@ -244,6 +278,7 @@
         font-size: 36px;
         color: #185BAB;
         margin:30px;
+        padding-right:30px;
     }
     .post .icons {
         display:flex;

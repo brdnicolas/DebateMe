@@ -53,6 +53,8 @@
         anonym: boolean | undefined;
         @Prop({default:{}})
         commentaire: object | undefined;
+        @Prop({default:1})
+        questionID: number | undefined;
         user: object;
 
         constructor() {
@@ -63,6 +65,21 @@
         created() {
             this.getUser(this.username);
         }
+        mounted() {
+            console.log(this.questionID);
+        }
+
+        // PAS QUESTION MAIS LE COMMENTAIR ID PLUTOT. DONC ENLEVER LE PROPS QUESTION ID DES DEUX COTES STP
+
+        async upVote(): Promise<void> {
+            await axios.get("https://api.hugovast.tech/posts/" + this.questionID + "/vote",{
+                headers: {
+                    Authorization: localStorage.token //the token is a variable which holds the token
+                }
+            });
+        }
+
+        // PROBLEME : LES UPVOTES JE SAIS PAS COMMENT LES UPDATES CAR CA SE TROUVE DE L'AUTRE COTE DU PROPS.
 
         async getUser(user: string|undefined): Promise<void> {
             let rep = null;
