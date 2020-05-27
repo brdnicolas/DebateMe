@@ -40,6 +40,7 @@
 
     </div>
 </template>
+
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
     import headerComponent from '@/components/mini-components/header.vue'
@@ -82,7 +83,6 @@
             window.removeEventListener('scroll', this.handleScroll);
         }
 
-
         handleScroll(): void {
             const banner = document.getElementById("banner");
             const padding = document.getElementById("writecomment");
@@ -97,7 +97,6 @@
                     padding.style.paddingTop = "0px";
                 }
             }
-
         }
 
         mounted() {
@@ -155,15 +154,10 @@
                 }
             }).then(function (response) {
                 posts = response.data;
-            })
-                /*.catch(function (error) {
-            })*/
-            ;
+            });
             if (posts) {
                 this.posts = posts;
             }
-            /*if (rep)
-                this.posts = rep;*/
         }
         async getQuestion(): Promise<void> {
             let rep = null;
@@ -175,16 +169,11 @@
             }).then(function (response) {
                 rep = response.data;
                 date = response.data.created_at;
-            })
-            /*.catch(function (error) {
-        })*/
-            ;
+            });
             if (rep && date) {
                 this.question = rep;
                 this.date = date.slice(0,10)
             }
-
-
         }
     }
 </script>

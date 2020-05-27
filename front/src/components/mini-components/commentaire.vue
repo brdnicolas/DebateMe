@@ -20,15 +20,11 @@
         <p class="date">{{this.date}}</p>
         <p class="message">{{commentaire.content}}</p>
         <div class="bottom">
-            <div class="upvote" :id="'upvote' + this.commentaire.id">
+            <div class="upvote">
                 <img src="../../assets/icon/upvote.png"/>
                 <h2 @click="upVote" >Upvoted</h2>
                 <p>{{commentaire.up}}</p>
-            </div>
-            <div class="upvoted" :id="'upvoted' + this.commentaire.id">
-                <img src="../../assets/icon/upvoted.png"/>
-                <h2 @click="upVote">Upvote</h2>
-                <p>{{commentaire.up}}</p>
+                <p>{{this.voted}}</p>
             </div>
             <div>
                 <img src="../../assets/icon/comment.png"/>
@@ -62,11 +58,9 @@
         user: object | undefined;
         @Prop({default:[]})
         votes: Array<number> | undefined;
-
         date: string;
         voted: boolean;
         currentUser: object;
-
 
         constructor() {
             super();
@@ -83,8 +77,6 @@
 
         mounted() {
             this.getCurrentUser();
-
-            //this.updateVoteCSS();
         }
 
         async getCurrentUser(): Promise<void> {
@@ -99,53 +91,26 @@
             if (rep) {
                 this.currentUser = rep;
             }
-
             if(this.votes?.includes((this.currentUser as Record<string,any>).id)) {
                 this.voted = true;
             } else {
                 this.voted = false;
             }
 
-            this.updateVoteCSS();
-
         }
 
 
         async upVote(): Promise<void> {
+            console.log("avant : " + this.voted);
             await axios.get("https://api.hugovast.tech/posts/" + (this.commentaire as Record<string, any>).id + "/vote",{
                 headers: {
                     Authorization: localStorage.token //the token is a variable which holds the token
                 }
-            });
-            this.$emit('refresh');
-
+            })
             this.voted = !this.voted;
-
-            console.log(this.voted);
-
-            this.updateVoteCSS();
+            this.$forceUpdate();
+            this.$emit('refresh');
         }
-
-        // PROBLEME : LES UPVOTES JE SAIS PAS COMMENT LES UPDATES CAR CA SE TROUVE DE L'AUTRE COTE DU PROPS.
-
-        updateVoteCSS(): void {
-            if(this.voted) {
-                const upvote = document.getElementById("upvote" + (this.commentaire as Record<string,any>).id);
-                const upvoted = document.getElementById("upvoted" + (this.commentaire as Record<string,any>).id);
-                if (upvote && upvoted) {
-                    upvoted.style.display = "none";
-                    upvote.style.display = "flex";
-                }
-            } else {
-                const upvote = document.getElementById("upvote" + (this.commentaire as Record<string,any>).id);
-                const upvoted = document.getElementById("upvoted" + (this.commentaire as Record<string,any>).id);
-                if (upvote && upvoted) {
-                    upvoted.style.display = "flex";
-                    upvote.style.display = "none";
-                }
-            }
-        }
-
     }
 
 </script>
