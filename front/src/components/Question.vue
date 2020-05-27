@@ -1,38 +1,68 @@
 <template>
     <div class="post">
-        <h1>Question : {{question.title}}</h1>
-        <h3>Docu : {{question.documentation}}</h3>
-        <h4>Créé le : {{question.created_at.slice(0,10)}}</h4>
-        <div v-for="item in this.posts" :key="item.id">
-            <p style="color:red;">{{item.username}}</p>
-            <p>{{item.content}}</p>
+        <img src="../assets/tmp/corona.png"/>
+        <h1 class="titre">Question : {{question.title}}</h1>
+        <div class="icons">
+            <div class="left">
+                <div><img src="../assets/icon/book.png"/> Documentation</div>
+                <div><img src="../assets/icon/comment.png"/> 532</div>
+                <div><img src="../assets/icon/share.png"/> Share</div>
+            </div>
+            <div class="right">
+                <p>Créé le {{this.date}}</p>
+            </div>
         </div>
-        <textarea
-                id="message"
-                placeholder="Postez votre avis !"
-        />
-        <button @click="this.postComment">Post</button>
+
+        <div class="writecomment">
+            <textarea
+                    id="message"
+                    placeholder="Écrivez votre plus beau commentaire !"
+            />
+            <div class="bottom">
+                <button @click="postComment($event)">Poster</button>
+                <div>
+                    <p>Anonyme</p>
+                    <switch-component :switch-value="switchValue" @switchValueChanged="switchValue = !switchValue"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="listComments">
+            <commentaire v-for="item in this.posts" :commentaire="item"  :key="item.id" :username="item.username"/>
+        </div>
+        <footerComponent/>
+
     </div>
 </template>
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
+    import commentaire from '@/components/mini-components/commentaire.vue'
     import axios from "axios";
+    import switchComponent from "@/components/mini-components/switch.vue";
     @Component({
         components: {
             headerComponent,
             footerComponent,
+            commentaire,
+            switchComponent,
         },
     })
     export default class Question extends Vue {
         posts: object;
         question: object;
+        date: string;
+        switchValue: boolean;
+
 
         constructor() {
             super();
             this.posts = {};
             this.question = {};
+            this.date = "";
+            this.switchValue = false;
+
         }
         mounted() {
             this.getComments();
@@ -40,17 +70,26 @@
         }
 
         async postComment(): Promise<void> {
-            console.log("test");
+            let rep = false;
             await axios.post("https://api.hugovast.tech/posts",{
                 content: (document.getElementById("message") as HTMLInputElement).value,
                 'question_id' : this.$route.params.idQuestion,
+                'isAnonym':this.switchValue
             },{
                 headers: {
                     Authorization: localStorage.token //the token is a variable which holds the token
                 }
+            }).then(function (response) {
+                rep = true;
             });
+            if(rep) {
+                this.switchValue = false;
+                const element = document.getElementById("message") as  HTMLInputElement;
+                if(element) {
+                    element.value = "";
+                }
+            }
             this.getComments();
-
         }
 
         async getComments(): Promise<void> {
@@ -70,22 +109,118 @@
         }
         async getQuestion(): Promise<void> {
             let rep = null;
+            let date = "";
             await axios.get("https://api.hugovast.tech/themes/" + this.$route.params.idTheme + "/questions/" + this.$route.params.idQuestion, {
                 headers: {
                     Authorization: localStorage.token //the token is a variable which holds the token
                 }
             }).then(function (response) {
                 rep = response.data;
+                date = response.data.created_at;
             })
             /*.catch(function (error) {
         })*/
             ;
-            if (rep)
+            if (rep && date) {
                 this.question = rep;
+                this.date = date.slice(0,10)
+            }
+
+
         }
     }
 </script>
 
 <style scoped>
-
+    .listComments {
+        padding-bottom:50px;
+    }
+    .bottom div {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .bottom div p {
+        margin-right:10px;
+        color:#1864ff;
+        font-weight: 600;
+    }
+    .bottom {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .writecomment {
+        width:80vw;
+        margin-left:10vw;
+        margin-top:50px;
+        padding-bottom:40px;
+    }
+    .writecomment textarea {
+        width:100%;
+        border: 2px solid #EFEFEF;
+        box-sizing: border-box;
+        border-radius: 5px;
+        padding:10px;
+        height:200px;
+        resize:none;
+        font-weight: 800;
+    }
+    .writecomment button {
+        width: 200px;
+        height:40px;
+        background: #1864FF;
+        border-radius: 5px;
+        margin-top:10px;
+        border:none;
+        cursor:pointer;
+        color: #F7F9FF;
+        font-weight: 500;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    .post img {
+        width:100vw;
+        height:40vh;
+        object-fit: cover;
+    }
+    .right p {
+        color:#A2C1FF;
+        font-style: italic;
+        font-size:18px;
+    }
+    .left, .right {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .right {
+        margin-right:60px;
+    }
+    .post .titre {
+        font-weight: 500;
+        font-size: 36px;
+        color: #185BAB;
+        margin:30px;
+    }
+    .post .icons {
+        display:flex;
+        flex-direction: row;
+        font-size:20px;
+        color:#1864ff;
+        font-weight:500;
+        justify-content: space-between;
+        -webkit-box-shadow: 0px 9px 8px -5px rgba(168,168,168,1);
+        -moz-box-shadow: 0px 9px 8px -5px rgba(168,168,168,1);
+        box-shadow: 0px 9px 8px -5px rgba(168,168,168,1);
+        padding-bottom:20px;
+    }
+    .post .icons div {
+        margin-left:17px;
+    }
+    .post .icons img {
+        width:15px;
+        height:15px;
+    }
 </style>

@@ -13,7 +13,7 @@
                 </ul>
                 <img @click="SwipeRight" alt="swipe-right" src="../assets/icon/row2.png" />
             </div>
-            <div class="Filter">
+            <div v-if="idThemeActuel !== 0" class="Filter">
                 <div>
                     <h4>Date</h4>
                     <select>
@@ -33,9 +33,21 @@
             </div>
 
         </div>
-        <div class="card-list">
+        <div v-if="idThemeActuel !== 0" class="card-list">
             <cardComponent v-for="item in this.listePostes" :themeid="idThemeActuel" :id="item.id" :key="item.id" :titre="item.title" :date="item.created_at.slice(0,10)"/>
         </div>
+
+        <div class="bienvenue" v-if="idThemeActuel === 0">
+            <h1>Bienvenue,</h1>
+            <p>Veuillez <span>choisir une catégorie</span> afin d'explorer les débats !</p>
+
+            <div class="delimiteur"/>
+
+            <h2>Nouveautés : </h2>
+            <p>Parmis les nouveautés, nous avons <span>mis à jour les différents thèmes</span> et le formulaire de contact. Nous comptons sur vos <span>retours</span> dans le formulaire de contact <a href="/contact">ici</a> afin que nous puissions vite nous améliorer !</p>
+
+        </div>
+
         <footerComponent/>
     </div>
 </template>
@@ -60,11 +72,10 @@
             super();
             this.themes = {};
             this.listePostes = {};
-            this.idThemeActuel = 1;
+            this.idThemeActuel = 0;
         }
         mounted() {
             this.getThemes();
-            this.getPostesByTheme();
         }
         computed() {
             const element = document.getElementById("categories");
@@ -72,7 +83,6 @@
                 console.log(element.firstChild);
             }
         }
-
 
         @Watch('idThemeActuel')
         onPropertyChanged(value: string, oldValue: string) {
@@ -119,7 +129,6 @@
             this.idThemeActuel = id;
         }
 
-
         SwipeLeft (): void {
             const ele = document.getElementById("categories");
             if(ele != null) {
@@ -149,6 +158,27 @@
     }
 </script>
 <style scoped>
+    .bienvenue {
+        margin:50px 10vw 16% 10vw;
+    }
+    .bienvenue > h1 {
+        font-size:40px;
+        font-weight: 500;
+    }
+    .bienvenue > p {
+        margin-top:10px;
+        padding-bottom:50px;
+        width:50vw;
+        font-weight: 400;
+    }
+    .bienvenue span {
+        color:#048aff;
+        font-weight: 500;
+    }
+    .bienvenue a {
+        color:#048aff;
+        font-weight: 500;
+    }
     .card-list {
         width:calc(80% + (100px *2));
         margin-left:calc(10% );
@@ -183,7 +213,6 @@
         color: #1644A4;
         font-weight: bold;
         margin-top:15px;
-
     }
     .explore-category {
         width:80vw;
