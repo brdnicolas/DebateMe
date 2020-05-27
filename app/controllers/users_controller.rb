@@ -15,15 +15,14 @@ class UsersController < ApplicationController
     response = { message: Message.account_created, auth_token: auth_token }
     json_response(response, :created)
   end
+  # GET /users/me/profile
+  def show_me
+    json_response(current_user)
+  end
 
   # GET /users/:id
   def show
     json_response(@user)
-  end
-
-  # GET /users/me
-  def self_show
-    json_response(current_user)
   end
 
   # PUT /users/:id
@@ -52,6 +51,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
+    puts "besoin du user?"
     @user = User.find(params[:id])
   end
 end

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/auth/register'   => 'users#create'
 
   get '/users/search/:search' => 'users#search'
-  get '/users/me' => 'users#self_show'
+  get '/users/me/profile' => 'users#show_me'
 
   get '/users/:user_id/posts' => 'posts#search_index'
   get '/users/:user_id/posts/:id' => 'posts#search_show'
