@@ -7,6 +7,8 @@ class Post < ApplicationRecord
 
   belongs_to :subpost, class_name: "Post", optional: true
 
+  has_many :user_has_votes, dependent: :destroy
+
   validates_presence_of :content
 
   def up_vote

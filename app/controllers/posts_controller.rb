@@ -48,12 +48,20 @@ class PostsController < ApplicationController
   end
 
   def up_vote
-    Post.find(params[:id]).up_vote
+    @post = Post.find(params[:id])
+    if UserHasVote.records?(current_user.id, @post.id).count == 0
+      UserHasVote.create({user_id: current_user.id, post_id: @post.id })
+      @post.up_vote
+    end
     head :no_content
   end
 
   def down_vote
-    Post.find(params[:id]).down_vote
+    @post = Post.find(params[:id])
+    unless (vote = UserHasVote.records?(current_user.id, @post.id)).nil?
+      vote.destroy
+      @post.down_vote
+    end
     head :no_content
   end
 
