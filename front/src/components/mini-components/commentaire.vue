@@ -65,12 +65,14 @@
 
         date: string;
         voted: boolean;
+        currentUser: object;
 
 
         constructor() {
             super();
             this.date = "";
             this.voted = false;
+            this.currentUser = {};
         }
 
         created() {
@@ -80,15 +82,34 @@
         }
 
         mounted() {
-            if(this.votes?.includes((this.user as Record<string,any>).id)) {
+            this.getCurrentUser();
+
+            //this.updateVoteCSS();
+        }
+
+        async getCurrentUser(): Promise<void> {
+            let rep = null;
+            await axios.get("https://api.hugovast.tech/users/me/profile",{
+                headers: {
+                    Authorization: localStorage.token //the token is a variable which holds the token
+                }
+            }).then(function(response) {
+                rep = response.data;
+            });
+            if (rep) {
+                this.currentUser = rep;
+            }
+
+            if(this.votes?.includes((this.currentUser as Record<string,any>).id)) {
                 this.voted = true;
             } else {
                 this.voted = false;
             }
+
             this.updateVoteCSS();
+
         }
 
-        // PAS QUESTION MAIS LE COMMENTAIR ID PLUTOT. DONC ENLEVER LE PROPS QUESTION ID DES DEUX COTES STP
 
         async upVote(): Promise<void> {
             await axios.get("https://api.hugovast.tech/posts/" + (this.commentaire as Record<string, any>).id + "/vote",{
