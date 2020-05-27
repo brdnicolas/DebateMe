@@ -8,4 +8,11 @@ class Post < ApplicationRecord
   belongs_to :subpost, class_name: "Post", optional: true
 
   validates_presence_of :content
+
+  def up_vote
+    self.update(up: self.up + 1)
+  end
+  def down_vote
+    self.update(up: self.up - 1) if self.up > 0
+  end
 end

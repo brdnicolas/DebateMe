@@ -28,7 +28,18 @@ end
     theme.questions.create!( title: Faker::Lorem.question,
                              documentation: Faker::Lorem.paragraphs,
                              start_time: "2020-05-23 16:15:40",
-                             end_time: "2020-05-23 17:15:40"
-    )
+                             end_time: "2020-05-23 17:15:40")
+  end
+end
+
+Question.all.each do |question|
+  10.times do
+
+    question.posts.create!( content: Faker::Lorem.paragraphs,
+                            isAnonym: (true if rand > 0.8),
+                            up: Integer(rand * 10),
+                            down: Integer(rand * 10),
+                            user_id: @users.sample.id,
+                            subpost_id: (question.posts.sample&.id if rand > 0.8))
   end
 end

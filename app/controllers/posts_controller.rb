@@ -47,6 +47,16 @@ class PostsController < ApplicationController
     head :no_content
   end
 
+  def up_vote
+    Post.find(params[:id]).up_vote
+    head :no_content
+  end
+
+  def down_vote
+    Post.find(params[:id]).down_vote
+    head :no_content
+  end
+
   private
 
   def post_params
