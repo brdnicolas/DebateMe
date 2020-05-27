@@ -39,6 +39,18 @@
 
     export default class HelloWorld extends Vue {
         @Prop() private msg!: string;
+
+        mounted() {
+            this.checkToken();
+        }
+
+        checkToken(): void {
+            if(localStorage.token === "") {
+                window.location.href = '/';
+            }
+        }
+
+
     }
 </script>
 

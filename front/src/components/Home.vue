@@ -92,6 +92,7 @@
 
         deconnexion(): void {
             localStorage.token = "";
+            sessionStorage.token = "";
             window.location.href = '/';
         }
 

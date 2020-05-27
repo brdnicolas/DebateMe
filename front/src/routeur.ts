@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './components/HomePage.vue';
+import BeforeLogin from './components/BeforeLogin.vue';
 
 Vue.use(Router);
 
@@ -9,24 +9,24 @@ export default new Router({
     base: process.env.BASE_URL,
     routes: [
         {
-            path: '/',
-            name: 'Landing Page',
-            component: Home,
+            path: '/home',
+            name: 'Home',
+            component: () => import(/* webpackChunkName: "about" */ './components/Home.vue'),
         },
         {
-            path: '/APropos',
-            name: 'A Propos',
-            component: () => import(/* webpackChunkName: "about" */ './components/APropos.vue'),
+            path: '/',
+            name: 'LandingPage',
+            component: BeforeLogin,
+        },
+        {
+            path: '/About',
+            name: 'About',
+            component: () => import(/* webpackChunkName: "about" */ './components/About.vue'),
         },
         {
             path: '/Contact',
-            name: 'Contactez Nous',
+            name: 'Contact',
             component: () => import(/* webpackChunkName: "about" */ './components/ContactUs.vue'),
-        },
-        {
-            path: '/Accueil',
-            name: 'Accueil',
-            component: () => import(/* webpackChunkName: "about" */ './components/Accueil.vue'),
         },
         {
             path: '/Profil/:name',

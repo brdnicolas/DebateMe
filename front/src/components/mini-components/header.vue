@@ -3,7 +3,7 @@
         <header>
             <div class="left">
                 <img src="../../assets/img/logo.png"/>
-                <h1>Debate Me</h1>
+                <a href="/home">Debate Me</a>
             </div>
             <div class="right">
                 <a>Accueil</a>
@@ -77,10 +77,12 @@
         flex-direction: row;
         align-items: center;
     }
-    h1 {
+    .left a {
         font-weight: 400;
         font-size: 30px;
         color:white;
+        text-decoration: none;
+        margin:0;
     }
     img{
         width:67px;

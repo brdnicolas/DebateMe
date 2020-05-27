@@ -27,10 +27,6 @@
           <input v-model="connexionEmail" name="email" class="textarea" type="email">
           <h1>MOT DE PASSE</h1>
           <input v-model="connexionPassword" class="textarea" type="password">
-          <div class="remember">
-            <input class="checkbox" type="checkbox">
-            <h2>SE SOUVENIR DE MOI</h2>
-          </div>
           <div class="logs">
             <button type="submit" class="Login" @click="ConnexionPOST($event,connexionEmail,connexionPassword)">CONNEXION</button>
             <button type="button" class="Signin" @click="ChangeToInscription($event)">INSCRIPTION</button>
@@ -59,8 +55,8 @@
           <h1>NOM</h1>
           <input v-model="inscriptionLastName" class="textarea" type="text">
           <div class="logs">
-            <button type="button" class="Login" @click="ChangeToLogin($event)">CONNEXION</button>
             <button type="submit" class="Signin" @click="InscriptionPost($event,inscriptionEmail,inscriptionPassword,inscriptionPasswordRe,inscriptionPseudo,inscriptionFirstName,inscriptionLastName)">S'INSCRIRE</button>
+            <button type="button" class="Login" @click="ChangeToLogin($event)">CONNEXION</button>
           </div>
         </form>
       </div>
@@ -227,7 +223,7 @@
 
     checkToken(): void {
       if(localStorage.token != "") {
-        window.location.href = '/accueil';
+        window.location.href = '/home';
       }
     }
 
@@ -281,7 +277,7 @@
         password: password
       }).then(function (response) {
         localStorage.token = response.data.auth_token;
-        window.location.href = '/accueil';
+        window.location.href = '/home';
       });
     }
     InscriptionPost(e: Event, email: string,password: string, repassword: string, username: string, firstname: string, lastname: string): void {
@@ -671,9 +667,10 @@
     margin:22px 40px 5px 40px;
   }
 
-  .remember, .logs {
+  .logs {
     display: flex ;
     flex-direction: row;
+    margin-top:25px;
     align-items: center;
   }
   .logs button {
