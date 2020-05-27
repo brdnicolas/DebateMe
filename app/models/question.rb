@@ -7,7 +7,7 @@ class Question < ApplicationRecord
 
   def posts_with_username
     posts = []
-    self.posts.each do |element|
+    self.posts.order(up: :desc).each do |element|
       new_el = { username: element.user.username }
       posts.append( element.attributes.merge(new_el))
     end
