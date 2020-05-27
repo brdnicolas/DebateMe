@@ -5,11 +5,11 @@ class Question < ApplicationRecord
 
   validates_presence_of :title, :start_time, :end_time
 
-  def posts_with_username
+  def posts_parsed
     posts = []
     self.posts.order(up: :desc).each do |element|
-      new_el = { username: element.user.username }
-      posts.append( element.attributes.merge(new_el))
+      new_el = { user: element.user, post: element, votes_id: element.get_vote_ids }
+      posts.append(new_el)
     end
     posts
   end

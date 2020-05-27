@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
   # GET /questions/:id/posts
   def get_posts
     set_question
-    json_response(@question.posts_with_username)
+    json_response(@question.posts_parsed)
   end
 
   # PUT /themes/:id/questions/:id

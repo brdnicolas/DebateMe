@@ -11,10 +11,16 @@ class Post < ApplicationRecord
 
   validates_presence_of :content
 
+  def get_vote_ids
+    votes_id = self.user_has_vote_ids
+    votes_id.inject([])  { |memo,element| memo.append(UserHasVote.find(element).user_id) }
+  end
+
   def up_vote
     self.update(up: self.up + 1)
   end
   def down_vote
     self.update(up: self.up - 1) if self.up > 0
   end
+
 end
