@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
 
   # GET /themes/:id/questions/:id
   def show
-    json_response(@question)
+    json_response({:question => @question, :image => @quesiton.get_image_url})
   end
 
   # GET /questions/:id/posts
@@ -40,6 +40,7 @@ class QuestionsController < ApplicationController
 
   # DELETE /themes/:id/questions/:id
   def destroy
+    @theme.logo.purge if @theme.logo.attached?
     @question.destroy
     head :no_content
   end
