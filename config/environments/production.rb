@@ -80,6 +80,7 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
+  Rails.application.routes.default_url_options = { host: "https://api.hugovast.tech"}
   config.active_record.dump_schema_after_migration = false
 
   # Inserts middleware to perform automatic connection switching.

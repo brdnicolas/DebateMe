@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     response = { message: Message.account_created, auth_token: auth_token }
     json_response(response, :created)
   end
+
   # GET /users/me/profile
   def show_me
     json_response(current_user)
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
 
   # GET /users/search/:search
   def search
-    @users = User.where("username LIKE ?", "%" + params[:search] + "%")
+    @users = User.search(params[:search])
     json_response(@users)
   end
 
@@ -51,7 +52,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    puts "besoin du user?"
     @user = User.find(params[:id])
   end
 end

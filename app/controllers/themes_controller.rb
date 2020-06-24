@@ -1,5 +1,6 @@
 class ThemesController < ApplicationController
   before_action :set_theme, only: [:show, :update, :destroy]
+  skip_before_action :authorize_request
   # GET /themes
   def index
     @themes = Theme.all
@@ -14,7 +15,7 @@ class ThemesController < ApplicationController
 
   # GET /themes/:id
   def show
-    json_response(@theme)
+    json_response({:theme => @theme, :image => @theme.get_image_url})
   end
 
   # PUT /themes/:id
@@ -33,7 +34,7 @@ class ThemesController < ApplicationController
 
   def theme_params
     # whitelist params
-    params.permit(:name)
+    params.permit(:name, :logo)
   end
 
   def set_theme
