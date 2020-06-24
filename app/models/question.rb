@@ -1,9 +1,15 @@
 class Question < ApplicationRecord
-  belongs_to :theme
+  include Rails.application.routes.url_helpers
+  has_one_attached :image
 
-  has_many :posts, dependent: :nullify
+  belongs_to :theme
+  has_many :posts, dependent: :destroy
 
   validates_presence_of :title, :start_time, :end_time
+
+  def get_image_url
+    url_for(self.image)
+  end
 
   def posts_parsed
     posts = []

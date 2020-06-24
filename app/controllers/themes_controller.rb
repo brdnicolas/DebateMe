@@ -4,7 +4,13 @@ class ThemesController < ApplicationController
   # GET /themes
   def index
     @themes = Theme.all
-    json_response(@themes)
+    new_themes = []
+    @themes.each do |theme|
+      hash = theme.attributes
+      theme.get_image_url if theme.logo.attached?
+      new_themes << hash
+    end
+    json_response(new_themes)
   end
 
   # POST /themes
@@ -15,7 +21,7 @@ class ThemesController < ApplicationController
 
   # GET /themes/:id
   def show
-    json_response({:theme => @theme, :image => @theme.get_image_url})
+    json_response({:theme => @theme, :logo => @theme.get_image_url})
   end
 
   # PUT /themes/:id
@@ -26,6 +32,7 @@ class ThemesController < ApplicationController
 
   # DELETE /themes/:id
   def destroy
+    @theme.logo.purge if @theme.logo.attached?
     @theme.destroy
     head :no_content
   end

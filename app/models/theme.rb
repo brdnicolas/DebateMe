@@ -1,5 +1,6 @@
 class Theme < ApplicationRecord
   include Rails.application.routes.url_helpers
+
   has_many :questions, dependent: :destroy
   has_one_attached :logo
 

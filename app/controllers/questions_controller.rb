@@ -6,7 +6,13 @@ class QuestionsController < ApplicationController
 
   # GET /themes/:id/questions
   def index
-    json_response(@theme.questions)
+    new_questions = []
+    @theme.questions.each do |question|
+      hash = question.attributes
+      hash[:image] = question.get_image_url if question.image.attached?
+      new_questions << hash
+    end
+    json_response(new_questions)
   end
 
   # POST /themes/:id/questions
@@ -42,7 +48,7 @@ class QuestionsController < ApplicationController
 
   def question_params
     # whitelist params
-    params.permit(:title, :documentation, :start_time, :end_time)
+    params.permit(:title, :documentation, :start_time, :end_time, :image)
   end
 
   def set_question
