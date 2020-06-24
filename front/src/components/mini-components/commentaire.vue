@@ -1,3 +1,4 @@
+
 <template>
     <div class="comment">
         <div class="top">
@@ -14,7 +15,7 @@
                 </div>
             </div>
             <div class="right">
-                <p>...</p>
+                <img @click="sendReport" id="report" title="signaler" alt="signaler" src="../../assets/icon/report.png"/>
             </div>
         </div>
         <p class="date">{{this.date}}</p>
@@ -40,9 +41,11 @@
 </template>
 
 <script lang="ts">
+    // @ts-nocheck
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import axios from "axios";
     import moment from 'moment'
+    import Swal from 'sweetalert2/dist/sweetalert2.js'
     @Component
     export default class Header extends Vue {
 
@@ -79,6 +82,105 @@
             this.getCurrentUser();
         }
 
+        async sendReport(): Promise<void> {
+            this.$fire({
+                title: "Choisissez la raison de votre signalement",
+                showCancelButton: true,
+                html:
+                    '<div style="text-align:left">' +
+                    '<div><input type="radio" id="choose" name="reportCause" value="aucune" checked>' +
+                    '<label style="margin-left:10px;" for="choose">Aucune</label></div>' +
+                    '<div><input type="radio" id="injures" name="reportCause" value="injures">' +
+                    '<label style="margin-left:10px;" for="injures">Injures</label></div>' +
+                    '<div><input type="radio" id="racisme" name="reportCause" value="racisme">' +
+                    '<label style="margin-left:10px;" for="racisme">Racisme</label></div>' +
+                    '</div>' +
+                    '<h3 style="text-align:left;margin-top:20px">Voulez-vous préciser ?</h3>' +
+                    '<textarea style="resize:none;height:100px;padding-top:10px;" id="swal-textarea1" class="swal2-input">',
+                type: "warning",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            }).then(r => {
+                console.log(r.dismiss);
+                const radios = document.getElementsByName('reportCause');
+                let type = 0;
+                for (let i = 0, length = radios.length; i < length; i++) {
+                    if (radios[i].checked) {
+                        type = radios[i].value;
+                        break;
+                    }
+                }
+                const message = document.getElementById("swal-textarea1").value;
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                });
+                console.log(r);
+
+                if( r.dismiss != "cancel" && r.dismiss != "esc" && r.dismiss != "backdrop") {
+                    if(type == "aucune") {
+                        console.log("NICE");
+                        Toast.fire({
+                            icon: 'error',
+                            title: "Vous n'avez aucune raison de le signaler."
+                        })
+                    } else {
+                        console.log(r.dismiss);
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Nous avons reçu votre signalement !'
+                        })
+                    }
+                }
+
+
+            });
+            /*const inputOptions = new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        '#ff0000': 'Red',
+                        '#00ff00': 'Green',
+                        '#0000ff': 'Blue'
+                    })
+                }, 0)
+            })
+            const { value: color } = await Swal.fire({
+                icon: 'warning',
+                background: '#f6f9ff',
+                titleText: 'Choisissez la raison de votre signalement',
+                html: '<textarea id="moreAboutReport" class="swal2-input">',
+                input: 'radio',
+                showCancelButton: true,
+                inputOptions: inputOptions,
+                inputValidator: (value: any) => {
+                    if (!value) {
+                        return "Vous n'avez aucune raison .. ?";
+                    }
+                }
+            })
+
+            if (color) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                await Toast.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully'
+                })
+            }*/
+
+        }
+
         async getCurrentUser(): Promise<void> {
             let rep = null;
             await axios.get("https://api.hugovast.tech/users/me/profile",{
@@ -99,7 +201,6 @@
 
         }
 
-
         async upVote(): Promise<void> {
             console.log("avant : " + this.voted);
             await axios.get("https://api.hugovast.tech/posts/" + (this.commentaire as Record<string, any>).id + "/vote",{
@@ -116,7 +217,11 @@
 </script>
 
 <style scoped>
-
+    #report {
+        width:20px;
+        height:20px;
+        border-radius: 0;
+    }
     .date {
         font-size:13px;
         color:#749cd7;
@@ -125,10 +230,10 @@
         font-weight: 500;
     }
     .bottom img {
-        width:15px;
-        height:15px;
-        cursor:pointer;
-    }
+         width:15px;
+         height:15px;
+         cursor:pointer;
+     }
     .bottom, .bottom div {
         display:flex;
         flex-direction: row;
@@ -192,7 +297,6 @@
         color:#1864ff;
         cursor:pointer;
     }
-
     .top img {
         width:60px;
         height:60px;
