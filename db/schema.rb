@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_130600) do
+ActiveRecord::Schema.define(version: 2020_06_24_144809) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(version: 2020_06_24_130600) do
     t.index ["theme_id"], name: "index_questions_on_theme_id"
   end
 
+  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.text "reason", null: false
+    t.text "message"
+    t.boolean "processed", default: false
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_reports_on_post_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -84,11 +96,14 @@ ActiveRecord::Schema.define(version: 2020_06_24_130600) do
     t.boolean "isBan", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "isAdmin", default: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "questions"
   add_foreign_key "questions", "themes"
+  add_foreign_key "reports", "posts"
+  add_foreign_key "reports", "users"
   add_foreign_key "user_has_votes", "posts"
   add_foreign_key "user_has_votes", "users"
 end

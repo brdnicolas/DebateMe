@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :themes do
     resources :questions
   end
+  resources :reports
 
   post '/auth/login' => 'authentication#authenticate'
   post '/auth/register'   => 'users#create'
