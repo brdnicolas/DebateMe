@@ -1,6 +1,7 @@
 
 <template>
     <div class="comment">
+        <h1>{{commentaire.id}}</h1>
         <div class="top">
             <div class="left">
                 <img v-if="!commentaire.isAnonym" :alt="user.username" src="../../assets/categories/nature.jpg"/>
@@ -90,10 +91,21 @@
                     '<div style="text-align:left">' +
                     '<div><input type="radio" id="choose" name="reportCause" value="aucune" checked>' +
                     '<label style="margin-left:10px;" for="choose">Aucune</label></div>' +
-                    '<div><input type="radio" id="injures" name="reportCause" value="injures">' +
-                    '<label style="margin-left:10px;" for="injures">Injures</label></div>' +
-                    '<div><input type="radio" id="racisme" name="reportCause" value="racisme">' +
+                    '<div><input type="radio" id="injure" name="reportCause" value="1">' +
+                    "<label style='margin-left:10px;' for='injure'>Injures</label></div>" +
+
+                    '<div><input type="radio" id="place" name="reportCause" value="2">' +
+                    "<label style='margin-left:10px;' for='place'>Contenu innaproprié</label></div>" +
+
+                    '<div><input type="radio" id="sexisme" name="reportCause" value="5">' +
+                    "<label style='margin-left:10px;' for='sexisme'>Sexisme</label></div>" +
+
+                    '<div><input type="radio" id="racisme" name="reportCause" value="4">' +
                     '<label style="margin-left:10px;" for="racisme">Racisme</label></div>' +
+
+                    '<div><input type="radio" id="formulation" name="reportCause" value="3">' +
+                    '<label style="margin-left:10px;" for="formulation">Formulation</label></div>' +
+
                     '</div>' +
                     '<h3 style="text-align:left;margin-top:20px">Voulez-vous préciser ?</h3>' +
                     '<textarea style="resize:none;height:100px;padding-top:10px;" id="swal-textarea1" class="swal2-input">',
@@ -109,7 +121,11 @@
                         break;
                     }
                 }
-                const message = document.getElementById("swal-textarea1").value;
+                let message = document.getElementById("swal-textarea1").value;
+                if(!message)
+                    message = null;
+
+                console.log(message);
 
                 const Toast = Swal.mixin({
                     toast: true,
@@ -126,59 +142,33 @@
                             title: "Vous n'avez aucune raison de le signaler."
                         })
                     } else {
-                        console.log(r.dismiss);
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Nous avons reçu votre signalement !'
+                        console.log("TYPE = " + type);
+                        axios.post("https://api.hugovast.tech/reports",{
+                            'post_id' : this.commentaire.id,
+                            'reason_report_id' : type,
+                            'message': message
+                        },{
+                            headers: {
+                                Authorization: localStorage.token //the token is a variable which holds the token
+                            }
+                        }).then(function (response) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Nous avons reçu votre signalement !'
+                            })
                         })
+                        .catch(error => {
+                            console.log(error);
+                            Toast.fire({
+                                icon: 'error',
+                                title: "Une erreure s'est produite lors de l'envoie.."
+                            })
+                        });
                     }
                 }
 
 
             });
-            /*const inputOptions = new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        '#ff0000': 'Red',
-                        '#00ff00': 'Green',
-                        '#0000ff': 'Blue'
-                    })
-                }, 0)
-            })
-            const { value: color } = await Swal.fire({
-                icon: 'warning',
-                background: '#f6f9ff',
-                titleText: 'Choisissez la raison de votre signalement',
-                html: '<textarea id="moreAboutReport" class="swal2-input">',
-                input: 'radio',
-                showCancelButton: true,
-                inputOptions: inputOptions,
-                inputValidator: (value: any) => {
-                    if (!value) {
-                        return "Vous n'avez aucune raison .. ?";
-                    }
-                }
-            })
-
-            if (color) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    onOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                });
-
-                await Toast.fire({
-                    icon: 'success',
-                    title: 'Signed in successfully'
-                })
-            }*/
-
         }
 
         async getCurrentUser(): Promise<void> {
