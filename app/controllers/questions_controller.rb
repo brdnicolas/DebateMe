@@ -6,24 +6,18 @@ class QuestionsController < ApplicationController
 
   # GET /themes/:id/questions
   def index
-    new_questions = []
-    @theme.questions.each do |question|
-      hash = question.attributes
-      hash[:image] = question.get_image_url if question.image.attached?
-      new_questions << hash
-    end
-    json_response(new_questions)
+    json_response(@theme.get_questions_image)
   end
 
   # POST /themes/:id/questions
   def create
     @theme.questions.create!(question_params)
-    json_response(@theme, :created)
+    json_response(@theme.get_theme_image, :created)
   end
 
   # GET /themes/:id/questions/:id
   def show
-    json_response({:question => @question, :image => (@question.get_image_url if @question.image.attached?) })
+    json_response(@question.get_question_image)
   end
 
   # GET /questions/:id/posts

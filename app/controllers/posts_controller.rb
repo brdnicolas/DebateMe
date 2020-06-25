@@ -47,6 +47,7 @@ class PostsController < ApplicationController
     head :no_content
   end
 
+  # GET /vote
   def vote
     @post = Post.find(params[:id])
     vote = UserHasVote.records(current_user.id, @post.id)

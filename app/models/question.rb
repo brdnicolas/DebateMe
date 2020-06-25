@@ -9,7 +9,7 @@ class Question < ApplicationRecord
   validates_presence_of :title, :start_time, :end_time
 
   def get_image_url
-    url_for(self.image)
+    url_for(self.image) if self.image.attached?
   end
 
   def posts_parsed
@@ -20,4 +20,12 @@ class Question < ApplicationRecord
     end
     posts
   end
+
+  def get_question_image
+    {
+        :question => self.attributes,
+        :image => get_image_url
+    }
+  end
+
 end
