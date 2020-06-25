@@ -1,11 +1,17 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:update, :destroy, :show]
-  before_action :is_admin, except: [:create, :update]
+  before_action :is_admin, except: [:create, :update, :get_reasons]
 
   # GET /reports
   def index
     @reports = Report.all
     json_response(@reports)
+  end
+
+  #GET /reports_reasons
+  def get_reasons
+    @reasons = ReasonReport.all
+    json_response(@reasons)
   end
 
   # POST /reports
@@ -40,7 +46,7 @@ class ReportsController < ApplicationController
   private
 
   def report_params
-    params.permit(:reason, :message, :post_id)
+    params.permit(:reason_id, :message, :post_id)
   end
 
   def set_report

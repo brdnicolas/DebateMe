@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get '/questions/:id/posts' => 'questions#get_posts'
 
+  get '/reports_reasons' => 'reports#get_reasons'
+
   get '/posts/:id/vote' => 'posts#vote'
 
 end
