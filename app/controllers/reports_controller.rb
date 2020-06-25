@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:update, :destroy, :show]
   before_action :is_admin, except: [:create, :update, :get_reasons]
+  skip_before_action :authorize_request, only: [:get_reasons]
 
   # GET /reports
   def index
