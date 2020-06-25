@@ -4,6 +4,7 @@ class Question < ApplicationRecord
 
   belongs_to :theme
   has_many :posts, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
   validates_presence_of :title, :start_time, :end_time
 
