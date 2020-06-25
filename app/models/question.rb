@@ -22,10 +22,9 @@ class Question < ApplicationRecord
   end
 
   def get_question_image
-    {
-        :question => self.attributes,
-        :image => get_image_url
-    }
+    attributes = self.attributes
+    attributes[:image] = get_image_url
+    attributes
   end
 
 end

@@ -44,12 +44,6 @@ class ThemesController < ApplicationController
   end
 
   def get_themes_image(themes)
-    themes.reduce([]) do |memo, theme|
-      memo <<
-          {
-              :theme => theme.attributes,
-              :logo  => theme.get_image_url
-          }
-    end
+    themes.reduce([]) { |memo, theme| memo << theme.get_theme_image }
   end
 end

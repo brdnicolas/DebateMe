@@ -11,19 +11,12 @@ class Theme < ApplicationRecord
   end
 
   def get_questions_image
-    self.questions.reduce([]) do |memo, question|
-      memo <<
-          {
-            :question => question.attributes,
-            :image => question.get_image_url
-          }
-    end
+    self.questions.reduce([]) { |memo, question|  memo << question.get_question_image }
   end
 
   def get_theme_image
-    {
-        :theme => self.attributes,
-        :logo => get_image_url
-    }
+    attributes = self.attributes
+    attributes[:logo] = get_image_url
+    attributes
   end
 end
