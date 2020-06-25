@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
 
   # GET /themes/:id/questions/:id
   def show
-    json_response({:question => @question, :image => @question.get_image_url})
+    json_response({:question => @question, :image => (@question.get_image_url if @question.image.attached?) })
   end
 
   # GET /questions/:id/posts
