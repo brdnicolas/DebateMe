@@ -8,10 +8,16 @@ class ReportsController < ApplicationController
     json_response(@reports)
   end
 
-  #GET /reports_reasons
+  # GET /reports_reasons
   def get_reasons
     @reasons = ReasonReport.all
     json_response(@reasons)
+  end
+
+  # GET /reports_sort
+  def get_sorted_reports
+    @reports = Report.all.order('post_id, reason_report_id')
+    json_response(@reports)
   end
 
   # POST /reports
@@ -46,7 +52,7 @@ class ReportsController < ApplicationController
   private
 
   def report_params
-    params.permit(:reason_id, :message, :post_id)
+    params.permit(:reason_report_id, :message, :post_id)
   end
 
   def set_report

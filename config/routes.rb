@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   get '/reports_reasons' => 'reports#get_reasons'
 
+  get '/reports_sort' => 'reports#get_sorted_reports'
+
   get '/posts/:id/vote' => 'posts#vote'
 
 end
