@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email, unique: true
       t.boolean :isPremium, default: false
       t.boolean :isBan, default: false
+      t.boolean :isAdmin, default: false
 
       t.timestamps
     end

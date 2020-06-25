@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_144809) do
+ActiveRecord::Schema.define(version: 2020_06_24_144810) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -59,15 +59,22 @@ ActiveRecord::Schema.define(version: 2020_06_24_144809) do
     t.index ["theme_id"], name: "index_questions_on_theme_id"
   end
 
+  create_table "reason_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.text "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.text "reason", null: false
     t.text "message"
     t.boolean "processed", default: false
+    t.bigint "reason_reports_id", null: false
     t.bigint "user_id", null: false
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_reports_on_post_id"
+    t.index ["reason_reports_id"], name: "index_reports_on_reason_reports_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -94,15 +101,15 @@ ActiveRecord::Schema.define(version: 2020_06_24_144809) do
     t.string "email"
     t.boolean "isPremium", default: false
     t.boolean "isBan", default: false
+    t.boolean "isAdmin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "isAdmin", default: false
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "questions"
   add_foreign_key "questions", "themes"
   add_foreign_key "reports", "posts"
+  add_foreign_key "reports", "reason_reports", column: "reason_reports_id"
   add_foreign_key "reports", "users"
   add_foreign_key "user_has_votes", "posts"
   add_foreign_key "user_has_votes", "users"

@@ -20,7 +20,7 @@ User.create!( username: 'admin',
               lastname: 'admin',
               email: 'admin@hugovast.tech',
               password: 'admin',
-              is_admin: true
+              isAdmin: true
 )
 
 @users = User.all
@@ -58,3 +58,6 @@ Question.all.each do |question|
   print '|'
 end
 puts "\n #{Post.count} fake answer created"
+
+reasons_str = ["Ce contenu est injurieux", "Ce contenu n'as pas sa place ici", "Les propos devraient être reformulés"]
+reasons_str.each { |reason| ReasonReport.create!(reason: reason) }
