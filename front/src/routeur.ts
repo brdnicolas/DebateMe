@@ -37,6 +37,16 @@ export default new Router({
             path: '/Theme/:idTheme/Question/:idQuestion',
             name: "Question",
             component: () => import(/* webpackChunkName: "about" */ './components/Question.vue'),
+        },
+        {
+            path: '/panel',
+            name: "Admin panel",
+            component: () => import(/* webpackChunkName: "about" */ './components/admin/Admin.vue'),
+        },
+        {
+            path: '/panel/reports',
+            name: "Reports panel",
+            component: () => import(/* webpackChunkName: "about" */ './components/admin/Reports.vue'),
         }
     ],
 });

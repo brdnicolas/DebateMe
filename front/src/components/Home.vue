@@ -218,7 +218,7 @@
     .Filter input, .Filter select {
         width: 250px;
         height: 45px;
-        border: 2px solid #EFEFEF;
+        bdorder: 2px solid #EFEFEF;
         box-sizing: border-box;
         border-radius: 5px;
         padding: 10px;

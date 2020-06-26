@@ -136,13 +136,11 @@
 
                 if( r.dismiss != "cancel" && r.dismiss != "esc" && r.dismiss != "backdrop") {
                     if(type == "aucune") {
-                        console.log("NICE");
                         Toast.fire({
                             icon: 'error',
                             title: "Vous n'avez aucune raison de le signaler."
                         })
                     } else {
-                        console.log("TYPE = " + type);
                         axios.post("https://api.hugovast.tech/reports",{
                             'post_id' : this.commentaire.id,
                             'reason_report_id' : type,
