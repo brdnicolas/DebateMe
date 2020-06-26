@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_user, only: [:search_index,:search_show, :search_destroy]
-  before_action :set_user_post, only: [:show, :update, :destroy, :search_show, :search_destroy]
+  before_action :set_user_post, only: [:show, :update, :search_show, :search_destroy]
   skip_before_action :authorize_request, only: [ :search_show, :search_index ]
 
   # GET /posts
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/:id
   def destroy
-    @post.destroy
+    @post = Post.find(params[:id]).destroy
     head :no_content
   end
 

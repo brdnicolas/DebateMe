@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
 
   # GET /reports_sort
   def get_sorted_reports
-    @reports = Report.all.order('post_id, reason_report_id')
+    @reports = Report.all.where("processed = false").order('post_id, reason_report_id')
     json_response(@reports)
   end
 
