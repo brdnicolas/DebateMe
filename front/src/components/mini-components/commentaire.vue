@@ -1,7 +1,6 @@
 
 <template>
     <div class="comment">
-        <h1>{{commentaire.id}}</h1>
         <div class="top">
             <div class="left">
                 <img v-if="!commentaire.isAnonym" :alt="user.username" src="../../assets/categories/nature.jpg"/>

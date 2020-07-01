@@ -46,7 +46,7 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import commentaire from '@/components/mini-components/commentaire.vue'
-    import axios from "axios";
+    import axios, {AxiosError} from "axios";
     import switchComponent from "@/components/mini-components/switch.vue";
     @Component({
         components: {
@@ -119,6 +119,8 @@
                 return;
             }
             this.errorPostComment = "";
+            let listTermes: Record<string, any> = [];
+            let error = "";
             await axios.post("https://api.hugovast.tech/posts",{
                 content: content.value,
                 'question_id' : this.$route.params.idQuestion,
@@ -129,11 +131,26 @@
                 }
             }).then(function (response) {
                 rep = true;
+                console.log(response.data[0]);
+                listTermes = response.data;
+                if(response.status == 206)
+                    error = "Veuillez éviter les insultes, les termes comme : ";
+            }).catch((err) => {
+                console.log("error");
             });
+            const termesMauvais: any[] = [];
+            (listTermes as Record<string,any>).map(function(value: any, key: any) {
+                if (!termesMauvais.includes(value.Term)) {
+                    error = error + value.Term + ", ";
+                    termesMauvais.push(value.Term);
+                }
+            });
+            error = error + "sont à éviter..";
+            this.errorPostComment = error;
             if(rep) {
                 this.switchValue = false;
                 const element = document.getElementById("message") as  HTMLInputElement;
-                if(element) {
+                if(element && error == "") {
                     element.value = "";
                 }
             }
