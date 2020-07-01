@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :set_user, only: [:search_index,:search_show, :search_destroy]
-  # before_action :set_user_post, only: [ :update, :search_show, :search_destroy]
   skip_before_action :authorize_request, only: [ :search_show, :search_index ]
 
   # GET /posts
@@ -25,13 +24,20 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = current_user.posts.create!(post_params)
-    json_response(@post, :created)
+    content = post_params[:content]
+    validation = validation_content(content)
+    puts "#{validation.class}"
+    if validation.class == Array
+      json_response(validation, :unprocessable_entity)
+    else
+      @post = current_user.posts.create!(post_params)
+      json_response(@post, :created)
+    end
   end
 
   # PUT /posts/:id
   def update
-    @post.update(post_params)
+    Post.find(params[:id]).update(post_params)
     head :no_content
   end
 
@@ -66,7 +72,7 @@ class PostsController < ApplicationController
 
   def set_user_post
     @user ||= current_user
-    @post = @user.posts.find_by!(id: params[:id]) if @user
+    @post = @user.posts.find_by!(id: params[:id]) if @user or @user.isAdmin
   end
 
   def create_vote
@@ -79,6 +85,10 @@ class PostsController < ApplicationController
     vote.destroy
     @post.down_vote
     json_response('no vote')
+  end
+
+  def validation_content(content)
+    ValidationContent.new(content).get_corrected_text
   end
 
 end

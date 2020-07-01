@@ -56,6 +56,5 @@ class QuestionsController < ApplicationController
 
   def set_theme_question
     @question = @theme.questions.find_by!(id: params[:id]) if @theme
-
   end
 end
