@@ -28,7 +28,7 @@ class PostsController < ApplicationController
     validation = validation_content(content)
     puts "#{validation.class}"
     if validation.class == Array
-      json_response(validation, :unprocessable_entity)
+      json_response(validation, :partial_content)
     else
       @post = current_user.posts.create!(post_params)
       json_response(@post, :created)
