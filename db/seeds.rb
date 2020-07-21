@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 50.times do
-  user = User.create!(email: Faker::Internet.email, password: 'qwerty')
-  UserInfo.create!(username: Faker::Internet.username,
+  user = User.create(email: Faker::Internet.email, password: 'qwerty')
+  UserInfo.create(username: Faker::Internet.username,
                    firstname: Faker::Name.first_name,
                    lastname: Faker::Name.last_name,
                    quote: Faker::Lorem.sentence,
@@ -22,9 +22,9 @@ User.create!( email: 'admin@hugovast.tech',
               isAdmin: true
 )
 UserInfo.create!(user_id: User.last.id, firstname: 'admin', lastname: 'admin', username: 'admin')
+@users = User.all
 
-puts "\n#{User.size} users created"
-
+puts "\n#{@users.size} users created"
 5.times do
   Theme.create!(name: Faker::Lorem.question)
   print '.'
