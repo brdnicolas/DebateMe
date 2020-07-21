@@ -7,31 +7,30 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 50.times do
-  User.create!( username: Faker::Internet.username,
-                firstname: Faker::Name.first_name,
-                lastname: Faker::Name.last_name,
-                email: Faker::Internet.email,
-                password: 'qwerty'
-  )
+  user = User.create!(email: Faker::Internet.email, password: 'qwerty')
+  UserInfo.create!(username: Faker::Internet.username,
+                   firstname: Faker::Name.first_name,
+                   lastname: Faker::Name.last_name,
+                   quote: Faker::Lorem.sentence,
+                   user_id: user.id
+                   )
+
   print'.'
 end
-User.create!( username: 'admin',
-              firstname: 'admin',
-              lastname: 'admin',
-              email: 'admin@hugovast.tech',
+User.create!( email: 'admin@hugovast.tech',
               password: 'admin',
               isAdmin: true
 )
+UserInfo.create!(user_id: User.last.id, firstname: 'admin', lastname: 'admin', username: 'admin')
 
-@users = User.all
-puts "\n#{@users.count} users created"
+puts "\n#{User.size} users created"
 
 5.times do
   Theme.create!(name: Faker::Lorem.question)
   print '.'
 end
 @themes = Theme.all
-puts "\n#{@themes.count} themes created"
+puts "\n#{@themes.size} themes created"
 
 @themes.each do |theme|
   5.times do
@@ -59,5 +58,10 @@ Question.all.each do |question|
 end
 puts "\n #{Post.count} fake answer created"
 
-reasons_str = ["Ce contenu est injurieux", "Ce contenu n'as pas sa place ici", "Les propos devraient être reformulés"]
+reasons_str = ["Ce contenu est injurieux",
+               "Ce contenu n'as pas sa place ici",
+               "Les propos devraient être reformulés",
+               "Ce contenu tiens des propos racistes",
+               "Ce contenu tiens des propos sexistes"]
+
 reasons_str.each { |reason| ReasonReport.create!(reason: reason) }

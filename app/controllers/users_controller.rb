@@ -4,13 +4,14 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    @users = User.all_full_info
     json_response(@users)
   end
 
   # POST /users
   def create
     user = User.create!(user_params)
+    UserInfo.create!(user_info_params.merge({user_id: user.id}))
     auth_token = AuthenticateUser.new(user.email, user.password).call
     response = { message: Message.account_created, auth_token: auth_token }
     json_response(response, :created)
@@ -18,17 +19,18 @@ class UsersController < ApplicationController
 
   # GET /users/me/profile
   def show_me
-    json_response(current_user)
+    json_response(current_user.full_info)
   end
 
   # GET /users/:id
   def show
-    json_response(@user)
+    json_response(@user.full_info)
   end
 
   # PUT /users/:id
   def update
     @user.update(user_params)
+    @user.user_info.update(user_info_params)
     head :no_content
   end
 
@@ -40,15 +42,18 @@ class UsersController < ApplicationController
 
   # GET /users/search/:search
   def search
-    @users = User.search(params[:search])
+    @users = UserInfo.search(params[:search])
     json_response(@users)
   end
 
   private
 
   def user_params
-    # whitelist params
-    params.permit(:username, :firstname, :lastname, :password, :password_confirmation, :email, :isPremium, :isBan)
+    params.permit(:email, :password, :password_confirmation, :isPremium, :isBan)
+  end
+
+  def user_info_params
+    params.permit( :username, :firstname, :lastname, :quote, :profile_picture)
   end
 
   def set_user

@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_144810) do
+ActiveRecord::Schema.define(version: 2020_07_21_085345) do
+
+  create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "goal"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "achievements_user_infos", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "achievement_id", null: false
+    t.bigint "user_info_id", null: false
+    t.integer "progression", default: 0
+    t.index ["achievement_id"], name: "index_achievements_user_infos_on_achievement_id"
+    t.index ["user_info_id"], name: "index_achievements_user_infos_on_user_info_id"
+  end
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -68,13 +84,13 @@ ActiveRecord::Schema.define(version: 2020_06_24_144810) do
   create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.text "message"
     t.boolean "processed", default: false
-    t.bigint "reason_reports_id", null: false
+    t.bigint "reason_report_id", null: false
     t.bigint "user_id", null: false
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_reports_on_post_id"
-    t.index ["reason_reports_id"], name: "index_reports_on_reason_reports_id"
+    t.index ["reason_report_id"], name: "index_reports_on_reason_report_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -93,10 +109,18 @@ ActiveRecord::Schema.define(version: 2020_06_24_144810) do
     t.index ["user_id"], name: "index_user_has_votes_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "user_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "firstname"
     t.string "lastname"
+    t.text "quote"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_infos_on_user_id"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "password_digest"
     t.string "email"
     t.boolean "isPremium", default: false
@@ -106,11 +130,13 @@ ActiveRecord::Schema.define(version: 2020_06_24_144810) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "questions"
   add_foreign_key "questions", "themes"
   add_foreign_key "reports", "posts"
-  add_foreign_key "reports", "reason_reports", column: "reason_reports_id"
+  add_foreign_key "reports", "reason_reports"
   add_foreign_key "reports", "users"
   add_foreign_key "user_has_votes", "posts"
   add_foreign_key "user_has_votes", "users"
+  add_foreign_key "user_infos", "users"
 end

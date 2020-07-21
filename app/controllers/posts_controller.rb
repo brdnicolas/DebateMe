@@ -26,7 +26,6 @@ class PostsController < ApplicationController
   def create
     content = post_params[:content]
     validation = validation_content(content)
-    puts "#{validation.class}"
     if validation.class == Array
       json_response(validation, :partial_content)
     else

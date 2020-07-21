@@ -3,10 +3,6 @@ require 'json'
 class ValidationContent
   attr_accessor :content
 
-  @base_uri =  'https://debatememoderator.cognitiveservices.azure.com/contentmoderator/moderate/v1.0/ProcessText/Screen?autocorrect=true&classify=True&language=fra'
-  @headers = {'Content-Type' => 'text/plain',
-              'Ocp-Apim-Subscription-Key' => '15143594e225468d87284d82119c43b1'}
-
   def initialize(content)
     @content = content
   end
