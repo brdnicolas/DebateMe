@@ -68,15 +68,9 @@
       <div class="left">
         <h3>Debate Me C'est quoi ?</h3>
         <br>
-        <p>Concevoir des design web et mobiles n'est pas une mince affaire ! Il faut sans cesse se renouveler pour satisfaire des utilisateurs de plus en plus exigeants. Besoin d'inspiration ? Adimeo suit pour vous les nouvelles tendances UI/UX pour toujours avoir un coup d'avance...
-
-          L'expérience utilisateur prend une place de plus en plus importante dans la stratégie digitale des organisations. Une expérience interactive de haute qualité sur votre plateforme digitale est la garantie de transformer un simple visiteur en un client fidèle, voire un ambassadeur.
-
-          Il est indispensable de suivre les nouvelles tendances en matière de design UI/UX pour répondre aux besoins d'utilisateurs toujours plus exigeants.
-
-          Pour notre studio, la veille est primordiale dans le processus de création. Et elle doit se faire chaque jour ! Il va sans dire que notre travail créatif ne serait pas le même sans cet apport.
-
-          Notre studio a choisi pour vous une sélection des meilleurs sites et blogs pour trouver l'inspiration ! Grâce à ces sites, nous pouvons challenger nos idées et trouver l'inspiration pour sublimer le travail déjà réalisé.</p>
+        <p>C'est une plateforme de débat et de discussions autour de différentes thématique actuelle. Nous avons créer Debate me afin de permettre au gens de débattre sur internet dans un environnement sain
+          et respectueux, sans risquer de recevoir des réponses insultantes ou sans intéret et sans non plus tomber dans la censure. En effet, nous disposons d'une modération forte, qui fonctionne graçe à une intelligence artificielle et une modération manuel plus classique afin d'éviter ce genre de désagréments.
+        </p>
       </div>
       <div class="right">
         <img src="../assets/illustrations/homepage.png"/>
@@ -93,14 +87,14 @@
       </div>
       <div class="right">
         <h2>Créez <span>vous même</span> les sujets !</h2>
-        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente </p>
+        <p>En effet vous pourrez nous suggérer des sujets d'actualité qui rejoindrons nos propres sujets d'actualité, mais vous pourrez aussi créer vos propre sujets afin d'en débattre avec qui le veux. Ces sujets seront evidement d'abord validé avant d'apparaitre sur notre site.</p>
       </div>
     </div>
 
     <div class="part2">
       <div class="left">
-        <h2>Créez <span>vous même</span> les sujets !</h2>
-        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente </p>
+        <h2>Des <span>statistiques</span> pour chaque débat</h2>
+        <p>Au bout d'une semaine nous metterons a votre disposition des statistiques que nous aurons récupérer sur les débats. Chaque sujet aura sa page statistique, ces données seront variée tel que: le nombre de participant, le nombre de participation a ce débat en moyenne par candidat, le taux de participation par tranche d'âge, le nombre de participants anonyme, le sexe des participants etc...   </p>
       </div>
       <div class="right">
         <img src="../assets/illustrations/work.gif"/>
@@ -112,12 +106,12 @@
       <div class="card">
         <h2><span>Votre</span> profil</h2>
         <img class="illustration-profil" src="../assets/illustrations/work2.gif"/>
-        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente </p>
+        <p>Votre profil est votre petit jardin, c'est ici que vous pourrez voir vos abonnée et vos abonnement ainsi que les commentaires que vous avez liké. C'est aussi ici que seront affiché vos magnifiques badges gagné à la sueur de votre front.</p>
         <div class="bottom">
           <img class="illustration-anonyme" src="../assets/illustrations/anonyme.png">
           <div class="anonymetext">
             <h1>Soyez <span>Anonyme !</span></h1>
-            <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le livre spécimen de polices de texte. Il n'a pas fait que survivre cinq.</p>
+            <p>Nous avons pensez à tous, si vous voulez participer à un débat mais que vous avez peur que l'on vous reconaisse et que vos opinions ai des mauvaises répercussion dur votre vie. Nous vous permettons de participer au débat en tant qu'anonyme. </p>
           </div>
         </div>
       </div>
