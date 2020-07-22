@@ -5,6 +5,7 @@ class CreateAchievements < ActiveRecord::Migration[6.0]
       t.string :description
       t.string :goal
 
+      t.index :name
       t.timestamps
     end
   end

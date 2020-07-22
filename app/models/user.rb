@@ -18,34 +18,36 @@ class User < ApplicationRecord
   end
 
   def check_achievements
-
+    check_anonym
+    check_validate
+    check_first_step
+    check_influenceur
+    check_symphatique
   end
 
   def check_anonym
-    if posts.pluck(:isAnonym).uniq.include? true
-      user_info.achievements << Achievement.find_by_name('Homme mystère')
-    end
+    add_achievement('Homme mystère') if posts.pluck(:isAnonym).uniq.include? true
   end
 
   def check_validate
-    if user_info.attributes.key(nil).nil?
-      Achievement.find_or_create_by(user_info_id: user_info.id, achievement_id: Achievement.find_by_name('Validé').id, progression: 100)
-    end
+    add_achievement('Validé') if user_info.attributes.key(nil).nil?
   end
 
   def check_first_step
-    if post_ids.size > 0
-      Achievement.find_or_create_by(user_info_id: user_info.id, achievement_id: Achievement.find_by_name('Premier pas').id, progression: 100)
-    end
+    add_achievement('Premier pas') if post_ids.size > 0
   end
 
   def check_influenceur
-    posts.reduce(0) { |memo, post| memo + post.childpost.count }
-    Achievement.find_or_create_by(user_info_id: user_info.id, achievement_id: Achievement.find_by_name('Influenceur').id, progression: 100)
+    add_achievement('Influenceur') if posts.reduce(0) { |memo, post| memo + post.childpost.count } >= 15
   end
 
   def check_symphatique
-    posts.pluck(:up).count
+    add_achievement('Symphatique') if posts.pluck(:up).count >= 100
+  end
+
+  def add_achievement(achievement_name)
+    achievement = Achievement.find_by_name(achievement_name)
+    user_info.achievements << achievement unless user_info.achievements.include?(achievement)
   end
 
 

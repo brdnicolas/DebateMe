@@ -85,12 +85,12 @@ achievements = [
     {
         name: 'Symphatique',
         description: "Il faut croire que les gens sont d'accord avec vous !",
-        goal: 'Avoir 10 up au total sous ses posts'
+        goal: 'Avoir 100 up au total sous ses posts'
     },
     {
         name: 'Influenceur',
         description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
-        goal: 'Avoir 5 sous commentaires sur un posts'
+        goal: 'Avoir 15 sous commentaires sur un posts'
     }
 ]
 achievements.each { |achievement| Achievement.create(achievement) }
