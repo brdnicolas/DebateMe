@@ -65,3 +65,32 @@ reasons_str = ["Ce contenu est injurieux",
                "Ce contenu tiens des propos sexistes"]
 
 reasons_str.each { |reason| ReasonReport.create!(reason: reason) }
+
+achievements = [
+    {
+        name: 'Homme mystère',
+        description: 'Alors comme ça on ne veux parler sans son nom ?',
+        goal: 'Faire un post en Anonyme'
+    },
+    {
+        name: 'Validé',
+        description: 'Vous êtes officiellement validé par DebateMe',
+        goal: 'Remplir toutes les informations de son profil'
+    },
+    {
+        name: 'Premier pas',
+        description: "On place d'abord sa souris dans le champs de saisie, et ensuite seulement on argumente !",
+        goal: 'Répondre à une question'
+    },
+    {
+        name: 'Symphatique',
+        description: "Il faut croire que les gens sont d'accord avec vous !",
+        goal: 'Avoir 10 up au total sous ses posts'
+    },
+    {
+        name: 'Influenceur',
+        description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
+        goal: 'Avoir 5 sous commentaires sur un posts'
+    }
+]
+achievements.each { |achievement| Achievement.create(achievement) }

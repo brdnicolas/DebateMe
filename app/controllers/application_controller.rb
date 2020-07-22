@@ -14,6 +14,7 @@ class ApplicationController < ActionController::API
     if @current_user.isBan
       json_response({error: 'Bannis'}, :unauthorized_request)
     end
+    @current_user.check_achievements
   end
 
 end
