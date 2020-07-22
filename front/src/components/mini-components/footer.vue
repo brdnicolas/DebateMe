@@ -4,19 +4,19 @@
             <div class="footerTop">
                 <div>
                     <h1>Legal</h1>
-                    <a download href="../../assets/fichiers/politique%20de%20confidentialité.pdf">Politique de confidentialité</a>
+                    <a class="souligne" href="https://download1584.mediafire.com/1bfdfs6hdc5g/fvhue7n6772a1uc/politique+de+confidentialit%C3%A9.pdf">Politique de confidentialité</a>
                     <p>Termes & conditions</p>
                 </div>
                 <div>
                     <h1>Informations</h1>
-                    <p>Contactez-nous : <span style="color:#1c8eff">support@debate.me</span></p>
+                    <p>Contactez-nous : <a href="mailto:support@debate.me" style="color:#1c8eff;text-decoration: underline">support@debate.me</a></p>
                     <p>F.A.Q</p>
                     <p>Equipe</p>
                 </div>
                 <div>
                     <h1>Services</h1>
                     <p>Abonnement</p>
-                    <p>Email marketing : <span style="color:#e6654a">marketing@debat.me</span></p>
+                    <p>Email marketing : <a href="mailto:marketing@debat.me" style="color:#e6654a;text-decoration: underline">marketing@debat.me</a></p>
                 </div>
                 <div>
                     <h1>Actualités</h1>
@@ -42,8 +42,18 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .souligne {
+        text-decoration: underline;
+    }
     footer * {
         font-family: 'Quicksand', sans-serif;
+    }
+    a {
+        text-decoration: none;
+        font-weight: normal;
+        margin-top:15px;
+        margin-bottom:15px;
+        color:#8c8c90;
     }
     footer {
         width:80vw;
