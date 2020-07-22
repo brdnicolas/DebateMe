@@ -46,8 +46,8 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import commentaire from '@/components/mini-components/commentaire.vue'
-    import axios, {AxiosError} from "axios";
     import switchComponent from "@/components/mini-components/switch.vue";
+    import myAPI from "@/components/myAPI";
     @Component({
         components: {
             headerComponent,
@@ -120,37 +120,39 @@
             }
             this.errorPostComment = "";
             let listTermes: Record<string, any> = [];
-            let error = "";
-            await axios.post("https://api.hugovast.tech/posts",{
+
+            let probleme = false;
+            await myAPI.post("posts", {
                 content: content.value,
                 'question_id' : this.$route.params.idQuestion,
                 'isAnonym':this.switchValue
-            },{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function (response) {
+            }).then((response) =>  {
                 rep = true;
-                console.log(response.data[0]);
                 listTermes = response.data;
-                if(response.status == 206)
-                    error = "Veuillez éviter les insultes, les termes comme : ";
-            }).catch((err) => {
-                console.log("error");
-            });
-            const termesMauvais: any[] = [];
-            (listTermes as Record<string,any>).map(function(value: any, key: any) {
-                if (!termesMauvais.includes(value.Term)) {
-                    error = error + value.Term + ", ";
-                    termesMauvais.push(value.Term);
+                console.log(response.data);
+                if(response.status == 206) {
+                    probleme = true;
+
                 }
-            });
-            error = error + "sont à éviter..";
-            this.errorPostComment = error;
-            if(rep) {
+            } );
+
+            if (probleme) {
+                let error = "Les termes comme : ";
+                const termesMauvais: any[] = [];
+                (listTermes as Record<string,any>).map(function(value: any, key: any) {
+                    if (!termesMauvais.includes(value.Term)) {
+                        error = error + value.Term + ", ";
+                        termesMauvais.push(value.Term);
+                    }
+                });
+                error = error + "sont à éviter..";
+                this.errorPostComment = error;
+            }
+
+            if(rep && !probleme) {
                 this.switchValue = false;
                 const element = document.getElementById("message") as  HTMLInputElement;
-                if(element && error == "") {
+                if(element) {
                     element.value = "";
                 }
             }
@@ -162,31 +164,23 @@
         }
 
         async getComments(): Promise<void> {
-            //let rep = null;
             let posts = [null];
 
-            await axios.get("https://api.hugovast.tech/questions/" + this.$route.params.idQuestion + "/posts", {
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function (response) {
+            await myAPI.get("questions/" + this.$route.params.idQuestion + "/posts").then((response) =>  {
                 posts = response.data;
             });
-            if (posts) {
+            if (posts)
                 this.posts = posts;
-            }
         }
         async getQuestion(): Promise<void> {
             let rep = null;
             let date = "";
-            await axios.get("https://api.hugovast.tech/themes/" + this.$route.params.idTheme + "/questions/" + this.$route.params.idQuestion, {
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function (response) {
+
+            await myAPI.get("themes/" + this.$route.params.idTheme + "/questions/" + this.$route.params.idQuestion).then((response) =>  {
                 rep = response.data;
                 date = response.data.created_at;
             });
+
             if (rep && date) {
                 this.question = rep;
                 this.date = date.slice(0,10)

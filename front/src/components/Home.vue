@@ -56,7 +56,7 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import cardComponent from '@/components/mini-components/card.vue'
-    import axios from "axios";
+    import myAPI from "@/components/myAPI";
     @Component({
         components: {
             headerComponent,
@@ -104,28 +104,21 @@
 
         async getThemes(): Promise<void> {
             let rep = null;
-            await axios.get('https://api.hugovast.tech/themes', {
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function (response) {
-               rep = response.data;
-               console.log(response.data)
-            });
+            await myAPI.get('themes').then((response: { data: any}) =>  {
+                rep = response.data;
+                console.log(response.data);
+            } );
             if (rep)
                 this.themes = rep;
         }
 
         async getPostesByTheme(): Promise<void> {
             let rep = null;
-            await axios.get("https://api.hugovast.tech/themes/" + this.idThemeActuel + "/questions", {
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function (response) {
+            await myAPI.get("themes/" + this.idThemeActuel + "/questions").then((response: { data: any}) =>  {
                 rep = response.data;
-                console.log(rep);
-            });
+                console.log(response.data);
+                console.log("hhé");
+            } );
             if (rep)
                 this.listePostes = rep;
         }

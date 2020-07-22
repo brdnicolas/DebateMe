@@ -183,7 +183,7 @@
   import { Component, Vue } from 'vue-property-decorator'
   import headerComponent from '@/components/mini-components/header.vue'
   import footerComponent from '@/components/mini-components/footer.vue'
-  import axios from "axios"
+  import myAPI from "@/components/myAPI";
   @Component({
     components: {
       headerComponent,
@@ -272,14 +272,17 @@
         this.error = "Veuillez remplir tous les champs.";
         return;
       }
-      axios.post('https://api.hugovast.tech/auth/login', {
-        email: email,
+
+      myAPI.post("auth/login", {
+        email : email,
         password: password
-      }).then(function (response) {
+      }).then((response: { data: any}) =>  {
         localStorage.token = response.data.auth_token;
         window.location.href = '/home';
-      });
+      } );
     }
+
+
     InscriptionPost(e: Event, email: string,password: string, repassword: string, username: string, firstname: string, lastname: string): void {
       e.preventDefault();
       if (password !== repassword) {
@@ -290,7 +293,7 @@
         this.error = "Veuillez remplir tous les champs.";
         return;
       }
-      axios.post('https://api.hugovast.tech/auth/register', {
+      myAPI.post("auth/login", {
         email: email,
         password: password,
         username: username,
@@ -298,18 +301,17 @@
         lastname: lastname,
         // eslint-disable-next-line @typescript-eslint/camelcase
         password_confirmation: repassword,
-      }).then(function (response) {
+      }).then((response: { data: any}) =>  {
         localStorage.token = response.data.auth_token;
         window.location.href = '/home';
-      })
-      .catch(error => {
-        this.error = "Une erreur s'est produite."
-      });
+      } )
+        .catch(error => {
+          this.error = "Une erreur s'est produite."
+        });
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
   .profits-card button {

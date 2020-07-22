@@ -43,9 +43,9 @@
 <script lang="ts">
     // @ts-nocheck
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import axios from "axios";
     import moment from 'moment'
     import Swal from 'sweetalert2/dist/sweetalert2.js'
+    import myAPI from "@/components/myAPI";
     @Component
     export default class Header extends Vue {
 
@@ -140,27 +140,24 @@
                             title: "Vous n'avez aucune raison de le signaler."
                         })
                     } else {
-                        axios.post("https://api.hugovast.tech/reports",{
+
+                        myAPI.post("reports", {
                             'post_id' : this.commentaire.id,
                             'reason_report_id' : type,
                             'message': message
-                        },{
-                            headers: {
-                                Authorization: localStorage.token //the token is a variable which holds the token
-                            }
-                        }).then(function (response) {
+                        }).then((response: { data: any}) =>  {
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Nous avons reçu votre signalement !'
                             })
-                        })
-                        .catch(error => {
+                        }).catch(error => {
                             console.log(error);
                             Toast.fire({
                                 icon: 'error',
                                 title: "Une erreure s'est produite lors de l'envoie.."
                             })
                         });
+
                     }
                 }
 
@@ -170,31 +167,21 @@
 
         async getCurrentUser(): Promise<void> {
             let rep = null;
-            await axios.get("https://api.hugovast.tech/users/me/profile",{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function(response) {
+
+            await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
                 rep = response.data;
             });
+
+
             if (rep) {
                 this.currentUser = rep;
             }
-            if(this.votes?.includes((this.currentUser as Record<string,any>).id)) {
-                this.voted = true;
-            } else {
-                this.voted = false;
-            }
+            this.voted = !!this.votes?.includes((this.currentUser as Record<string, any>).id);
 
         }
 
         async upVote(): Promise<void> {
-            console.log("avant : " + this.voted);
-            await axios.get("https://api.hugovast.tech/posts/" + (this.commentaire as Record<string, any>).id + "/vote",{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            })
+            await myAPI.get("posts/" + (this.commentaire as Record<string, any>).id + "/vote" );
             this.voted = !this.voted;
             this.$forceUpdate();
             this.$emit('refresh');
