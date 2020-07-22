@@ -2,7 +2,7 @@
     <div class="content">
         <img alt="corona" src="../../assets/tmp/pq.jpg"/>
         <div>
-            <h1>Que pensez-vous de la pénurie du papier toilette dans les supermarchés ?Que pensez-vous de la pénurie du papier toilette dans les supermarchés ?Que pensez-vous de la pénurie du papier toilette dans les supermarchés ?Que pensez-vous de la pénurie du papier toilette dans les supermarchés ?</h1>
+            <h1>Que pensez-vous de la pénurie du papier toilette dans les supermarchés ?</h1>
             <div class="bottom">
                 <div class="time">
                     <img src="../../assets/icon/time.png"/>
@@ -55,7 +55,7 @@
        margin-top:25px;
    }
     .content > img {
-        width:250px;
+        width:150px;
         height:100%;
         object-fit: cover;
         border-radius: 6px 0 0 6px;
@@ -71,7 +71,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 650px;
+        max-width: 550px;
         color:#175bab;
     }
 </style>

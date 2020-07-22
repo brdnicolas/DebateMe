@@ -44,19 +44,6 @@
             <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
             <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
             <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
-            <img title="badge de la gentillesse" alt="badge de la gentillesse" src="../assets/tmp/badge.png"/>
         </div>
         <div class="activite">
             <div class="choice-categorie">

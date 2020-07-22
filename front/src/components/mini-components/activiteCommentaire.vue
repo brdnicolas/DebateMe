@@ -3,7 +3,7 @@
         <div>
             <div class="text">
                 <p>"</p>
-                <h1>Perso je trouve ça ue quoi.</h1>
+                <h1>Perso je trouve ça pue quoi.</h1>
                 <p>"</p>
             </div>
 
@@ -45,6 +45,7 @@
         width:100%;
     }
     .text {
+        margin-top: 20px;
         margin-left:10px;
         display:flex;
         flex-direction: row;
@@ -66,8 +67,6 @@
     .time-comment p, .commentaire-comment p {
         margin-top:30px;
         margin-left:5px;
-        font-style: italic;
-        font-size:15px;
         color:#6D6D6D;
         padding-right:10px;
     }
@@ -77,6 +76,9 @@
         margin-left:10px;
         margin-top:30px;
     }
+    .time-comment {
+        margin-top: 20px;
+    }
     .bottom {
         display:flex;
         flex-direction: row;
@@ -85,7 +87,7 @@
     }
     .content {
         width:100%;
-        height:90px;
+        height:130px;
         background:white;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
         border-radius: 6px;
