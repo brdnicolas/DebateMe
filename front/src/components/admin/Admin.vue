@@ -50,6 +50,7 @@
                 }
             }).then(function(response) {
                 rep = response.data;
+                console.log(rep);
             });
             if (rep) {
                if( !(rep as Record<string,any>).isAdmin )

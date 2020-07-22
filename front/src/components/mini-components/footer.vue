@@ -9,7 +9,7 @@
                 </div>
                 <div>
                     <h1>Informations</h1>
-                    <p>Contactez-nous : <a href="mailto:support@debate.me" style="color:#1c8eff;text-decoration: underline">support@debate.me</a></p>
+                    <a href="/contact" style="color:#1c8eff;text-decoration: none">Contactez nous</a>
                     <p>F.A.Q</p>
                     <p>Equipe</p>
                 </div>
@@ -17,6 +17,7 @@
                     <h1>Services</h1>
                     <p>Abonnement</p>
                     <p>Email marketing : <a href="mailto:marketing@debate.me" style="color:#e6654a;text-decoration: underline">marketing@debate.me</a></p>
+                    <a href="/about">A propos</a>
                 </div>
                 <div>
                     <h1>Actualités</h1>
@@ -25,7 +26,7 @@
                 </div>
             </div>
             <div class="footerBottom">
-                <p>DebateMe © 2020 - Projet Libre & Innovant</p>
+                <p style="color:#252a35">DebateMe © 2020 - Projet Libre & Innovant</p>
             </div>
 
 

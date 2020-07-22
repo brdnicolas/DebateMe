@@ -20,7 +20,7 @@
                 </p>
             </div>
         </div>
-        <footer-component style="background:#f6f9ff"/>
+        <footer-component/>
     </div>
 
 </template>
@@ -62,7 +62,6 @@
         justify-content: center;
         width:100vw;
         height:calc(100vh - 60px - 60px - 5px);
-        background:#f6f9ff;
     }
     .APropos div {
         width:550px;

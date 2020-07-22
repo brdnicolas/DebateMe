@@ -8,16 +8,17 @@
                     <a href="/home" v-bind:class="{'current': this.currentPage === 'home'}">Accueil</a>
                     <a href="/message" v-bind:class="{'current': this.currentPage === 'message'}">Message</a>
                     <a href="/about" v-bind:class="{'current': this.currentPage === 'about'}">A propos</a>
-                    <a href="/contact" v-bind:class="{'current': this.currentPage === 'contact'}">Contact</a>
+                    <a href="/notifications" v-bind:class="{'current': this.currentPage === 'notifications'}">Notifications (53)</a>
+                    <a v-if="this.user.isAdmin" style="color:#EFA1A1" href="/panel" v-bind:class="{'currentAdmin': this.currentPage === 'panel'}">Modération</a>
                 </div>
             </div>
             <div class="rightHeader">
                 <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/profil/Nico">{{this.user.username}}</a>
                 <img class="profil_pic" v-if="this.user.profile_pic" src="../../assets/tmp/profil.jpg"/>
                 <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
-                <button @click="visibleMenu=!visibleMenu" style="width:25px;height:20px;background:none;border:none;outline:none;margin-left:15px">
-                    <svg viewBox="0 0 24 24" class="header--icon">
-                        <title>Navigation Menu</title>
+                <button @click="visibleMenu=!visibleMenu" style="width:25px;height:22px;background:none;border:none;outline:none;margin-left:15px">
+                    <svg viewBox="0 0 20 20" class="Menuicon">
+                        <title>Menu</title>
                         <path fill="#3f3e48" d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" />
                     </svg>
                 </button>
@@ -94,6 +95,14 @@
 </script>
 
 <style scoped>
+    .Menuicon:hover path {
+        transition:0.2s;
+        fill:#1864ff;
+    }
+    path {
+        transition:0.2s;
+        fill:#3f3e48;
+    }
     * {
         font-family: 'Roboto', sans-serif;
     }
@@ -134,7 +143,7 @@
         cursor:auto;
         position:absolute;
         margin-top:70px;
-        margin-right:45px;
+        margin-right:32px;
         right:0;
         top:0;
         border:2px solid #dadce0;
@@ -173,19 +182,16 @@
         cursor:pointer;
     }
     header {
+        padding-left:10px;
+        padding-top:8px;
+        padding-bottom:8px;
         background: #ffffff;
         width:100vw;
         height:60px;
-        padding-bottom: 5px;
         display:flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-    }
-    .search-icon {
-        width:20px;
-        margin-left:10px;
-        margin-right:15px;
     }
     header a  {
         font-style: normal;
@@ -206,8 +212,8 @@
         margin-right:60px;
     }
     .rightHeader .profil_pic {
-        width:25px;
-        height:25px;
+        width:22px;
+        height:22px;
         margin-top:7px;
         border-radius: 40px;
     }
@@ -225,6 +231,7 @@
         margin-left: 65px;
     }
     .leftHeader .nav a {
+        transition: 0.2s;
         color:#cacbd4;
         text-transform: uppercase;
         font-size:14px;
@@ -245,5 +252,13 @@
     .current {
         color:#1072ff !important;
         font-weight: bold !important;
+    }
+    .currentAdmin {
+        color:#FC4444 !important;
+        font-weight: bold !important;
+    }
+    .nav a:hover {
+        transition: 0.2s;
+        color:#BDC1EB;
     }
 </style>

@@ -4,8 +4,9 @@
         <div class="top-profil">
             <img src="../assets/tmp/couverture.png"/>
             <div class="photo-profil">
-                <img src="../assets/tmp/profil.jpg"/>
-                <h1>{{$route.params.name}}</h1>
+                <img class="profil_pic" v-if="this.user.profile_pic" src="../assets/tmp/profil.jpg"/>
+                <img class="profil_pic" v-else src="../assets/img/profile.png"/>
+                <h1>{{this.user.username}}</h1>
             </div>
             <div class="profil-info">
                 <div>
@@ -24,7 +25,8 @@
         </div>
         <div class="profil-citation">
             <img class="quoteleft" src="../assets/icon/quote_left.png"/>
-            <p>La citation la plus longue sur « putes » est : « Putain même crier, j'arrive plus. J'en ai marre, j'en peux plus, j'étouffe. J'me sens étriquée dans ce monde. C'est pas possible c'qu'on nous balance en pleine face tous les jours.</p>
+            <p v-if="this.user.quote">{{this.user.quote}}</p>
+            <p v-else>En panne d'inspiration ? Créez votre propre citation</p>
             <img class="quoteright" src="../assets/icon/quote_right.png"/>
         </div>
         <div class="liste-badge">
@@ -84,6 +86,7 @@
     import footerComponent from "@/components/mini-components/footer.vue";
     import activitePoste from "@/components/mini-components/activitePoste.vue"
     import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
+    import myAPI from "@/components/myAPI";
 
 
     @Component({
@@ -97,9 +100,11 @@
 
     export default class HelloWorld extends Vue {
         showPostes: boolean;
+        user: object;
 
         constructor() {
             super();
+            this.user = [null];
             this.showPostes= true;
         }
         goToActivities(): void {
@@ -122,9 +127,27 @@
         }
         mounted() {
             this.goToPostes();
+            this.getCurrentUser();
         }
-
-
+        async getCurrentUser(): Promise<void> {
+            let rep = null;
+            await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
+                rep = response.data;
+            }).catch(error => {
+                this.deconnexion();
+            });
+            if (rep) {
+                this.user = rep;
+                console.log(rep);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                //@ts-ignore
+            }
+        }
+        deconnexion(): void {
+            localStorage.token = "";
+            sessionStorage.token = "";
+            window.location.href = '/';
+        }
     }
 </script>
 
