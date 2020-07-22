@@ -21,25 +21,31 @@ class User < ApplicationRecord
 
   end
 
-  private
-
-
   def check_anonym
     if posts.pluck(:isAnonym).uniq.include? true
-      user_info.achievements
+      user_info.achievements << Achievement.find_by_name('Homme mystère')
     end
   end
 
   def check_validate
-    user_info.attributes.key(nil).nil?
+    if user_info.attributes.key(nil).nil?
+      Achievement.find_or_create_by(user_info_id: user_info.id, achievement_id: Achievement.find_by_name('Validé').id, progression: 100)
+    end
   end
 
   def check_first_step
-    post_ids.size > 0
+    if post_ids.size > 0
+      Achievement.find_or_create_by(user_info_id: user_info.id, achievement_id: Achievement.find_by_name('Premier pas').id, progression: 100)
+    end
   end
 
-  def check_sympatique
+  def check_influenceur
     posts.reduce(0) { |memo, post| memo + post.childpost.count }
+    Achievement.find_or_create_by(user_info_id: user_info.id, achievement_id: Achievement.find_by_name('Influenceur').id, progression: 100)
+  end
+
+  def check_symphatique
+    posts.pluck(:up).count
   end
 
 

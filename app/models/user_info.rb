@@ -5,6 +5,8 @@ class UserInfo < ApplicationRecord
   has_and_belongs_to_many :achievements
   has_one_attached :profile_picture
 
+
+
   validates_uniqueness_of :username
   validates_presence_of :username
 
