@@ -225,7 +225,7 @@
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
-        color: #E6654A;
+        color: #F9813B;
         margin-left:15px;
         margin-top:50px;
 
@@ -235,7 +235,7 @@
         flex-direction: row;
         padding-bottom:30px;
         align-items: center;
-        border-bottom: 2px solid #E6654A;
+        border-bottom: 2px solid #F9813B;
         width:100%;
     }
     .categories-container > img {
@@ -261,7 +261,7 @@
         height:70px;
         object-fit: cover;
         border-radius: 50px;
-        border: 2px solid #E6654A;
+        border: 2px solid #F9813B;
         margin-left:15px;
         margin-right:15px;
         cursor:pointer;

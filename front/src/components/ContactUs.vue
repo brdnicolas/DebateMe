@@ -152,6 +152,6 @@
 
     }
    .contactUs {
-       background:#f6f9ff;
+       background:#FDFEFF;
    }
 </style>
