@@ -1,7 +1,6 @@
 <template>
     <div class="contactUs">
         <headerComponent />
-        <button @click="deconnexion">Deconnexion</button>
 
         <div class="explore-category">
             <h1>Explorer les catégories</h1>
@@ -90,12 +89,6 @@
             this.getPostesByTheme();
         }
 
-        deconnexion(): void {
-            localStorage.token = "";
-            sessionStorage.token = "";
-            window.location.href = '/';
-        }
-
         checkToken(): void {
             if(localStorage.token === "") {
                 window.location.href = '/';
@@ -166,16 +159,19 @@
 <style scoped>
     .bienvenue {
         margin:50px 10vw 16% 10vw;
+        color:#353640;
     }
     .bienvenue > h1 {
         font-size:40px;
         font-weight: 500;
+        color:#353640;
     }
     .bienvenue > p {
         margin-top:10px;
         padding-bottom:50px;
         width:50vw;
         font-weight: 400;
+        color:#353640;
     }
     .bienvenue span {
         color:#048aff;

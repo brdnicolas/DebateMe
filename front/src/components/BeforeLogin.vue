@@ -287,7 +287,7 @@
         this.error = "Veuillez remplir tous les champs.";
         return;
       }
-      myAPI.post("auth/login", {
+      myAPI.post("auth/register", {
         email: email,
         password: password,
         username: username,

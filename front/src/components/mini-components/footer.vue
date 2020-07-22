@@ -1,13 +1,34 @@
 <template>
     <div class="Footer">
         <footer>
-            <img src="../../assets/img/logo2.png"/>
-            <p>Debate Me © 2020</p>
-            <div class="social">
-                <img src="../../assets/icon/twitter.png"/>
-                <img src="../../assets/icon/facebook.png"/>
-                <img src="../../assets/icon/instagram.png"/>
+            <div class="footerTop">
+                <div>
+                    <h1>Legal</h1>
+                    <a download="politique et confidentialité DebateMe.pdf" href="../../assets/fichiers/politique%20de%20confidentialité.pdf">Politique de confidentialité</a>
+                    <p>Termes & conditions</p>
+                </div>
+                <div>
+                    <h1>Informations</h1>
+                    <p>Contactez-nous : <span style="color:#1c8eff">support@debate.me</span></p>
+                    <p>F.A.Q</p>
+                    <p>Equipe</p>
+                </div>
+                <div>
+                    <h1>Services</h1>
+                    <p>Abonnement</p>
+                    <p>Email marketing : <span style="color:#e6654a">marketing@debat.me</span></p>
+                </div>
+                <div>
+                    <h1>Actualités</h1>
+                    <input placeholder="Email" type="text"/>
+                    <button>OK</button>
+                </div>
             </div>
+            <div class="footerBottom">
+                <p>DebateMe © 2020 - Projet Libre & Innovant</p>
+            </div>
+
+
         </footer>
     </div>
 </template>
@@ -21,31 +42,66 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .social img {
-        width:22px;
-        margin-left:2px;
-        margin-right: 2px;
-        cursor: pointer;
-        margin-top:5px;
-    }
-    footer p {
-        color:#3d88ee;
-        margin-top:2px;
-    }
-    .social {
-        margin-left:50%;
-    }
-    footer > img {
-        width:50px;
+    footer * {
+        font-family: 'Quicksand', sans-serif;
     }
     footer {
-        width:100vw;
+        width:80vw;
+        margin-left:10vw;
         height:60px;
-        background:#f5f8fe;
         display:flex;
         flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        border-top:0.5px solid #faf9f9;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-bottom:200px;
+    }
+    .footerTop {
+        width:100%;
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-bottom:20px;
+        border-bottom: 1px solid #ebecf0;
+    }
+    .footerBottom {
+        width:100%;
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-top:10px;
+        padding-bottom:20px;
+    }
+    h1 {
+        font-weight: bold;
+        color:#252a35;
+        font-size:18px;
+        margin-bottom:30px;
+    }
+    p {
+        font-weight: normal;
+        margin-top:15px;
+        margin-bottom:15px;
+        color:#8c8c90;
+    }
+
+    input {
+        width:170px;
+        height:30px;
+        border:2px solid #ebecf0;
+        padding-left: 7px;
+        padding-right: 7px;
+        border-radius: 4px;
+    }
+    button {
+        height:32px;
+        width:32px;
+        margin-left:10px;
+        background: #1c8eff;
+        color:white;
+        border:1px solid #1475e8;
+        cursor: pointer;
+        border-radius: 4px;
     }
 </style>
