@@ -23,16 +23,20 @@
                 </button>
                 <ul class="dropdown" v-if="this.visibleMenu">
                     <li>
+                        <img src="../../assets/icon/Menu/user.png"/>
+                        <a v-bind:href=this.profil>Mon Compte</a>
+                    </li>
+                    <li>
                         <img src="../../assets/icon/Menu/params.png"/>
-                        <p>Paramètre</p>
+                        <a>Paramètre</a>
                     </li>
                     <li>
                         <img src="../../assets/icon/Menu/prix.png"/>
-                        <p>Abonnement</p>
+                        <a>Abonnement</a>
                     </li>
                     <li @click="deconnexion">
                         <img src="../../assets/icon/Menu/deco.png"/>
-                        <p>Deconnexion</p>
+                        <a>Deconnexion</a>
                     </li>
                 </ul>
             </div>
@@ -51,11 +55,13 @@
         currentPage: string;
         user: object;
         visibleMenu: boolean;
+        profil: string;
         constructor() {
             super();
             this.currentPage = "";
             this.user = [null];
             this.visibleMenu = false;
+            this.profil = "";
         }
 
         mounted() {
@@ -67,10 +73,15 @@
             let rep = null;
             await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
                 rep = response.data;
-                console.log(rep);
+            }).catch(error => {
+                this.deconnexion();
             });
-            if (rep)
+            if (rep) {
                 this.user = rep;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                //@ts-ignore
+                this.profil = "/profil/" + this.user.username;
+            }
         }
 
         deconnexion(): void {
@@ -143,7 +154,7 @@
     .dropdown li:hover {
         background:rgba(15, 115, 255, 0.10);
     }
-    .dropdown li:hover p{
+    .dropdown li:hover a{
         color:#1072ff;
     }
     .dropdown li:hover img {

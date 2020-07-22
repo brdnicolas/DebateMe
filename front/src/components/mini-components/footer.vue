@@ -16,7 +16,7 @@
                 <div>
                     <h1>Services</h1>
                     <p>Abonnement</p>
-                    <p>Email marketing : <a href="mailto:marketing@debat.me" style="color:#e6654a;text-decoration: underline">marketing@debat.me</a></p>
+                    <p>Email marketing : <a href="mailto:marketing@debate.me" style="color:#e6654a;text-decoration: underline">marketing@debate.me</a></p>
                 </div>
                 <div>
                     <h1>Actualités</h1>
@@ -56,6 +56,7 @@
         color:#8c8c90;
     }
     footer {
+        margin-top:100px;
         width:80vw;
         margin-left:10vw;
         height:60px;
