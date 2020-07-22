@@ -14,7 +14,7 @@ class UserInfo < ApplicationRecord
     url_for(self.profile_picture) if self.profile_picture.attached?
   end
 
-  def search(to_search)
+  def self.search(to_search)
     self.where("username LIKE ?", "%" + to_search + "%")
   end
 end
