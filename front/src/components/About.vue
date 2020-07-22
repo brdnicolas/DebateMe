@@ -20,7 +20,7 @@
                 </p>
             </div>
         </div>
-        <footer-component/>
+        <footer-component style="background:#f6f9ff"/>
     </div>
 
 </template>

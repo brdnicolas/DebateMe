@@ -36,7 +36,6 @@
             <commentaire v-on:refresh="getComments" v-for="item in this.posts" :votes="item.votes_id" :questionID="question.id" :commentaire="item.post"  :key="item.id" :user="item.user"/>
         </div>
         <div id="bottom"/>
-        <footerComponent/>
 
     </div>
 </template>
@@ -44,14 +43,12 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
     import headerComponent from '@/components/mini-components/header.vue'
-    import footerComponent from '@/components/mini-components/footer.vue'
     import commentaire from '@/components/mini-components/commentaire.vue'
     import switchComponent from "@/components/mini-components/switch.vue";
     import myAPI from "@/components/myAPI";
     @Component({
         components: {
             headerComponent,
-            footerComponent,
             commentaire,
             switchComponent,
         },

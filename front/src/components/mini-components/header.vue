@@ -13,8 +13,28 @@
             </div>
             <div class="rightHeader">
                 <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/profil/Nico">{{this.user.username}}</a>
-                <img v-if="this.user.profile_pic" src="../../assets/tmp/profil.jpg"/>
-                <img v-else src="../../assets/img/profile.png"/>
+                <img class="profil_pic" v-if="this.user.profile_pic" src="../../assets/tmp/profil.jpg"/>
+                <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
+                <button @click="visibleMenu=!visibleMenu" style="width:25px;height:20px;background:none;border:none;outline:none;margin-left:15px">
+                    <svg viewBox="0 0 24 24" class="header--icon">
+                        <title>Navigation Menu</title>
+                        <path fill="#3f3e48" d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" />
+                    </svg>
+                </button>
+                <ul class="dropdown" v-if="this.visibleMenu">
+                    <li>
+                        <img src="../../assets/icon/Menu/params.png"/>
+                        <p>Paramètre</p>
+                    </li>
+                    <li>
+                        <img src="../../assets/icon/Menu/prix.png"/>
+                        <p>Abonnement</p>
+                    </li>
+                    <li @click="deconnexion">
+                        <img src="../../assets/icon/Menu/deco.png"/>
+                        <p>Deconnexion</p>
+                    </li>
+                </ul>
             </div>
         </header>
     </div>
@@ -30,10 +50,12 @@
 
         currentPage: string;
         user: object;
+        visibleMenu: boolean;
         constructor() {
             super();
             this.currentPage = "";
             this.user = [null];
+            this.visibleMenu = false;
         }
 
         mounted() {
@@ -50,27 +72,91 @@
             if (rep)
                 this.user = rep;
         }
+
+        deconnexion(): void {
+            localStorage.token = "";
+            sessionStorage.token = "";
+            window.location.href = '/';
+        }
+
     }
 </script>
 
 <style scoped>
-
     * {
         font-family: 'Roboto', sans-serif;
     }
-    .notif_nb {
-        background:white;
-        color:blue;
-        border-radius:50px;
-        padding:3px 6px 3px 6px;
-        font-size:12px;
-        font-weight: bold;
-        margin-bottom:25px;
-        margin-right:20px;
+    .dropdown {
+        -webkit-animation-name: fadeInDown;
+        animation-name: fadeInDown;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
     }
-    .profil-icon {
+    @-webkit-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -20%, 0);
+            transform: translate3d(0, -20%, 0);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -20%, 0);
+            transform: translate3d(0, -20%, 0);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+    .dropdown {
+        background:white;
+        cursor:auto;
+        position:absolute;
+        margin-top:70px;
+        margin-right:45px;
+        right:0;
+        top:0;
+        border:2px solid #dadce0;
+        border-radius: 6px 0 0 6px;
+        list-style: none;
+    }
+    .dropdown li {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        padding:12px 20px 12px 20px;
+        border-radius: 0 90px 90px 0;
+        margin-right:20px;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    .dropdown li:hover {
+        background:rgba(15, 115, 255, 0.10);
+    }
+    .dropdown li:hover p{
+        color:#1072ff;
+    }
+    .dropdown li:hover img {
+        fill: red;
+    }
+    .dropdown li img {
         width:25px;
-        margin: 0 5px 0 15px;
+        height:25px;
+    }
+    .dropdown li p {
+        color:#666666;
+        margin-left:20px;
+        font-size:16px
     }
     .leftHeader > *, .rightHeader * {
         cursor:pointer;
@@ -108,10 +194,10 @@
         align-items: center;
         margin-right:60px;
     }
-    .rightHeader img {
-        width:30px;
-        height:30px;
-        margin-top:8px;
+    .rightHeader .profil_pic {
+        width:25px;
+        height:25px;
+        margin-top:7px;
         border-radius: 40px;
     }
     .rightHeader a {
@@ -120,11 +206,11 @@
         font-size:14px;
         margin-right:20px;
         margin-left:20px;
-        margin-top:8px;
+        margin-top:7px;
         text-decoration: none;
     }
     .leftHeader .nav {
-        margin-top:8px;
+        margin-top:7px;
         margin-left: 65px;
     }
     .leftHeader .nav a {
@@ -138,12 +224,12 @@
         font-weight: 500;
         font-size: 20px;
         color:#1072ff;
-        margin: 8px 0 0;
+        margin: 7px 0 0;
         text-decoration: none;
     }
     .leftHeader img{
         margin-left:20px;
-        width:35px;
+        width:30px;
     }
     .current {
         color:#1072ff !important;
