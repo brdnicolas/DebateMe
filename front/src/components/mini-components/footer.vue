@@ -4,7 +4,7 @@
             <div class="footerTop">
                 <div>
                     <h1>Legal</h1>
-                    <a download="politique et confidentialité DebateMe.pdf" href="../../assets/fichiers/politique%20de%20confidentialité.pdf">Politique de confidentialité</a>
+                    <a download href="../../assets/fichiers/politique%20de%20confidentialité.pdf">Politique de confidentialité</a>
                     <p>Termes & conditions</p>
                 </div>
                 <div>
