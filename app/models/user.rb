@@ -22,7 +22,7 @@ class User < ApplicationRecord
     h.merge!(username: user_info.username, quote: user_info.quote, profile_picture: user_info.get_image_url)
     h.merge!(achievements: user_info.get_achievements)
     h.merge!(isAdmin: isAdmin)
-    h.merge!(posts: posts.reduce([]) { |memo, acc| memo << acc.attributes})
+    h.merge!(posts: posts.reduce([]) { |memo, acc| memo << acc.attributes.merge(theme_id: acc.question.theme.id)})
   end
 
   def check_achievements
