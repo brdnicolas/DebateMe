@@ -4,9 +4,16 @@
         <div class="top-profil">
             <img v-if="this.bannerPic" v-bind:src="this.user.img.banner"/>
             <img v-else src="../assets/tmp/couverture.png"/>
+            <input style="display:none" type="file"
+                   id="bannerPicture" name="avatar"
+                   accept="image/png, image/jpeg">
+            <img @click="changeBannerPicture" class="modifyBanner" src="../assets/icon/modify.png"/>
             <div class="photo-profil">
-                <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
-                <img class="profil_pic" v-else src="../assets/img/profile.png"/>
+                <input style="display:none" type="file"
+                       id="profilePicture" name="avatar"
+                       accept="image/png, image/jpeg">
+                <img @click="changeProfilePicture" class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
+                <img @click="changeProfilePicture" class="profil_pic" v-else src="../assets/img/profile.png"/>
                 <h1>{{this.user.username}}</h1>
             </div>
             <div class="profil-info">
@@ -68,9 +75,9 @@
     export default class HelloWorld extends Vue {
         showPostes: boolean;
         user: object;
+
         profilPic: string;
         bannerPic: string;
-
         constructor() {
             super();
             this.user = [null];
@@ -79,29 +86,29 @@
             this.bannerPic = "";
         }
 
+
         mounted() {
             this.getCurrentUser();
         }
 
-        async getCurrentUser(): Promise<void> {
-            const profilToFind = document.URL.split("/")[4];
-            let rep = null;
-            await myAPI.get("users/search/" + profilToFind).then((response: { data: any}) =>  {
-                rep = response.data;
-            }).catch(error => {
-                this.$router.go(-1)
-            });
-            if (rep && rep.length > 0)
-                this.userFound(rep[0].id);
+        changeProfilePicture(): void {
+            const element = document.getElementById('profilePicture');
+            if (element)
+                element.click();
         }
 
-        async userFound(userId: number): Promise<void> {
+        changeBannerPicture(): void {
+            const element = document.getElementById('bannerPicture');
+            if (element)
+                element.click();
+        }
+
+        async getCurrentUser(): Promise<void> {
             let rep = null;
-            await myAPI.get("users/" + userId).then((response: { data: any}) =>  {
+            await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
                 rep = response.data;
             }).catch(error => {
-                //this.$router.go(-1)
-                console.log(error);
+                this.deconnexion();
             });
             if (rep) {
                 this.user = rep;
@@ -109,7 +116,11 @@
                 this.bannerPic = rep.img.banner;
             }
         }
-
+        deconnexion(): void {
+            localStorage.token = "";
+            sessionStorage.token = "";
+            window.location.href = '/';
+        }
     }
 </script>
 
@@ -126,6 +137,9 @@
         background:white !important;
         border-radius:20px !important;
         cursor: pointer !important;
+    }
+    .profil_pic {
+        cursor:pointer;
     }
     .liste {
         width:50vw;

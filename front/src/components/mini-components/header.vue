@@ -25,7 +25,7 @@
                 <ul class="dropdown" v-if="this.visibleMenu">
                     <li>
                         <img src="../../assets/icon/Menu/user.png"/>
-                        <a v-bind:href=this.profil>Mon Compte</a>
+                        <a href="/me">Mon Compte</a>
                     </li>
                     <li>
                         <img src="../../assets/icon/Menu/params.png"/>
@@ -56,13 +56,11 @@
         currentPage: string;
         user: object;
         visibleMenu: boolean;
-        profil: string;
         constructor() {
             super();
             this.currentPage = "";
             this.user = [null];
             this.visibleMenu = false;
-            this.profil = "";
         }
 
         mounted() {
@@ -77,12 +75,8 @@
             }).catch(error => {
                 this.deconnexion();
             });
-            if (rep) {
+            if (rep)
                 this.user = rep;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                //@ts-ignore
-                this.profil = "/profil/" + this.user.username;
-            }
         }
 
         deconnexion(): void {
