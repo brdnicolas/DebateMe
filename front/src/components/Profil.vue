@@ -91,7 +91,7 @@
             }).catch(error => {
                 this.$router.go(-1)
             });
-            if (rep && (rep as Record<string,any>).length > 0)
+            if (rep && (rep as any).length > 0)
                 this.userFound((rep[0] as Record<string,any>).id);
         }
 
