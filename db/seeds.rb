@@ -6,6 +6,43 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+
+achievements = [
+    {
+        name: 'Homme mystère',
+        description: 'Alors comme ça on ne veux parler sans son nom ?',
+        goal: 'Faire un post en Anonyme'
+    },
+    {
+        name: 'Validé',
+        description: 'Vous êtes officiellement validé par DebateMe',
+        goal: 'Remplir toutes les informations de son profil'
+    },
+    {
+        name: 'Premier pas',
+        description: "On place d'abord sa souris dans le champs de saisie, et ensuite seulement on argumente !",
+        goal: 'Répondre à une question'
+    },
+    {
+        name: 'Symphatique',
+        description: "Il faut croire que les gens sont d'accord avec vous !",
+        goal: 'Avoir 100 up au total sous ses posts'
+    },
+    {
+        name: 'Influenceur',
+        description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
+        goal: 'Avoir 15 sous commentaires sur un posts'
+    }
+]
+
+pics = %w(anonymous.png tick.png big-foot-gasoline.svg heart.png influence.png)
+i = 0
+achievements.each do |achievement|
+  a = Achievement.create(achievement)
+  a.badge.attach(io: File.open("public/logo_achievements/#{pics[i]}"), filename: pics[i])
+  i += 1
+end
+
 50.times do
   user = User.create(email: Faker::Internet.email, password: 'qwerty')
   UserInfo.create(username: Faker::Internet.username,
@@ -65,32 +102,3 @@ reasons_str = ["Ce contenu est injurieux",
                "Ce contenu tiens des propos sexistes"]
 
 reasons_str.each { |reason| ReasonReport.create!(reason: reason) }
-
-achievements = [
-    {
-        name: 'Homme mystère',
-        description: 'Alors comme ça on ne veux parler sans son nom ?',
-        goal: 'Faire un post en Anonyme'
-    },
-    {
-        name: 'Validé',
-        description: 'Vous êtes officiellement validé par DebateMe',
-        goal: 'Remplir toutes les informations de son profil'
-    },
-    {
-        name: 'Premier pas',
-        description: "On place d'abord sa souris dans le champs de saisie, et ensuite seulement on argumente !",
-        goal: 'Répondre à une question'
-    },
-    {
-        name: 'Symphatique',
-        description: "Il faut croire que les gens sont d'accord avec vous !",
-        goal: 'Avoir 100 up au total sous ses posts'
-    },
-    {
-        name: 'Influenceur',
-        description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
-        goal: 'Avoir 15 sous commentaires sur un posts'
-    }
-]
-achievements.each { |achievement| Achievement.create(achievement) }

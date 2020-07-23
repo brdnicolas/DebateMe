@@ -18,12 +18,12 @@ ActiveRecord::Schema.define(version: 2020_07_21_153417) do
     t.string "goal"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_achievements_on_name"
   end
 
   create_table "achievements_user_infos", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "achievement_id", null: false
     t.bigint "user_info_id", null: false
-    t.integer "progression", default: 0
     t.index ["achievement_id"], name: "index_achievements_user_infos_on_achievement_id"
     t.index ["user_info_id"], name: "index_achievements_user_infos_on_user_info_id"
   end
