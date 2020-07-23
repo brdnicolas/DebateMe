@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: [ :create, :search ]
-  before_action :set_user, only: [:update, :destroy, :show]
+  skip_before_action :authorize_request, only: [ :create, :search, :show ]
+  before_action :set_user, only: [:update, :destroy, :show, :show_achievements, :show_activities]
 
   # GET /users
   def index
@@ -19,12 +19,12 @@ class UsersController < ApplicationController
 
   # GET /users/me/profile
   def show_me
-    json_response(current_user.full_info)
+    json_response(current_user.complete_profile)
   end
 
   # GET /users/:id
   def show
-    json_response(@user.full_info)
+    json_response(@user.complete_profile)
   end
 
   # PUT /users/:id
@@ -44,6 +44,17 @@ class UsersController < ApplicationController
   def search
     @users = UserInfo.search(params[:search])
     json_response(@users)
+  end
+
+  # GET /users/:id/achievements
+  def show_achievements
+    json_response @user.user_info.get_achievements
+  end
+
+  # GET /users/:id/activity
+  def show_activities
+    posts, answer = @user.posts.partition { |post| post.subpost_id.nil? }
+    json_response({ posts: posts, answer: answer })
   end
 
   private

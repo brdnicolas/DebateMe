@@ -8,4 +8,8 @@ class Achievement < ApplicationRecord
     url_for(self.badge) if self.badge.attached?
   end
 
+  def get_full_info
+    attributes.merge({ logo: get_image_url })
+  end
+
 end

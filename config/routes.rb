@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get '/users/search/:search' => 'users#search'
   get '/users/me/profile' => 'users#show_me'
+  get '/users/:id/achievements' => 'users#show_achievements'
+  get '/users/:id/activity' => 'users#show_activities'
 
   delete '/posts/:id' => 'posts#destroy'
   get '/users/:user_id/posts' => 'posts#search_index'

@@ -17,6 +17,14 @@ class User < ApplicationRecord
     User.all.reduce([]) { |memo, acc| memo << acc.full_info }
   end
 
+  def complete_profile
+    h = {}
+    h.merge!(username: user_info.username, quote: user_info.quote, profile_picture: user_info.get_image_url)
+    h.merge!(achievements: user_info.get_achievements)
+    h.merge!(isAdmin: isAdmin)
+    h.merge!(posts: posts.reduce([]) { |memo, acc| memo << acc.attributes})
+  end
+
   def check_achievements
     check_anonym
     check_validate
