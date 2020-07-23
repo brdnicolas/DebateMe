@@ -91,8 +91,8 @@
             }).catch(error => {
                 this.$router.go(-1)
             });
-            if (rep && rep.length > 0)
-                this.userFound(rep[0].id);
+            if (rep && (rep as Record<string,any>).length > 0)
+                this.userFound((rep[0] as Record<string,any>).id);
         }
 
         async userFound(userId: number): Promise<void> {
@@ -105,8 +105,8 @@
             });
             if (rep) {
                 this.user = rep;
-                this.profilPic = rep.img.profile_picture;
-                this.bannerPic = rep.img.banner;
+                this.profilPic = (rep as Record<string,any>).img.profile_picture;
+                this.bannerPic = (rep as Record<string,any>).img.banner;
             }
         }
 

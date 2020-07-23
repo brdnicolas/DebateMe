@@ -112,8 +112,8 @@
             });
             if (rep) {
                 this.user = rep;
-                this.profilPic = rep.img.profile_picture;
-                this.bannerPic = rep.img.banner;
+                this.profilPic = (rep as Record<string,any>).img.profile_picture;
+                this.bannerPic = (rep as Record<string,any>).img.banner;
             }
         }
         deconnexion(): void {
