@@ -103,8 +103,8 @@
     .dropdown {
         -webkit-animation-name: fadeInDown;
         animation-name: fadeInDown;
-        -webkit-animation-duration: 1s;
-        animation-duration: 1s;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
     }
@@ -133,6 +133,7 @@
         }
     }
     .dropdown {
+        z-index: 500000;
         background:white;
         cursor:auto;
         position:absolute;

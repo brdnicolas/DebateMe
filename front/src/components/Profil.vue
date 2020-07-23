@@ -31,12 +31,12 @@
             <img class="quoteright" src="../assets/icon/quote_right.png"/>
         </div>
         <div class="liste-badge">
-            <p v-if="this.user.achievements">Aucune récompenses pour le moment..</p>
+            <p v-if="this.achivments.length === 0">Aucune récompenses pour le moment..</p>
             <img v-for="item in this.user.achievements" :key="item.id" v-bind:src="item.logo" v-bind:title="item.name" />
         </div>
         <div class="activite">
             <div class="choice-categorie">
-                <p id="activité"><span v-if="this.user.posts">Aucune </span>Activité</p>
+                <p id="activité"><span v-if="this.posts.length === 0">Aucune </span>Activité</p>
             </div>
             <div class="liste">
                 <activiteCommentaire v-for="item2 in this.user.posts" :key="item2.id" :theme_id="item2.theme_id" :date="item2.updated_at" :question_id="item2.question_id" :message="item2.content" :up="item2.up" :picture="user.profile_pic"/>
@@ -71,12 +71,16 @@
         profilPic: string;
         bannerPic: string;
 
+        achivments: Array<string>;
+        posts: object;
         constructor() {
             super();
             this.user = [null];
             this.showPostes= true;
             this.profilPic = "";
             this.bannerPic = "";
+            this.achivments = [""];
+            this.posts = [""];
         }
 
         mounted() {
@@ -107,6 +111,8 @@
                 this.user = rep;
                 this.profilPic = (rep as Record<string,any>).img.profile_picture;
                 this.bannerPic = (rep as Record<string,any>).img.banner;
+                this.achivments = (rep as Record<string,any>).achievements;
+                this.posts = (rep as Record<string,any>).posts;
             }
         }
 
