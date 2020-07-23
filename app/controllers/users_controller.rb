@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   end
 
   def user_info_params
-    params.permit( :username, :firstname, :lastname, :quote, :profile_picture)
+    params.permit( :username, :firstname, :lastname, :quote, :profile_picture, :banner)
   end
 
   def set_user
