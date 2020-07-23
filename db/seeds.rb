@@ -35,7 +35,7 @@ achievements = [
     }
 ]
 
-pics = %w(anonymous.png tick.png big-foot-gasoline.svg heart.png influence.png)
+pics = %w(anonymous.png tick.png foot.png heart.png influence.png)
 i = 0
 achievements.each do |achievement|
   a = Achievement.create(achievement)
@@ -45,7 +45,7 @@ end
 
 50.times do
   user = User.create(email: Faker::Internet.email, password: 'qwerty')
-  UserInfo.create(username: Faker::Internet.username,
+  UserInfo.create( username: Faker::Internet.username,
                    firstname: Faker::Name.first_name,
                    lastname: Faker::Name.last_name,
                    quote: Faker::Lorem.sentence,
