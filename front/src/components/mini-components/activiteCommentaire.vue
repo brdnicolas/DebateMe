@@ -43,6 +43,9 @@
     }
     .content > div {
         width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .text {
         margin-top: 20px;
@@ -56,7 +59,7 @@
         height:18px !important;
     }
     .commentaire-comment img {
-        width:18px;
+        width:15px;
         margin-top:30px;
     }
     .time-comment, .commentaire-comment{
@@ -67,7 +70,6 @@
     .time-comment p, .commentaire-comment p {
         margin-top:30px;
         margin-left:5px;
-        color:#6D6D6D;
         padding-right:10px;
     }
     .time-comment img {
@@ -76,14 +78,13 @@
         margin-left:10px;
         margin-top:30px;
     }
-    .time-comment {
-        margin-top: 20px;
-    }
     .bottom {
         display:flex;
         flex-direction: row;
         justify-content: space-between;
         width:100%;
+        color:black;
+        margin-bottom: 6px;
     }
     .content {
         width:100%;

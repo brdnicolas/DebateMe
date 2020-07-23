@@ -43,6 +43,7 @@
     .bottom img {
         width:15px;
         height:15px;
+        margin-right: 5px;
     }
    .content {
        width:100%;
