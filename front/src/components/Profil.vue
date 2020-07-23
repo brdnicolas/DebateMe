@@ -31,12 +31,12 @@
             <img class="quoteright" src="../assets/icon/quote_right.png"/>
         </div>
         <div class="liste-badge">
-            <p v-if="this.user.achievements.length === 0">Aucune récompenses pour le moment..</p>
+            <p v-if="this.user.achievements">Aucune récompenses pour le moment..</p>
             <img v-for="item in this.user.achievements" :key="item.id" v-bind:src="item.logo" v-bind:title="item.name" />
         </div>
         <div class="activite">
             <div class="choice-categorie">
-                <p id="activité"><span v-if="this.user.posts.length === 0">Aucune </span>Activité</p>
+                <p id="activité"><span v-if="this.user.posts">Aucune </span>Activité</p>
             </div>
             <div class="liste">
                 <activiteCommentaire v-for="item2 in this.user.posts" :key="item2.id" :theme_id="item2.theme_id" :date="item2.updated_at" :question_id="item2.question_id" :message="item2.content" :up="item2.up" :picture="user.profile_pic"/>
@@ -91,7 +91,7 @@
             }).catch(error => {
                 this.$router.go(-1)
             });
-            if (rep && (rep as any).length > 0)
+            if (rep && (rep as Record<string,any>).length > 0)
                 this.userFound((rep[0] as Record<string,any>).id);
         }
 
