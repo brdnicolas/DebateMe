@@ -1,84 +1,82 @@
 <template>
     <div class="main">
-        <div class="menu">
-            <div id="logo">
-                <img alt="logo" src="../../assets/img/logo2.png"/>
-            </div>
-            <div>
-                <img alt="dashboard" src="../../assets/icon/admin/dashboard.png"/>
-                <a href="/panel">Dashboard</a>
-            </div>
-            <div>
-                <img alt="report" src="../../assets/icon/admin/report.png"/>
-                <a href="/panel/reports">Signalements</a>
+        <Header/>
+        <div class="main2">
+            <Menu/>
+            <div class="subMain">
+                <div class="content">
+                    <h1>Signalements</h1>
+                    <ul>
+                        <li v-for="item in this.reports" :key="item.id">
+                            <report :type="item.reason_report_id" :post_id="item.post_id" :message="item.message" :date="item.created_at"/>
+                            <div class="choose">
+                                <img @click="deletePost(item.post_id)" alt="delete" src="../../assets/icon/admin/croix.png"/>
+                                <img @click="deleteReport(item.id)" alt="keep" src="../../assets/icon/admin/check.png"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="content">
-            <h1>Signalements</h1>
-            <ul>
-                <li v-for="item in this.reports" :key="item.id">
-                    <report :type="item.reason_report_id" :post_id="item.post_id" :message="item.message" :date="item.created_at"/>
-                    <div class="choose">
-                        <img @click="deletePost(item.post_id)" alt="delete" src="../../assets/icon/admin/croix.png"/>
-                        <img @click="deleteReport(item.id)" alt="keep" src="../../assets/icon/admin/check.png"/>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-
     </div>
 
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import axios from "axios"
-    import report from '@/components/admin/mini-components/report-comp.vue'
+    import report from "@/components/admin/mini-components/report-comp.vue";
+    import Menu from "@/components/admin/Menu.vue";
+    import Header from "@/components/mini-components/header.vue";
+    import LineChart from './LineChart.js';
+    import myAPI from "@/components/myAPI";
 
-
+    /*
+    <div style="width:500px;height:500px;">
+        <line-chart :chart-data="datacollection"></line-chart>
+    </div>
+    */
 
     @Component({
         components: {
-            report
+            Header,
+            LineChart,
+            report,
+            Menu
         },
     })
 
     export default class HelloWorld extends Vue {
-        reports: object;
-
-        constructor() {
-            super();
-            this.reports = [];
-        }
-
         mounted() {
             this.checkAdmin();
             this.getReports();
         }
 
+        redirectTo(page: string): void {
+            window.location.href = '/' + page;
+        }
+
+        reports: object;
+        constructor() {
+            super();
+            this.reports = [];
+        }
+
         async getReports(): Promise<void> {
             let rep = null;
-            await axios.get("https://api.hugovast.tech/reports/",{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function(response) {
+            await myAPI.get("reports/")
+            .then(function(response) {
                 rep = response.data;
-                console.log(rep);
             });
             if (rep) {
                 this.reports = rep;
+                console.log(rep);
             }
         }
 
         async deletePost(idPost: number): Promise<void> {
-            let reponse = null;
-            await axios.delete("https://api.hugovast.tech/posts/" + idPost,{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function(rep) {
+            let reponse = 0;
+            await myAPI.delete("posts/" + idPost)
+            .then(function(rep) {
                 reponse = 1;
             });
             if(reponse)
@@ -86,12 +84,9 @@
         }
 
         async deleteReport(idReport: number): Promise<void> {
-            let reponse = null;
-            await axios.delete("https://api.hugovast.tech/reports/" + idReport,{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function(rep) {
+            let reponse = 0;
+            await myAPI.delete("reports/" + idReport)
+            .then(function(rep) {
                 reponse = 1;
             });
             if(reponse)
@@ -100,16 +95,13 @@
 
         async checkAdmin(): Promise<void> {
             let rep = null;
-            await axios.get("https://api.hugovast.tech/users/me/profile",{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function(response) {
+            await myAPI.get("users/me/profile")
+            .then(function(response) {
                 rep = response.data;
             });
             if (rep) {
-               if( !(rep as Record<string,any>).isAdmin )
-                   window.location.href = '/';
+                if( !(rep as Record<string,any>).isAdmin )
+                    window.location.href = '/';
             }
         }
 
@@ -117,9 +109,36 @@
     }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .main {
+        background:#f8f9fe;
+        max-height: 100%;
+    }
+    .main2 {
+        display:flex;
+        flex-direction: row;
+    }
+
+    .subMain {
+        padding:50px;
+        width:calc(100% - 220px);
+        max-height:calc(100vh - 50px);
+        overflow: scroll;
+    }
+    .main2 {
+        max-height:100%;
+        overflow:hidden;
+    }
+    .subMain .graph1 h1 {
+        text-align: center;
+        font-weight:bold;
+        color:#154a85;
+        font-size: 18px;
+    }
     .content ul {
         list-style: none;
+        padding-bottom:100px;
     }
     .content li {
         display:flex;
@@ -136,60 +155,10 @@
         margin-top:40px;
     }
     .content h1 {
-        padding:100px;
-        color:#009EFF;
+        color:#1072ff;
     }
     .choose {
         display: flex;
         flex-direction: column;
     }
-    .content {
-        min-height:100vh;
-        width: calc(100vw - 200px);
-        background:#f8f9fe;
-    }
-    .main {
-        display: flex;
-        flex-direction: row;
-        height:100%;
-    }
-    #logo {
-        display:flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #logo img{
-        width:130px;
-        height:130px;
-    }
-    .menu {
-        z-index:10;
-        display:flex;
-        flex-direction: column;
-        width:200px;
-        min-height: 100vh;
-        background:white;
-        padding:10px 10px 10px 20px;
-    }
-
-    .menu a {
-        text-decoration: none;
-        color:black;
-    }
-
-    .menu > div {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        margin-top:15px;
-        margin-bottom:5px;
-        cursor:pointer;
-    }
-
-    .menu > div > img {
-        width:20px;
-        height:20px;
-        margin-right:10px;
-    }
-
 </style>

@@ -238,7 +238,7 @@
     }
     showSignIn(): void {
       const ele = document.getElementById("html");
-      window.location.href = '/inscription/test';
+      window.location.href = '/inscription';
     }
     hidePopUpLogin(e: Event): void {
       e.stopPropagation();

@@ -1,20 +1,21 @@
 <template>
     <div class="content">
         <div>
+            <p class="title">{{this.question.title}}</p>
             <div class="text">
                 <p>"</p>
-                <h1>Perso je trouve ça pue quoi.</h1>
+                <h1>{{this.message}}</h1>
                 <p>"</p>
             </div>
 
             <div class="bottom">
                 <div class="time-comment">
                     <img src="../../assets/icon/time.png"/>
-                    <p>Il y a 5 min</p>
+                    <p>{{this.dateFrom}}</p>
                 </div>
                 <div class="commentaire-comment">
-                    <img src="../../assets/icon/comment.png"/>
-                    <p>595</p>
+                    <img src="../../assets/icon/upvote.png"/>
+                    <p>{{this.up}}</p>
                 </div>
             </div>
         </div>
@@ -23,23 +24,77 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
+    import myAPI from "@/components/myAPI";
+    import moment from 'moment'
     @Component
     export default class Header extends Vue {
+        @Prop({default: 0})
+        up: number | undefined;
+        @Prop({default: 0})
+        question_id: number | undefined;
+        @Prop({default: 0})
+        theme_id: number | undefined;
+        @Prop({default: ""})
+        message: string | undefined;
+        @Prop({default: ""})
+        picture: string | undefined;
+        @Prop({default: ""})
+        date: string | undefined;
+
+        question: object;
+        dateFrom: string;
+        constructor() {
+            super();
+            this.question = [null];
+            this.dateFrom = "";
+        }
+
+        mounted() {
+            this.getQuestion();
+        }
+
+        created() {
+            moment.locale('fr');
+            if (this.date)
+                this.dateFrom = moment(this.date).fromNow()
+        }
+
+        async getQuestion(): Promise<void> {
+            let rep = null;
+
+            await myAPI.get("themes/" + this.theme_id + "/questions/" + this.question_id).then((response) =>  {
+                rep = response.data;
+            });
+
+            if (rep)
+                this.question = rep;
+        }
+
+
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .content div h1 {
+    .title {
+        margin:15px;
+        color:#185bab;
         font-size:22px;
-        margin-top:10px;
+        font-weight: bolder;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 97%;
+    }
+    .content div h1 {
+        font-size:16px;
         font-weight: 500;
         color:black;
         font-style: italic;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 930px;
+        max-width: 97%;
     }
     .content > div {
         width:100%;
@@ -48,7 +103,6 @@
         justify-content: space-between;
     }
     .text {
-        margin-top: 20px;
         margin-left:10px;
         display:flex;
         flex-direction: row;

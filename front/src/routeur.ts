@@ -24,6 +24,11 @@ export default new Router({
             component: () => import(/* webpackChunkName: "about" */ './components/About.vue'),
         },
         {
+            path: '/me',
+            name: 'Mon profile',
+            component: () => import(/* webpackChunkName: "about" */ './components/Me.vue'),
+        },
+        {
             path: '/Contact',
             name: 'Contact',
             component: () => import(/* webpackChunkName: "about" */ './components/ContactUs.vue'),
@@ -49,10 +54,16 @@ export default new Router({
             component: () => import(/* webpackChunkName: "about" */ './components/admin/Reports.vue'),
         },
         {
-            path: '/inscription/test',
-            name: "Inscription test",
+<<<<<<< HEAD
+            path: '/inscription/',
+            name: "Inscription",
             component: () => import(/* webpackChunkName: "about" */ './components/Inscription.vue'),
         },
 
+=======
+            path: "*",
+            component: () => import("./components/404notFound.vue")
+        }
+>>>>>>> e156d2cbaf946f3b03b97c029922b49b160f7787
     ],
 });

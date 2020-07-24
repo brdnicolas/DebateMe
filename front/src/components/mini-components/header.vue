@@ -13,8 +13,8 @@
                 </div>
             </div>
             <div class="rightHeader">
-                <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/profil/Nico">{{this.user.username}}</a>
-                <img class="profil_pic" v-if="this.user.profile_pic" src="../../assets/tmp/profil.jpg"/>
+                <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/me">{{this.user.username}}</a>
+                <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.profilPic"/>
                 <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
                 <button @click="visibleMenu=!visibleMenu" style="width:25px;height:22px;background:none;border:none;outline:none;margin-left:15px">
                     <svg viewBox="0 0 20 20" class="Menuicon">
@@ -23,9 +23,9 @@
                     </svg>
                 </button>
                 <ul class="dropdown" v-if="this.visibleMenu">
-                    <li>
+                    <li @click="redirectTo('me')">
                         <img src="../../assets/icon/Menu/user.png"/>
-                        <a v-bind:href=this.profil>Mon Compte</a>
+                        <a>Mon Compte</a>
                     </li>
                     <li>
                         <img src="../../assets/icon/Menu/params.png"/>
@@ -56,13 +56,13 @@
         currentPage: string;
         user: object;
         visibleMenu: boolean;
-        profil: string;
+        profilPic: string;
         constructor() {
             super();
             this.currentPage = "";
             this.user = [null];
+            this.profilPic = "";
             this.visibleMenu = false;
-            this.profil = "";
         }
 
         mounted() {
@@ -79,10 +79,12 @@
             });
             if (rep) {
                 this.user = rep;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                //@ts-ignore
-                this.profil = "/profil/" + this.user.username;
+                this.profilPic = (rep as Record<string,any>).img.profile_picture;
             }
+        }
+
+        redirectTo(page: string): void {
+            window.location.href = '/' + page;
         }
 
         deconnexion(): void {
@@ -109,8 +111,8 @@
     .dropdown {
         -webkit-animation-name: fadeInDown;
         animation-name: fadeInDown;
-        -webkit-animation-duration: 1s;
-        animation-duration: 1s;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
     }
@@ -139,6 +141,7 @@
         }
     }
     .dropdown {
+        z-index: 500000;
         background:white;
         cursor:auto;
         position:absolute;
@@ -192,6 +195,9 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        -webkit-box-shadow: 0px 8px 16px -5px rgba(214,214,214,1);
+        -moz-box-shadow: 0px 8px 16px -5px rgba(214,214,214,1);
+        box-shadow: 0px 8px 16px -5px rgba(214,214,214,1);
     }
     header a  {
         font-style: normal;
@@ -216,6 +222,7 @@
         height:22px;
         margin-top:7px;
         border-radius: 40px;
+        object-fit: cover;
     }
     .rightHeader a {
         color:#3f3e42;

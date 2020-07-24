@@ -1,28 +1,15 @@
 <template>
     <div class="main">
-        <div class="menu">
-            <div id="logo">
-                <img alt="logo" src="../../assets/img/logo2.png"/>
-            </div>
-            <div>
-                <img alt="dashboard" src="../../assets/icon/admin/dashboard.png"/>
-                <a href="/panel">Dashboard</a>
-            </div>
-            <div>
-                <img alt="report" src="../../assets/icon/admin/report.png"/>
-                <a href="/panel/reports">Signalements</a>
+        <Header/>
+        <div class="main2">
+            <Menu/>
+            <div class="subMain">
+                <div class="graph1">
+                    <h1>Visiteurs maximum - minimum selon les jours</h1>
+                    <line-chart :chart-data="datacollection"></line-chart>
+                </div>
             </div>
         </div>
-        <div class="content">
-            <div class="content-top">
-                <p>heello</p>
-            </div>
-            <div class="content-bottom">
-                <p>aled</p>
-            </div>
-        </div>
-
-
     </div>
 
 </template>
@@ -30,16 +17,52 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import axios from "axios"
+    import Header from "@/components/mini-components/header.vue";
+    import Menu from "@/components/admin/Menu.vue";
+    import LineChart from './LineChart.js';
 
+    /*
+    <div style="width:500px;height:500px;">
+        <line-chart :chart-data="datacollection"></line-chart>
+    </div>
+    */
 
     @Component({
         components: {
+            Header,
+            LineChart,
+            Menu
         },
     })
 
     export default class HelloWorld extends Vue {
         mounted() {
             this.checkAdmin();
+            this.fillData();
+        }
+
+        datacollection: object;
+
+        constructor() {
+            super();
+            this.datacollection = [null];
+        }
+
+        fillData () {
+            this.datacollection = {
+                labels: ['Lundi', 'Mardi','Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+                datasets: [
+                    {
+                        label: 'Visiteurs max',
+                        backgroundColor: '#f87979',
+                        data: [40, 20, 12, 39, 10, 40, 39]
+                    }, {
+                        label: 'Visiteurs min',
+                        backgroundColor: '#1072ff',
+                        data: [2, 10, 30, 39, 6, 45, 23]
+                    }
+                ]
+            }
         }
 
         async checkAdmin(): Promise<void> {
@@ -64,57 +87,34 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .content-bottom {
-        height:calc(100vh - 300px);
-        width: calc(100vw - 220px);
+    .main {
         background:#f8f9fe;
     }
-    .content-top {
-        height:300px;
-        width: calc(100vw - 220px);
-        background:#2AB2FF;
-    }
-    .main {
-        display: flex;
+    .main2 {
+        display:flex;
         flex-direction: row;
     }
-    #logo {
-        display:flex;
-        align-items: center;
-        justify-content: center;
+
+
+    .subMain {
+        padding:50px;
+        width:calc(100% - 220px);
     }
-    #logo img{
-        width:130px;
-        height:130px;
-    }
-    .menu {
-        z-index:10;
-        display:flex;
-        flex-direction: column;
-        width:200px;
-        min-height: 100vh;
+    .subMain .graph1 {
+        padding:20px;
+        width:35%;
         background:white;
-        padding:10px 10px 10px 20px;
+        box-shadow:
+                0 0px 5.3px rgba(0, 0, 0, 0.02),
+                0 0px 17.9px rgba(0, 0, 0, 0.03),
+                0 0px 80px rgba(0, 0, 0, 0.05)
+        ;
+        border-radius:5px;
     }
-
-    .menu a {
-        text-decoration: none;
-        color:black;
+    .subMain .graph1 h1 {
+        text-align: center;
+        font-weight:bold;
+        color:#154a85;
+        font-size: 18px;
     }
-
-    .menu > div {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        margin-top:15px;
-        margin-bottom:5px;
-        cursor:pointer;
-    }
-
-    .menu > div > img {
-        width:20px;
-        height:20px;
-        margin-right:10px;
-    }
-
 </style>

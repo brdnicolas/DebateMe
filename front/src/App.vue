@@ -12,6 +12,9 @@
   #app {
     font-family: 'Roboto', sans-serif;
   }
+  .swal2-modal {
+    font-family: 'Roboto', sans-serif !important;
+  }
   body {
     background:white;
   }
