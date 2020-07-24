@@ -1,7 +1,4 @@
 class PostsController < ApplicationController
-  before_action :set_user, only: [:search_index,:search_show, :search_destroy]
-  skip_before_action :authorize_request, only: [ :search_show, :search_index ]
-
   # GET /posts
   def index
     json_response(current_user.posts)
@@ -15,11 +12,6 @@ class PostsController < ApplicationController
   # GET /posts/:id
   def show
     json_response(Post.find(params[:id]))
-  end
-
-  # GET /users/:user_id/posts/:id
-  def search_show
-    json_response(@post)
   end
 
   # POST /posts
@@ -46,13 +38,7 @@ class PostsController < ApplicationController
     head :no_content
   end
 
-  # DELETE /users/:user_id/post/:id
-  def search_destroy
-    @post.destroy
-    head :no_content
-  end
-
-  # GET /vote
+  # GET /posts/:id/vote
   def vote
     @post = Post.find(params[:id])
     vote = UserHasVote.records(current_user.id, @post.id)

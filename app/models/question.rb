@@ -15,16 +15,14 @@ class Question < ApplicationRecord
   def posts_parsed
     posts = []
     self.posts.order(up: :desc).each do |element|
-      new_el = { user: element.user, post: element, votes_id: element.get_vote_ids }
+      new_el = { user: element.user.user_info, post: element, votes_id: element.get_vote_ids }
       posts.append(new_el)
     end
     posts
   end
 
   def get_question_image
-    attributes = self.attributes
-    attributes[:image] = get_image_url
-    attributes
+    attributes.attributes.merge(image: get_image_url)
   end
 
 end

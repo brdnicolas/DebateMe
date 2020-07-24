@@ -7,7 +7,7 @@
 #
 # set :output, "/path/to/my/cron_log.log"
 #
-every 1.minute do
+every 1.day do
   rake "statistics:posts"
 end
 #
