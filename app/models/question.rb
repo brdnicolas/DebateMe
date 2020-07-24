@@ -22,7 +22,7 @@ class Question < ApplicationRecord
   end
 
   def get_question_image
-    attributes.attributes.merge(image: get_image_url)
+    attributes.merge(image: get_image_url)
   end
 
 end
