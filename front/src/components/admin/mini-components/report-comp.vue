@@ -91,14 +91,13 @@
         cursor:pointer;
         background:white;
         width:50vw;
-        margin-left:100px;
         padding:15px;
         border-radius: 5px;
         -webkit-box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
         -moz-box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
         box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
-        margin-top:40px;
-        margin-bottom:40px;
+        margin-top:30px;
+        margin-bottom:30px;
     }
     .report h2 {
         margin-bottom:10px;

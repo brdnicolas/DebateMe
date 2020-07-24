@@ -23,9 +23,9 @@
                     </svg>
                 </button>
                 <ul class="dropdown" v-if="this.visibleMenu">
-                    <li>
+                    <li @click="redirectTo('me')">
                         <img src="../../assets/icon/Menu/user.png"/>
-                        <a href="/me">Mon Compte</a>
+                        <a>Mon Compte</a>
                     </li>
                     <li>
                         <img src="../../assets/icon/Menu/params.png"/>
@@ -77,6 +77,10 @@
             });
             if (rep)
                 this.user = rep;
+        }
+
+        redirectTo(page: string): void {
+            window.location.href = '/' + page;
         }
 
         deconnexion(): void {
@@ -187,6 +191,9 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        -webkit-box-shadow: 0px 8px 16px -5px rgba(214,214,214,1);
+        -moz-box-shadow: 0px 8px 16px -5px rgba(214,214,214,1);
+        box-shadow: 0px 8px 16px -5px rgba(214,214,214,1);
     }
     header a  {
         font-style: normal;
