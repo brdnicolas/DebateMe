@@ -14,7 +14,7 @@
             </div>
             <div class="rightHeader">
                 <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/profil/Nico">{{this.user.username}}</a>
-                <img class="profil_pic" v-if="this.user.profile_pic" src="../../assets/tmp/profil.jpg"/>
+                <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.profilPic"/>
                 <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
                 <button @click="visibleMenu=!visibleMenu" style="width:25px;height:22px;background:none;border:none;outline:none;margin-left:15px">
                     <svg viewBox="0 0 20 20" class="Menuicon">
@@ -56,10 +56,12 @@
         currentPage: string;
         user: object;
         visibleMenu: boolean;
+        profilPic: string;
         constructor() {
             super();
             this.currentPage = "";
             this.user = [null];
+            this.profilPic = "";
             this.visibleMenu = false;
         }
 
@@ -75,8 +77,10 @@
             }).catch(error => {
                 this.deconnexion();
             });
-            if (rep)
+            if (rep) {
                 this.user = rep;
+                this.profilPic = (rep as Record<string,any>).img.profile_picture;
+            }
         }
 
         redirectTo(page: string): void {
@@ -218,6 +222,7 @@
         height:22px;
         margin-top:7px;
         border-radius: 40px;
+        object-fit: cover;
     }
     .rightHeader a {
         color:#3f3e42;
