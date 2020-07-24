@@ -238,10 +238,7 @@
     }
     showSignIn(): void {
       const ele = document.getElementById("html");
-      this.showModalSignin = true;
-      if (ele) {
-        ele.style.overflow = 'hidden'
-      }
+      window.location.href = '/inscription/test';
     }
     hidePopUpLogin(e: Event): void {
       e.stopPropagation();

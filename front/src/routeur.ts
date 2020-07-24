@@ -47,6 +47,12 @@ export default new Router({
             path: '/panel/reports',
             name: "Reports panel",
             component: () => import(/* webpackChunkName: "about" */ './components/admin/Reports.vue'),
-        }
+        },
+        {
+            path: '/inscription/test',
+            name: "Inscription test",
+            component: () => import(/* webpackChunkName: "about" */ './components/Inscription.vue'),
+        },
+
     ],
 });
