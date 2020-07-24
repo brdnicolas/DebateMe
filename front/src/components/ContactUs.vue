@@ -28,7 +28,7 @@
                 </form>
             </div>
         </div>
-        <footerComponent/>
+        <footerComponent style=" background:#F6FAFF;"/>
     </div>
 </template>
 <script lang="ts">
@@ -66,6 +66,7 @@
         height:100%;
         width:100%;
         padding:200px 0 200px 0;
+        background:#F6FAFF;
     }
     .card h4 {
         font-style: normal;
@@ -152,6 +153,6 @@
 
     }
    .contactUs {
-       background:#FDFEFF;
+       background:#F6FAFF;
    }
 </style>

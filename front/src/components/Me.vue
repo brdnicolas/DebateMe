@@ -33,9 +33,21 @@
         </div>
         <div class="profil-citation">
             <img class="quoteleft" src="../assets/icon/quote_left.png"/>
-            <p v-if="this.user.quote">{{this.user.quote}}</p>
-            <p v-else>En panne d'inspiration ? Créez votre propre citation</p>
+            <p id="citation">
+                <span v-if="this.user.quote">
+                {{this.user.quote}}
+                </span>
+                <span v-else>
+                    En panne d'inspiration ? Créez votre propre citation
+                </span>
+            </p>
+            <textarea style="display: none" id="modifyQuote" type="text"/>
             <img class="quoteright" src="../assets/icon/quote_right.png"/>
+        </div>
+        <div style="display:flex;flex-direction: row;justify-content: center">
+            <p @click="CSSModifyQuote" id="modifyBtn" style="text-align: center;color:#C1C1C1;text-decoration: underline;cursor:pointer">Modifier la citation</p>
+            <p @click="PATCHQuote" id="validerBtn" style="display:none;margin-left:5px;margin-right:5px;text-align: center;color:#80DF96;text-decoration: underline;cursor:pointer">Valider</p>
+            <p @click="CSSRetablir" id="annulerBtn" style="display:none;margin-left:5px;margin-right:5px;text-align: center;color:#EE6262;text-decoration: underline;cursor:pointer" >Annuler</p>
         </div>
         <div class="liste-badge">
             <p v-if="this.achivments.length === 0">Aucune récompenses pour le moment..</p>
@@ -55,11 +67,13 @@
 </template>
 
 <script lang="ts">
+    // @ts-nocheck
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import headerComponent from "@/components/mini-components/header.vue";
     import footerComponent from "@/components/mini-components/footer.vue";
     import activitePoste from "@/components/mini-components/activitePoste.vue"
     import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
+    import Swal from 'sweetalert2/dist/sweetalert2.js'
     import myAPI from "@/components/myAPI";
 
 
@@ -81,6 +95,7 @@
 
         achivments: Array<string>;
         posts: object;
+
         constructor() {
             super();
             this.user = [null];
@@ -90,7 +105,6 @@
             this.achivments = [""];
             this.posts = [""];
         }
-
 
         mounted() {
             this.getCurrentUser();
@@ -123,6 +137,72 @@
                 this.posts = (rep as Record<string,any>).posts;
             }
         }
+
+        CSSModifyQuote(): void {
+            console.log("nice");
+            const citation = document.getElementById("citation");
+            const areaCitation = document.getElementById("modifyQuote");
+            const btnModify = document.getElementById("modifyBtn");
+            const btnValider = document.getElementById("validerBtn");
+            const btnAnnuler = document.getElementById("annulerBtn");
+
+            if(citation && areaCitation && btnModify && btnValider && btnAnnuler) {
+                console.log("fuck");
+                areaCitation.style.display = "block";
+                citation.style.display = "none";
+                btnModify.style.display = "none";
+                btnValider.style.display = "block";
+                btnAnnuler.style.display = "block";
+            }
+        }
+
+        async PATCHQuote(): Promise<void> {
+            const newCitation = document.getElementById("modifyQuote");
+            let value = "";
+            if (newCitation)
+                value = (newCitation as HTMLTextAreaElement).value;
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+            });
+
+            await myAPI.patch("users/" + (this.user as Record<string,any>).user_id, {
+                'quote': value
+            })
+            .then((response: { data: any}) =>  {
+                this.CSSRetablir();
+                location.reload();
+                Toast.fire({
+                    icon: 'success',
+                    title: "Citation modifiée."
+                });
+            }).catch(error => {
+                console.log(error);
+                this.CSSRetablir();
+                Toast.fire({
+                    icon: 'error',
+                    title: "Un problème est survenu."
+                })
+            });
+        }
+
+        CSSRetablir() {
+            const citation = document.getElementById("citation");
+            const areaCitation = document.getElementById("modifyQuote");
+            const btnModify = document.getElementById("modifyBtn");
+            const btnValider = document.getElementById("validerBtn");
+            const btnAnnuler = document.getElementById("annulerBtn");
+            if(citation && areaCitation && btnModify && btnValider && btnAnnuler) {
+                areaCitation.style.display = "none";
+                citation.style.display = "block";
+                btnModify.style.display = "block";
+                btnValider.style.display = "none";
+                btnAnnuler.style.display = "none";
+            }
+        }
+
         deconnexion(): void {
             localStorage.token = "";
             sessionStorage.token = "";
@@ -193,6 +273,16 @@
     .quoteright {
         width:100px;
         padding-top:20px;
+    }
+    #modifyQuote {
+        width:600px;
+        max-width: 50vw;
+        margin-left:40px;
+        margin-right:40px;
+        font-size: 24px;
+        padding-left:8px;
+        padding-right: 8px;
+        line-height: 28px;
     }
     .profil-citation > p {
         max-width:50vw;
