@@ -3,10 +3,10 @@
     <div class="comment">
         <div class="top">
             <div class="left">
-                <img v-if="!commentaire.isAnonym" :alt="user.username" src="../../assets/categories/nature.jpg"/>
+                <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym" :alt="user.username" src="../../assets/categories/nature.jpg"/>
                 <div v-if="!commentaire.isAnonym">
-                    <h3 class="username">{{user.username}}</h3>
-                    <p class="citation">Vendeur de tapis</p>
+                    <h3 @click="showProfil(user.username)" class="username">{{user.username}}</h3>
+                    <p class="citation">{{user.quote}}</p>
                 </div>
                 <img v-if="commentaire.isAnonym" :alt="user.username" src="../../assets/img/anonymous.png"/>
                 <div v-if="commentaire.isAnonym">
@@ -72,6 +72,10 @@
             this.currentUser = {};
         }
 
+        showProfil(username: string): void {
+            window.location.href = "/profil/" + username;
+        }
+
         created() {
             moment.locale('fr');
             if (this.commentaire)
@@ -80,6 +84,7 @@
 
         mounted() {
             this.getCurrentUser();
+            console.log(this.user);
         }
 
         async sendReport(): Promise<void> {
@@ -87,7 +92,7 @@
                 title: "Choisissez la raison de votre signalement",
                 showCancelButton: true,
                 html:
-                    '<div style="text-align:left">' +
+                    '<div class="test" style="text-align:left">' +
                     '<div><input type="radio" id="choose" name="reportCause" value="aucune" checked>' +
                     '<label style="margin-left:10px;" for="choose">Aucune</label></div>' +
                     '<div><input type="radio" id="injure" name="reportCause" value="1">' +
@@ -276,11 +281,13 @@
         height:60px;
         object-fit: cover;
         border-radius: 50px;
+        cursor:pointer;
     }
     .username {
         font-weight: 500;
         margin-left:10px;
         font-size:20px;
+        cursor:pointer;
     }
     .citation {
         color:#a7a7a7;

@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="rightHeader">
-                <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/profil/Nico">{{this.user.username}}</a>
+                <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/me">{{this.user.username}}</a>
                 <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.profilPic"/>
                 <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
                 <button @click="visibleMenu=!visibleMenu" style="width:25px;height:22px;background:none;border:none;outline:none;margin-left:15px">
