@@ -54,16 +54,14 @@ export default new Router({
             component: () => import(/* webpackChunkName: "about" */ './components/admin/Reports.vue'),
         },
         {
-<<<<<<< HEAD
             path: '/inscription/',
             name: "Inscription",
             component: () => import(/* webpackChunkName: "about" */ './components/Inscription.vue'),
         },
+        {
 
-=======
             path: "*",
             component: () => import("./components/404notFound.vue")
         }
->>>>>>> e156d2cbaf946f3b03b97c029922b49b160f7787
     ],
 });
