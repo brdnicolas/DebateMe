@@ -5,13 +5,15 @@
             <img v-if="this.bannerPic" v-bind:src="this.user.img.banner"/>
             <img v-else src="../assets/tmp/couverture.png"/>
             <input style="display:none" type="file"
-                   id="bannerPicture" name="avatar"
-                   accept="image/png, image/jpeg">
+                   id="bannerPicture" name="banner"
+                   accept="image/png, image/jpeg"
+                    @change="updatePicture">
             <img @click="changeBannerPicture" class="modifyBanner" src="../assets/icon/modify.png"/>
             <div class="photo-profil">
                 <input style="display:none" type="file"
-                       id="profilePicture" name="avatar"
-                       accept="image/png, image/jpeg">
+                       id="profilePicture" name="profilePicture"
+                       accept="image/png, image/jpeg"
+                       @change="updatePicture">
                 <img @click="changeProfilePicture" class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
                 <img @click="changeProfilePicture" class="profil_pic" v-else src="../assets/img/profile.png"/>
                 <h1>{{this.user.username}}</h1>
@@ -188,6 +190,27 @@
             });
         }
 
+        async updatePicture(): Promise<void> {
+            const banner = document.getElementById('bannerPicture');
+            const profilePicture = document.getElementById('profilePicture');
+            const fd = new FormData();
+
+            if (banner.files[0]) {
+                fd.append('banner', banner.files[0]);
+                banner.value = null;
+            }
+            if (profilePicture.files[0]) {
+                fd.append('profile_picture', profilePicture.files[0]);
+                profilePicture.value = null;
+            }
+            await myAPI.patch("users/" + (this.user as Record<string,any>).user_id, fd)
+                .then((response: { data: any}) =>  {
+                    console.log(response) //Actualiser les images
+                }).catch(error => {
+                    console.log(error)
+                });
+        }
+
         CSSRetablir() {
             const citation = document.getElementById("citation");
             const areaCitation = document.getElementById("modifyQuote");
@@ -202,6 +225,7 @@
                 btnAnnuler.style.display = "none";
             }
         }
+
 
         deconnexion(): void {
             localStorage.token = "";
