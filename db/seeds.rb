@@ -8,34 +8,34 @@
 require 'faker'
 
 achievements = [
-    {
-        name: 'Homme mystère',
-        description: 'Alors comme ça on ne veux parler sans son nom ?',
-        goal: 'Faire un post en Anonyme'
-    },
-    {
-        name: 'Validé',
-        description: 'Vous êtes officiellement validé par DebateMe',
-        goal: 'Remplir toutes les informations de son profil'
-    },
-    {
-        name: 'Premier pas',
-        description: "On place d'abord sa souris dans le champs de saisie, et ensuite seulement on argumente !",
-        goal: 'Répondre à une question'
-    },
-    {
-        name: 'Symphatique',
-        description: "Il faut croire que les gens sont d'accord avec vous !",
-        goal: 'Avoir 100 up au total sous ses posts'
-    },
-    {
-        name: 'Influenceur',
-        description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
-        goal: 'Avoir 15 sous commentaires sur un posts'
-    }
+  {
+    name: 'Homme mystère',
+    description: 'Alors comme ça on ne veux parler sans son nom ?',
+    goal: 'Faire un post en Anonyme'
+  },
+  {
+    name: 'Validé',
+    description: 'Vous êtes officiellement validé par DebateMe',
+    goal: 'Remplir toutes les informations de son profil'
+  },
+  {
+    name: 'Premier pas',
+    description: "On place d'abord sa souris dans le champs de saisie, et ensuite seulement on argumente !",
+    goal: 'Répondre à une question'
+  },
+  {
+    name: 'Symphatique',
+    description: "Il faut croire que les gens sont d'accord avec vous !",
+    goal: 'Avoir 100 up au total sous ses posts'
+  },
+  {
+    name: 'Influenceur',
+    description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
+    goal: 'Avoir 15 sous commentaires sur un posts'
+  }
 ]
 
-pics = %w(anonymous.png tick.png foot.png heart.png influence.png)
+pics = %w[anonymous.png tick.png foot.png heart.png influence.png]
 i = 0
 achievements.each do |achievement|
   a = Achievement.create(achievement)
@@ -45,25 +45,27 @@ end
 
 50.times do
   user = User.create(email: Faker::Internet.email, password: 'qwerty')
-  UserInfo.create( username: Faker::Internet.username,
-                   firstname: Faker::Name.first_name,
-                   lastname: Faker::Name.last_name,
-                   quote: Faker::Lorem.sentence,
-                   user_id: user.id
-                   )
+  UserInfo.create(username: Faker::Internet.username,
+                  firstname: Faker::Name.first_name,
+                  lastname: Faker::Name.last_name,
+                  quote: Faker::Lorem.sentence,
+                  user_id: user.id)
 
   print'.'
 end
-User.create!( email: 'admin@hugovast.tech',
-              password: 'admin',
-              isAdmin: true
-)
+User.create!(email: 'admin@hugovast.tech',
+             password: 'admin',
+             isAdmin: true)
 UserInfo.create!(user_id: User.last.id, firstname: 'admin', lastname: 'admin', username: 'admin')
 @users = User.all
 
+themes = %w[Science Écologie Politique Actualité Sports Musique Tech Gaming]
+themes_pic = %w[sciences.png earth.png democracy.png news.png gym.png music.png lightning.png games.png]
 puts "\n#{@users.size} users created"
-5.times do
-  Theme.create!(name: Faker::Lorem.question)
+themes.each_with_index do |theme, i|
+  Theme.create!(name: theme)
+  puts "public/logo_themes/#{themes_pic[i]}"
+  Theme.last.logo.attach(io: File.open("public/logo_themes/#{themes_pic[i]}"), filename: themes_pic[i])
   print '.'
 end
 @themes = Theme.all
@@ -71,7 +73,7 @@ puts "\n#{@themes.size} themes created"
 
 @themes.each do |theme|
   5.times do
-    theme.questions.create!( title: Faker::Lorem.question,
+    theme.questions.create!(title: Faker::Lorem.question,
                              documentation: Faker::Lorem.paragraphs,
                              start_time: "2020-05-23 16:15:40",
                              end_time: "2020-05-23 17:15:40")
@@ -83,7 +85,7 @@ puts "\n #{Question.count} questions created"
 Question.all.each do |question|
   10.times do
 
-    question.posts.create!( content: Faker::Lorem.paragraphs,
+    question.posts.create!(content: Faker::Lorem.paragraphs,
                             isAnonym: (true if rand > 0.8),
                             up: Integer(rand * 10),
                             down: Integer(rand * 10),
