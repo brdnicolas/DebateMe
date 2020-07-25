@@ -66,10 +66,12 @@
     <div class="cover">
       <img class="background" src="../assets/struct/homepage.png"/>
       <div class="left">
-        <h3>Debate Me C'est quoi ?</h3>
+        <h3>DebateMe c'est quoi ?</h3>
         <br>
-        <p>C'est une plateforme de débat et de discussions autour de différentes thématique actuelle. Nous avons créer Debate me afin de permettre au gens de débattre sur internet dans un environnement sain
-          et respectueux, sans risquer de recevoir des réponses insultantes ou sans intéret et sans non plus tomber dans la censure. En effet, nous disposons d'une modération forte, qui fonctionne graçe à une intelligence artificielle et une modération manuel plus classique afin d'éviter ce genre de désagréments.
+        <p>C'est une plateforme de débat et de discussions autour de différentes thématiques dans l'air du temps.
+          Nous avons créé DebateMe afin de permettre aux gens de débattre sur internet dans un environnement sain et respectueux, sans risquer de recevoir des réponses insultantes ou sans intérêt.
+          De ce fait, nous disposons d'une modération forte. Une partie de cette modération fonctionne grâce à une intelligence artificielle, qui va pouvoir lire, interpréter et corriger les messages publiés.
+          Le reste de la modération est manuel, afin d'éviter au maximum tout désagrément.
         </p>
       </div>
       <div class="right">
@@ -87,14 +89,15 @@
       </div>
       <div class="right">
         <h2>Créez <span>vous même</span> les sujets !</h2>
-        <p>En effet vous pourrez nous suggérer des sujets d'actualité qui rejoindrons nos propres sujets d'actualité, mais vous pourrez aussi créer vos propre sujets afin d'en débattre avec qui le veux. Ces sujets seront evidement d'abord validé avant d'apparaitre sur notre site.</p>
+        <p>En effet vous pourrez nous suggérer des sujets d'actualité qui rejoindront les thématiques déjà existantes, mais vous pourrez aussi créer vos propres sujets afin d'en débattre avec qui le veut.
+          Ces sujets seront évidemment validés en amont avant d'apparaitre sur notre site.</p>
       </div>
     </div>
 
     <div class="part2">
       <div class="left">
         <h2>Des <span>statistiques</span> pour chaque débat</h2>
-        <p>Au bout d'une semaine nous metterons a votre disposition des statistiques que nous aurons récupérer sur les débats. Chaque sujet aura sa page statistique, ces données seront variée tel que: le nombre de participant, le nombre de participation a ce débat en moyenne par candidat, le taux de participation par tranche d'âge, le nombre de participants anonyme, le sexe des participants etc...   </p>
+        <p>Au bout d'une semaine nous estimons que le débat puisse être clos. Nous mettons à votre disposition les informations liées à la question. Chaque sujet aura donc sa page statistique. Ces données seront de plusieurs natures, telles que: le nombre de participant, le nombre de participations à ce débat en moyenne par candidat, le taux de participation par tranche d'âge, le nombre de participants anonymes, le sexe des participants etc.</p>
       </div>
       <div class="right">
         <img src="../assets/illustrations/work.gif"/>
@@ -105,13 +108,14 @@
     <div class="profil-card">
       <div class="card">
         <h2><span>Votre</span> profil</h2>
-        <img class="illustration-profil" src="../assets/illustrations/work2.gif"/>
-        <p>Votre profil est votre petit jardin, c'est ici que vous pourrez voir vos abonnée et vos abonnement ainsi que les commentaires que vous avez liké. C'est aussi ici que seront affiché vos magnifiques badges gagné à la sueur de votre front.</p>
+        <img class="illustration-profil" src="../assets/illustrations/work2.gif" alt="image du profil"/>
+        <p>Chaque utilisateur possède un espace personnel, c'est comme votre petit jardin. Sur cette page sont regroupés plusieurs éléments, dont certains personnalisables.
+          DebateMe propose aussi un système de succès, des objectifs cachés vous récompensant de badge. Pour faire la course au badge il faut utiliser toutes les fonctionnalités de Debate Me... dans certaines conditions bien sûr !</p>
         <div class="bottom">
           <img class="illustration-anonyme" src="../assets/illustrations/anonyme.png">
           <div class="anonymetext">
-            <h1>Soyez <span>Anonyme !</span></h1>
-            <p>Nous avons pensez à tous, si vous voulez participer à un débat mais que vous avez peur que l'on vous reconaisse et que vos opinions ai des mauvaises répercussion dur votre vie. Nous vous permettons de participer au débat en tant qu'anonyme. </p>
+            <h1>Soyez <span>Anonyme</span> !</h1>
+            <p>Nous avons pensé à tout. Si vous voulez participer à un débat mais que vous avez peur que l'on vous reconnaisse ou que votre opinion ait de mauvaises répercussions sur votre vie. Nous vous permettons de participer au débat en tant qu'anonyme. Bien sûr, cela ne veut pas dire que vous pouvez faire n'importe quoi !</p>
           </div>
         </div>
       </div>
