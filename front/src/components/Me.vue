@@ -205,7 +205,7 @@
             }
             await myAPI.patch("users/" + (this.user as Record<string,any>).user_id, fd)
                 .then((response: { data: any}) =>  {
-                    console.log(response) //Actualiser les images
+                    location.reload();
                 }).catch(error => {
                     console.log(error)
                 });
