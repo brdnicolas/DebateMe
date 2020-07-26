@@ -69,38 +69,83 @@ themes.each_with_index do |theme, i|
   print '.'
 end
 @themes = Theme.all
+
 puts "\n#{@themes.size} themes created"
 
 @themes.each do |theme|
   5.times do
     theme.questions.create!(title: Faker::Lorem.question,
-                             documentation: Faker::Lorem.paragraphs,
-                             start_time: "2020-05-23 16:15:40",
-                             end_time: "2020-05-23 17:15:40")
+                            documentation: Faker::Lorem.paragraphs,
+                            start_time: '2020-05-23 16:15:40',
+                            end_time: '2020-05-23 17:15:40')
     print '.'
   end
-  print '|'
+  print ' x '
 end
 puts "\n #{Question.count} questions created"
 Question.all.each do |question|
   10.times do
 
     question.posts.create!(content: Faker::Lorem.paragraphs,
-                            isAnonym: (true if rand > 0.8),
-                            up: Integer(rand * 10),
-                            down: Integer(rand * 10),
-                            user_id: @users.sample.id,
-                            subpost_id: (question.posts.sample&.id if rand > 0.8))
+                           isAnonym: (true if rand > 0.8),
+                           up: Integer(rand * 10),
+                           down: Integer(rand * 10),
+                           user_id: @users.sample.id,
+                           subpost_id: (question.posts.sample&.id if rand > 0.8))
     print '.'
   end
   print '|'
 end
 puts "\n #{Post.count} fake answer created"
 
-reasons_str = ["Ce contenu est injurieux",
+reasons_str = ['Ce contenu est injurieux',
                "Ce contenu n'as pas sa place ici",
-               "Les propos devraient être reformulés",
-               "Ce contenu tiens des propos racistes",
-               "Ce contenu tiens des propos sexistes"]
+               'Les propos devraient être reformulés',
+               'Ce contenu tiens des propos racistes',
+               'Ce contenu tiens des propos sexistes']
 
 reasons_str.each { |reason| ReasonReport.create!(reason: reason) }
+
+Theme.find_by_name('Écologie').questions.destroy_all
+
+questions = [
+  {
+    title: "Doit-on renoncer à l'énergie nucléaire ?",
+    documentation: "Dans le langage courant, l'énergie nucléaire correspond aux usages civils et militaires de l'énergie libérée lors des réactions de fission nucléaire des noyaux atomiques au sein d'un réacteur nucléaire ou lors d'une explosion atomique (dans le cas d'une bombe thermonucléaire il existe aussi des réactions de fusion nucléaire).",
+    start_time: '2020-07-23 00:00:00',
+    end_time: '2020-07-30 00:00:00'
+  },
+  {
+    title: 'Faut-il exploiter le gaz de schiste ?',
+    documentation: "Les problèmes environnementaux associés à l'extraction du gaz de schiste, notamment l'utilisation intensive et la pollution des réserves d'eau, l'augmentation des tremblements de terre ainsi que l'émission de gaz à effet de serre, entraînent dans certains pays, y compris aux États-Unis, une défiance de l'opinion publique. Le sujet fait l'objet de controverses très vives qui opposent d'une part ceux qui voient dans la mise en exploitation de cette ressource de gaz non conventionnel un moyen de diminuer les importations énergétiques et d'augmenter les revenus du pays ainsi que les industriels du secteur pétrolier et d'autre part différents mouvements mettant en avant des arguments écologiques.",
+    start_time: '2020-07-16 00:00:00',
+    end_time: '2020-07-23 00:00:00'
+  },
+  {
+    title: "La ruralité est-elle un modèle d'avenir ?",
+    documentation: "La ruralité « fait référence à l'ensemble des représentations collectives associées à la vie dans les espaces ruraux. Proche de l'idée de mode de vie, le mot est apparu à la fin des années 1990 pour désigner un lien, dans sa dimension anthropologique, aux différents contenus de l'espace rural (de moins en moins agricole mais plus tourné sur l'environnement, le patrimoine et les paysages). Devenue une notion globalisante pour désigner un mode d'habiter (Mathieu, 1996) qui permet d'atténuer une opposition franche entre la ville et la campagne devenue obsolète. On notera cependant qu'une dimension politique tend aujourd'hui à rattraper le terme, et impose d'y apporter un regard critique, tant le monde politique et la presse l'utilise de plus en plus fréquemment (« assises de la ruralité », « hyper-ruralité », défense de la ruralité…). »",
+    start_time: '2020-07-09 00:00:00',
+    end_time: '2020-07-16 00:00:00'
+  },
+  {
+    title: "Nos ressources d'eau sont elle menacées ?",
+    documentation: 'https://www.cieau.com/connaitre-leau/les-ressources-en-france-et-dans-le-monde/ou-en-sont-les-ressources-en-eau-dans-le-monde/',
+    start_time: '2020-07-02 00:00:00',
+    end_time: '2020-07-09 00:00:00'
+  },
+  {
+    title: 'Doit-on renforcer la réglementation sur la responsabilité collective ?',
+    documentation: 'https://www.cairn.info/revue-francaise-de-science-politique-2008-6-page-899.htm#',
+    start_time: '2020-06-26 00:00:00',
+    end_time: '2020-07-02 00:00:00'
+  }
+]
+
+questions_pictures = %w[nuclear.jpeg shiste.jpeg rural.jpeg water.jpeg collectif.jpg]
+
+questions.each_with_index do |q, i|
+  Question.create!(q.merge(theme_id: 2))
+  puts "public/questions/#{questions_pictures[i]}"
+  Question.last.image.attach(io: File.open("public/questions/#{questions_pictures[i]}"), filename: questions_pictures[i])
+  print '.'
+end
