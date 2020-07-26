@@ -29,7 +29,7 @@ class UserInfo < ApplicationRecord
   end
 
   def self.search(to_search)
-    where("username LIKE ?", "%" + to_search + "%")
+    where('username LIKE ?', '%' + to_search + '%')
   end
 
   def get_achievements

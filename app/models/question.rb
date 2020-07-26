@@ -3,8 +3,6 @@ class Question < ApplicationRecord
   has_one_attached :image
 
   has_many :posts, dependent: :destroy
-  has_many :reports, dependent: :destroy
-
   belongs_to :theme
 
   validates_presence_of :title, :start_time, :end_time
@@ -28,12 +26,12 @@ class Question < ApplicationRecord
   end
 
   def posts_parsed
-    posts = []
-    self.posts.order(up: :desc).each do |element|
+    new_posts = []
+    posts.order(up: :desc).each do |element|
       new_el = { user: element.user.user_info, post: element, votes_id: element.get_vote_ids }
       posts.append(new_el)
     end
-    posts
+    new_posts
   end
 
   def get_question_image
