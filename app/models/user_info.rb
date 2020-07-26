@@ -19,14 +19,13 @@ class UserInfo < ApplicationRecord
   end
 
   def update(attributes = {})
-      if attributes[:profile_picture]
-        profile_picture.purge if profile_picture.attached?
-      end
-      if attributes[:banner]
-        banner.purge if banner.attached?
-      end
-      super(attributes)
+    if attributes[:profile_picture]
+      profile_picture.purge if profile_picture.attached?
     end
+    if attributes[:banner]
+      banner.purge if banner.attached?
+    end
+    super(attributes)
   end
 
   def self.search(to_search)
