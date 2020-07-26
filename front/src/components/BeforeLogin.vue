@@ -19,45 +19,22 @@
     <!-- POPUP -->
     <transition name ="fade" appear>
       <div v-on:click.self="hidePopUpLogin($event)" class="modal-overlayLogin" v-if="showModalLogin"  >
-
         <form class="logbox">
-          <img class="logoLogin" src="../assets/img/logo2.png" @click="showModalLogin = false"/>
-          <p style="margin-left:52px;color:red;">{{error}}</p>
-          <h1>EMAIL</h1>
-          <input v-model="connexionEmail" name="email" class="textarea" type="email">
-          <h1>MOT DE PASSE</h1>
-          <input v-model="connexionPassword" class="textarea" type="password">
+          <div class="topPop">
+            <img class="logoLogin" src="../assets/img/logo2.png" @click="showModalLogin = false"/>
+            <h1>Debate Me</h1>
+          </div>
+          <div class="topPartError">
+            <h1 id="connexion">Connexion</h1>
+            <p style="margin-left:10px;color:red;">{{error}}</p>
+          </div>
+          <input v-model="connexionEmail" name="email" class="textarea" id="username" type="email" placeholder="Email">
+          <input v-model="connexionPassword" class="textarea" type="password" id="pass" placeholder="Mot de passe">
           <div class="logs">
             <button type="submit" class="Login" @click="ConnexionPOST($event,connexionEmail,connexionPassword)">CONNEXION</button>
             <button type="button" class="Signin" @click="ChangeToInscription($event)">INSCRIPTION</button>
           </div>
           <p class="ForgetPassword"><a href="#"> Mot de passe oublié ?</a> Nous allons vous envoyer un mail.</p>
-        </form>
-      </div>
-    </transition>
-
-    <transition name ="fade" appear>
-      <div v-on:click.self="hidePopUpSignIn($event)" class="modal-overlayLogin" v-if="this.showModalSignin"  >
-
-        <form class="logboxSignIn">
-          <img class="logoLogin" src="../assets/img/logo2.png" @click="showModalLogin = false"/>
-          <p style="margin-left:52px;color:red;">{{error}}</p>
-          <h1>EMAIL</h1>
-          <input v-model="inscriptionEmail" class="textarea" type="email">
-          <h1>MOT DE PASSE</h1>
-          <input v-model="inscriptionPassword" class="textarea" type="password">
-          <h1>CONFIRMATION MOT DE PASSE</h1>
-          <input v-model="inscriptionPasswordRe" class="textarea" type="password">
-          <h1>PSEUDO</h1>
-          <input v-model="inscriptionPseudo" class="textarea" type="text">
-          <h1>PRÉNOM</h1>
-          <input v-model="inscriptionFirstName" class="textarea" type="text">
-          <h1>NOM</h1>
-          <input v-model="inscriptionLastName" class="textarea" type="text">
-          <div class="logs">
-            <button type="submit" class="Signin" @click="InscriptionPost($event,inscriptionEmail,inscriptionPassword,inscriptionPasswordRe,inscriptionPseudo,inscriptionFirstName,inscriptionLastName)">S'INSCRIRE</button>
-            <button type="button" class="Login" @click="ChangeToLogin($event)">CONNEXION</button>
-          </div>
         </form>
       </div>
     </transition>
@@ -539,6 +516,11 @@
     align-items: center;
     justify-content: space-between;
   }
+  .topPartError {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+  }
   .cover .background {
     width:100vw;
     height:900px;
@@ -555,8 +537,8 @@
     align-items: center;
   }
   .logo {
-    width:80px;
-    height:80px;
+    width:50px;
+    height:50px;
   }
   header .left {
     display:flex;
@@ -565,9 +547,11 @@
     padding-left:50px;
   }
   header .left .name {
-    font-size:30px;
+    font-size:26px;
     color:white;
-    font-weight: 300;
+    font-weight: bold;
+    margin-top:20px;
+    margin-left:10px;
   }
   header .right {
     display:flex;
@@ -601,6 +585,12 @@
     font-size:17px;
     cursor:pointer;
     outline:none;
+  }
+  #connexion {
+    margin-left:30px;
+    margin-top:20px;
+    font-size:25px;
+    color:#154a85;
   }
   #sign {
     color:white;
@@ -647,106 +637,89 @@
     display: flex;
     flex-direction: column;
   }
-  .logboxSignIn {
-    background: #FCFCFC;
-    border: 1px solid #FFFFFF;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    z-index: 99;
-    width: 480px;
-    height: 740px;
-    display: flex;
-    flex-direction: column;
-  }
   .logoLogin {
-    width: 80px;
-    min-width: 50px;
-    margin:22px 40px 5px 40px;
+    width: 50px;
+    height:50px;
+    margin-left:30px;
+  }
+  .topPop h1 {
+    margin: 0;
+    margin-top:20px;
+    margin-left:10px;
+    font-size:20px;
+    color:#1072ff;
   }
 
-  .logs {
-    display: flex ;
-    flex-direction: row;
-    margin-top:25px;
-    align-items: center;
-  }
   .logs button {
-    transition:0.3s;
-    margin-left:54px;
-    width:150px;
-    height:35px;
+    transition:0.2s;
+    margin-left:30px;
+    width:190px;
+    height:40px;
     font-weight: 600;
     letter-spacing: 2px;
     padding-top:1px;
-    margin-top:15px;
+    margin-top:30px;
     outline:none;
     box-shadow: none;
     cursor:pointer;
   }
-  .logs button:hover {
-    transition:0.3s;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.40);
-  }
   .logs button:first-child {
     border:none;
-    background:#408dfe;
+    background:#1965ff;
     color:white;
     border-radius: 20px;
   }
+  .logs button:first-child:hover {
+    transition:0.2s;
+    background:#6b94ff;
+  }
   .logs button:nth-child(2) {
     background:white;
-    color:#408dfe;
-    border:2px solid #408dfe;
+    color:#1965ff;
+    border:2px solid #1965ff;
     border-radius: 20px;
   }
-  .remember h2 {
-    color:#a7a7a7;
-    font-size:12px;
-    margin-top:6px;
-    margin-left:5px;
-    font-weight: 500;
+  .logs button:nth-child(2):hover {
+    transition:0.2s;
+    background:#cfdfff;
+    color:#1965ff;
   }
-
+  .topPop {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top:30px;
+  }
   .textarea {
-    border: none;
-    border-bottom: 1px solid #A7A7A7;
+    border : 1px solid #efefef;
+    padding: 15px;
+    padding-left: 35px;
+    width: 360px;
+    margin-top: 15px;
+    border-radius: 5px;
+    height: auto;
+    margin-left:30px;
   }
-
-  input, select {
-    width: 350px;
-    height: 40px;
-    font-size:20px;
-    margin-top: 10px;
-    color:#0e3c99;
-    background-color: #FCFCFC ;
-    margin-left:54px;
-    outline:none;
+  #username {
+    background-image: url(../assets/icon/user.png);
+    background-position: 10px 13px;
+    background-repeat: no-repeat;
+    background-size: 15px;
   }
-
-  .checkbox {
-    width: 15px;
-    margin-top:5px;
-    cursor:pointer;
+  #pass {
+    background-image: url(../assets/icon/password.png);
+    background-position: 10px 13px;
+    background-repeat: no-repeat;
+    background-size: 15px;
   }
-
-  .logbox h1, .logboxSignIn h1 {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 14px;
-    letter-spacing: 0.05em;
-    color: #A7A7A7;
-    margin-top: 25px;
-    margin-left:54px;
-  }
-
   .ForgetPassword {
-    margin-left:54px;
+    margin-left:32px;
     font-weight: 400;
     font-size: 13px;
     line-height: 12px;
     letter-spacing: 0.05em;
     color: #A7A7A7;
-    margin-top:20px;
+    margin-top:50px;
   }
 
   .ForgetPassword a {

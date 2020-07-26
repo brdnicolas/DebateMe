@@ -75,7 +75,8 @@
             await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
                 rep = response.data;
             }).catch(error => {
-                this.deconnexion();
+                console.log(error);
+                //this.deconnexion();
             });
             if (rep) {
                 this.user = rep;
