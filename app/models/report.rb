@@ -6,6 +6,6 @@ class Report < ApplicationRecord
   validates_presence_of :reason_report, :post, :user
 
   def get_reason
-    self.reason_report.attributes[:reason]
+    reason_report.attributes[:reason]
   end
 end

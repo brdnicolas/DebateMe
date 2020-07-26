@@ -7,16 +7,28 @@ class Theme < ApplicationRecord
   validates_presence_of :name
 
   def get_image_url
-    url_for(self.logo) if self.logo.attached?
+    url_for(logo) if logo.attached?
   end
 
   def get_questions_image
-    self.questions.reduce([]) { |memo, question|  memo << question.get_question_image }
+    questions.reduce([]) { |memo, question|  memo << question.get_question_image }
   end
 
   def get_theme_image
-    attributes = self.attributes
-    attributes[:logo] = get_image_url
-    attributes
+    attributes.merge(logo: get_image_url)
+  end
+
+  def update(attributes = {})
+    if attributes[:logo]
+      logo.purge if logo.attached?
+    end
+    super(attributes)
+  end
+
+  def update!(attributes = {})
+    if attributes[:logo]
+      logo.purge if logo.attached?
+    end
+    super(attributes)
   end
 end

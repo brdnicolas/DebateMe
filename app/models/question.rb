@@ -2,14 +2,29 @@ class Question < ApplicationRecord
   include Rails.application.routes.url_helpers
   has_one_attached :image
 
-  belongs_to :theme
   has_many :posts, dependent: :destroy
   has_many :reports, dependent: :destroy
+
+  belongs_to :theme
 
   validates_presence_of :title, :start_time, :end_time
 
   def get_image_url
-    url_for(self.image) if self.image.attached?
+    url_for(image) if image.attached?
+  end
+
+  def update(attributes = {})
+    if attributes[:image]
+      image.purge if image.attached?
+    end
+    super(attributes)
+  end
+
+  def update!(attributes = {})
+    if attributes[:image]
+      image.purge if image.attached?
+    end
+    super(attributes)
   end
 
   def posts_parsed
@@ -24,5 +39,6 @@ class Question < ApplicationRecord
   def get_question_image
     attributes.merge(image: get_image_url)
   end
+
 
 end
