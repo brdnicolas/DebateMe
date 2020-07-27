@@ -76,7 +76,7 @@
                 rep = response.data;
             }).catch(error => {
                 console.log(error);
-                //this.deconnexion();
+                this.deconnexion();
             });
             if (rep) {
                 this.user = rep;
