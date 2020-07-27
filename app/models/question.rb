@@ -29,7 +29,7 @@ class Question < ApplicationRecord
     new_posts = []
     posts.order(up: :desc).each do |element|
       new_el = { user: element.user.user_info, post: element, votes_id: element.get_vote_ids }
-      posts.append(new_el)
+      new_posts.append(new_el)
     end
     new_posts
   end

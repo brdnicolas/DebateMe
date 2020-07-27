@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def check_first_step
-    add_achievement('Premier pas') if post_ids.size > 0
+    add_achievement('Premier pas') if post_ids.empty?
   end
 
   def check_influenceur
