@@ -59,6 +59,11 @@ export default new Router({
             component: () => import(/* webpackChunkName: "about" */ './components/Inscription.vue'),
         },
         {
+            path: '/panel/debats',
+            name: "Debats",
+            component: () => import(/* webpackChunkName: "about" */ './components/admin/AddQuestion.vue'),
+        },
+        {
 
             path: "*",
             component: () => import("./components/404notFound.vue")

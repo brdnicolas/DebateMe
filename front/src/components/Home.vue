@@ -8,7 +8,7 @@
                 <img @click="SwipeLeft" alt="swipe-left" src="../assets/icon/row.png" />
                 <ul id="categories" class="categories">
                     <li v-for="item in this.themes" :key="item.created_at">
-                        <img :class="'theme' + item.id" id="notselected" @click="ChangeTheme($event,item.id)" :alt="item.name" :title="item.name" src="../assets/categories/nature.jpg"/>
+                        <img :class="'theme' + item.id" id="notselected" @click="ChangeTheme($event,item.id)" :alt="item.name" :title="item.name" v-bind:src="item.logo"/>
                     </li>
                 </ul>
                 <img @click="SwipeRight" alt="swipe-right" src="../assets/icon/row2.png" />
@@ -34,7 +34,7 @@
 
         </div>
         <div v-if="idThemeActuel !== 0" class="card-list">
-            <cardComponent v-for="item in this.listePostes" :themeid="idThemeActuel" :id="item.id" :key="item.id" :titre="item.title" :date="item.created_at.slice(0,10)"/>
+            <cardComponent v-for="item in this.listePostes" :themeid="idThemeActuel" :id="item.id" :key="item.id" :titre="item.title" :image="item.image" :date="item.created_at.slice(0,10)"/>
         </div>
 
         <div class="bienvenue" v-if="idThemeActuel === 0">

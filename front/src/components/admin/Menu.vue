@@ -2,11 +2,11 @@
     <div class="main">
         <div class="main2">
             <div class="Menu">
-                <div v-bind:class="{'currentPage': !this.currentPage}" @click="redirectTo('panel')">
+                <div v-bind:class="{'currentPage': !this.currentPage}" @click="redirectTo('')">
                     <img style="width:20px" src="../../assets/icon/home.png"/>
                     <a>Dashboard</a>
                 </div>
-                <div v-bind:class="{'currentPage': this.currentPage === 'reports'}" @click="redirectTo('panel/reports')">
+                <div v-bind:class="{'currentPage': this.currentPage === 'reports'}" @click="redirectTo('reports')">
                     <img style="width:20px" src="../../assets/icon/reports.png"/>
                     <a>Signalements</a>
                 </div>
@@ -45,7 +45,7 @@
         }
 
         redirectTo(page: string): void {
-            window.location.href = '/' + page;
+            window.location.href = '/panel/' + page;
         }
     }
 </script>

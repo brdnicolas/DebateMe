@@ -1,6 +1,7 @@
 <template>
     <div @click="RedirectToQuestion" class="card">
-        <img src="../../assets/tmp/corona.png"/>
+        <img v-if="this.image" v-bind:src="this.image"/>
+        <img v-else src="../../assets/img/noImage.png"/>
         <h3>{{titre}}</h3>
         <div class="upvote">
             <div class="date-sujet">
@@ -23,6 +24,8 @@
         id: number | undefined;
         @Prop({default: 1})
         themeid: number | undefined;
+        @Prop({default: "../../assets/img/noImage.png"})
+        image: string | undefined;
 
         fromnow: string;
         constructor() {

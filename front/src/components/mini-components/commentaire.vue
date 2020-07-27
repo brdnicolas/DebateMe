@@ -3,7 +3,8 @@
     <div class="comment">
         <div class="top">
             <div class="left">
-                <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym" :alt="user.username" src="../../assets/categories/nature.jpg"/>
+                <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && user.img.profile_picture" :alt="user.username" v-bind:src="this.user.img.profile_picture"/>
+                <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && !user.img.profile_picture" :alt="user.username" src="../../assets/img/profile.png"/>
                 <div v-if="!commentaire.isAnonym">
                     <h3 @click="showProfil(user.username)" class="username">{{user.username}}</h3>
                     <p class="citation">{{user.quote}}</p>
