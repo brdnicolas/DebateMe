@@ -106,7 +106,10 @@ reasons_str = ['Ce contenu est injurieux',
 
 reasons_str.each { |reason| ReasonReport.create!(reason: reason) }
 
-Theme.find_by_name('Écologie').questions.destroy_all
+# ECOLOGIE
+
+theme = Theme.find_by_name('Écologie')
+theme.questions.destroy_all
 
 questions = [
   {
@@ -141,11 +144,59 @@ questions = [
   }
 ]
 
-questions_pictures = %w[nuclear.jpeg shiste.jpeg rural.jpeg water.jpeg collectif.jpg]
+questions_pictures = %w[nuclear.jpg shiste.jpeg rural.jpeg water.jpeg collectif.jpg]
 
 questions.each_with_index do |q, i|
-  Question.create!(q.merge(theme_id: 2))
-  puts "public/questions/#{questions_pictures[i]}"
+  Question.create!(q.merge(theme_id: theme.id))
+  puts "public/questions/ecologie/#{questions_pictures[i]}"
   Question.last.image.attach(io: File.open("public/questions/#{questions_pictures[i]}"), filename: questions_pictures[i])
+  print '.'
+end
+
+# SPORT
+
+theme = Theme.find_by_name('Sports')
+theme.questions.destroy_all
+
+
+questions = [
+  {
+    title: 'Doit on revoir la gestion du dopage dans le sport ?',
+    documentation: 'https://fr.wikipedia.org/wiki/Dopage_(sport)',
+    start_time: '2020-07-23 00:00:00',
+    end_time: '2020-07-30 00:00:00'
+  },
+  {
+    title: 'La corruption est-elle omniprésente dans le football professionnel ?',
+    documentation: "La Convention du Conseil de l'Europe sur la manipulation de compétitions sportives (2014) défini un la manipulation des sports compétitifs comme: « Un arrangement, un acte ou une omission intentionnels visant à une modification irrégulière du résultat ou du déroulement d’une compétition sportive afin de supprimer tout ou partie du caractère imprévisible de cette compétition, en vue d’obtenir un avantage indu pour soi-même ou pour autrui. ». La définition comprend donc les tentatives de modification du déroulement d'un événement (appelées « trucage d'action ») ainsi que le résultat général. Le trucage de match est également concerné à la fois pour des raisons sportives et financières.",
+    start_time: '2020-07-16 00:00:00',
+    end_time: '2020-07-23 00:00:00'
+  },
+  {
+    title: 'Le tour de france doit-il se passer de spectateurs ?',
+    documentation: '',
+    start_time: '2020-07-09 00:00:00',
+    end_time: '2020-07-16 00:00:00'
+  },
+  {
+    title: 'Doit-on plafonner le salaire des sportifs ?',
+    documentation: 'https://www.forbes.fr/classements/sports/lionel-messi-en-premiere-place-du-classement-des-sportifs-les-mieux-payes-du-monde/',
+    start_time: '2020-07-02 00:00:00',
+    end_time: '2020-07-09 00:00:00'
+  },
+  {
+    title: "Les budgets de club ruine-t'il le fairplay sportif ?",
+    documentation: 'https://fr.uefa.com/community/news/newsid=2065498.html',
+    start_time: '2020-06-26 00:00:00',
+    end_time: '2020-07-02 00:00:00'
+  }
+]
+
+questions_pictures = %w[dopage.jpg corruption.png tourdefrance.jpg argentfoot.jpg faitplay.jpg]
+
+questions.each_with_index do |q, i|
+  Question.create!(q.merge(theme_id: theme.id))
+  puts "public/questions/sport/#{questions_pictures[i]}"
+  Question.last.image.attach(io: File.open("public/questions/sport/#{questions_pictures[i]}"), filename: questions_pictures[i])
   print '.'
 end
