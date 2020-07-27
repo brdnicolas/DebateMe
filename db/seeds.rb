@@ -146,13 +146,13 @@ questions = [
 
 questions_pictures = %w[nuclear.jpg shiste.jpeg rural.jpeg water.jpeg collectif.jpg]
 
+
 questions.each_with_index do |q, i|
   Question.create!(q.merge(theme_id: theme.id))
   puts "public/questions/ecologie/#{questions_pictures[i]}"
   Question.last.image.attach(io: File.open("public/questions/#{questions_pictures[i]}"), filename: questions_pictures[i])
   print '.'
 end
-
 # SPORT
 
 theme = Theme.find_by_name('Sports')
