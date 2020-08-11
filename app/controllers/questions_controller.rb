@@ -11,7 +11,9 @@ class QuestionsController < ApplicationController
 
   # POST /themes/:id/questions
   def create
-    @theme.questions.create!(question_params)
+    q_params = question_params
+    q_params['end_time'] = q_params['start_time'].to_date + 7.day rescue nil
+    @theme.questions.create!(q_params)
     json_response(@theme.get_theme_image, :created)
   end
 

@@ -5,7 +5,9 @@ class Question < ApplicationRecord
   has_many :posts, dependent: :destroy
   belongs_to :theme
 
-  validates_presence_of :title, :start_time, :end_time
+  validates_presence_of :title, :start_time
+  validates :start_time, format: { with: /\d{4}-\d{2}-\d{2}/, message: 'Date Format invalid' }
+  validates :end_time, format: { with: /\d{4}-\d{2}-\d{2}/, message: 'Date Format invalid' }
 
   def get_image_url
     url_for(image) if image.attached?
