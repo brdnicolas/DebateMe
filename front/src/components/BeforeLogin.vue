@@ -26,7 +26,7 @@
           </div>
           <div class="topPartError">
             <h1 id="connexion">Connexion</h1>
-            <p style="margin-left:10px;color:red;">{{error}}</p>
+            <p style="margin-left:10px;color:red;padding-bottom:5px">{{error}}</p>
           </div>
           <input v-model="connexionEmail" name="email" class="textarea" id="username" type="email" placeholder="Email">
           <input v-model="connexionPassword" class="textarea" type="password" id="pass" placeholder="Mot de passe">
@@ -241,7 +241,13 @@
     ConnexionPOST(e: Event, email: string,password: string): void {
       e.preventDefault();
       if (!email || !password) {
-        this.error = "Veuillez remplir tous les champs.";
+        this.error = "Vous avez oublier quelque chose là ..";
+        return;
+      }
+
+      const regexEmail = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}'
+      if (email.search(regexEmail) < 0) {
+        this.error = "Veuillez entrer une adresse email valide."
         return;
       }
 
@@ -251,35 +257,9 @@
       }).then((response: { data: any}) =>  {
         localStorage.token = response.data.auth_token;
         window.location.href = '/home';
-      } );
-    }
-
-
-    InscriptionPost(e: Event, email: string,password: string, repassword: string, username: string, firstname: string, lastname: string): void {
-      e.preventDefault();
-      if (password !== repassword) {
-        this.error = "Les mots de passe ne sont pas identiques.";
-        return;
-      }
-      if (!email || !password || !repassword || !username || !firstname || !lastname ) {
-        this.error = "Veuillez remplir tous les champs.";
-        return;
-      }
-      myAPI.post("auth/register", {
-        email: email,
-        password: password,
-        username: username,
-        firstname: firstname,
-        lastname: lastname,
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        password_confirmation: repassword,
-      }).then((response: { data: any}) =>  {
-        localStorage.token = response.data.auth_token;
-        window.location.href = '/home';
-      } )
-        .catch(error => {
-          this.error = "Une erreur s'est produite."
-        });
+      }).catch(error => {
+        this.error = "Email ou mot de passe invalide."
+      });
     }
   }
 </script>

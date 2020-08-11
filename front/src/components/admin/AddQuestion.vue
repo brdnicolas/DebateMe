@@ -6,10 +6,15 @@
             <div class="subMain">
                 <h1>Ajouter une question</h1>
                 <div class="form">
-                    <input style="display:none" id="files" type="file" />
+                    <select class="themesInput" v-model="selectedTheme">
+                      <option disabled value="none">Choisissez un thème</option>
+                      <option v-for="theme in this.themes" v-bind:key="theme.name" v-bind:value="theme.id">{{theme.name}}</option>
+                    </select>
+                    <input id="fileQuestion" style="display:none" type="file" />
                     <button @click="selectFile" class="chooseFile">Choisir une image</button>
-                    <input class="textarea" id="titre" type="text" placeholder="Titre"/>
-                    <input class="textarea" id="doc" type="text" placeholder="Documentation"/>
+                    <input id="titleQuestion" class="textarea" type="text" placeholder="Titre"/>
+                    <textarea id="docQuestion" class="textarea2" type="text" placeholder="Documentation"/>
+                    <button @click="newQuestion" class="sendQuestion">Poser la question</button>
                 </div>
             </div>
         </div>
@@ -19,15 +24,13 @@
 
 <script lang="ts">
     // @ts-nocheck
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import report from "@/components/admin/mini-components/report-comp.vue";
+    import { Component, Vue } from 'vue-property-decorator';
     import Menu from "@/components/admin/Menu.vue";
     import Header from "@/components/mini-components/header.vue";
-    import LineChart from './LineChart.js';
     import myAPI from "@/components/myAPI";
+    import Swal from 'sweetalert2/dist/sweetalert2.js'
 
     @Component({
-
         components: {
             Header,
             Menu
@@ -35,18 +38,22 @@
     })
 
     export default class HelloWorld extends Vue {
+
         mounted() {
             this.checkAdmin();
+            this.getThemes();
         }
 
-        file: string;
+        themes: object;
+        selectedTheme: string;
         constructor() {
-            super();
-            this.file = "";
+              super();
+              this.themes = [];
+              this.selectedTheme = "none"
         }
 
         selectFile(): void {
-            const element =document.getElementById("files").click();
+            document.getElementById("fileQuestion").click();
         }
 
         async getThemes(): Promise<void> {
@@ -56,11 +63,50 @@
                 rep = response.data;
             });
             if (rep) {
-                this.reports = rep;
+                this.themes = rep;
+                console.log("ok")
                 console.log(rep);
             }
         }
 
+        async newQuestion(): Promise<void> {
+            const valueTitle = document.getElementById("titleQuestion") as HTMLElement;
+            const valueDoc = document.getElementById("docQuestion") as HTMLElement;
+            const valueImg = document.getElementById("fileQuestion") as HTMLElement;
+            const data = new FormData();
+
+            if (valueImg.files[0])
+              data.append('image', valueImg.files[0]);
+
+            if(valueTitle && valueDoc) {
+                data.append('title', valueTitle.value);
+                data.append('documentation', valueDoc.value);
+            }
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+            });
+
+            let rep = null;
+            await myAPI.post("themes/"+ this.selectedTheme +"/questions", {
+              data
+            })
+                .then(function(response) {
+                  rep = response.data;
+                });
+            if (rep) {
+                await Toast.fire({
+                  icon: 'success',
+                  title: 'La question a bien été créée'
+                })
+            } else {
+                await Toast.fire({
+                  icon: 'error',
+                  title: "Erreur lors de la création de la question."
+                })
+            }
+        }
 
         async checkAdmin(): Promise<void> {
             let rep = null;
@@ -106,6 +152,30 @@
         display:flex;
         flex-direction: column;
     }
+    .sendQuestion {
+      transition:0.2s;
+      border-radius: 6px;
+      border: none;
+      width:320px;
+      height:50px;
+      background-color: #76E27E;
+      color: white;
+      padding: 18px 70px 18px 70px;
+      margin-top: 50px;
+      cursor:pointer;
+    }
+    .sendQuestion:hover {
+      transition:0.2s;
+      background:#6BCE73;
+    }
+    .themesInput {
+      margin-top: 50px;
+      border : 1px solid #efefef;
+      padding: 10px;
+      width: 200px;
+      border-radius: 5px;
+      outline:none;
+    }
     .chooseFile {
         transition:0.2s;
         border-radius: 6px;
@@ -114,7 +184,7 @@
         background-color: #1965FF;
         color: white;
         padding: 12px 30px 12px 30px;
-        margin-top: 50px;
+        margin-top:15px;
         cursor:pointer;
     }
     .chooseFile:hover {
@@ -125,10 +195,21 @@
         transition:0.2s;
         border : 1px solid #efefef;
         padding: 15px;
-        padding-left: 35px;
         width: 300px;
         margin-top: 15px;
         border-radius: 5px;
         outline:none;
+    }
+    .textarea2 {
+      transition:0.2s;
+      border : 1px solid #efefef;
+      padding: 15px;
+      min-width: 900px;
+      max-width: 1300px;
+      min-height:250px;
+      max-height:500px;
+      margin-top: 15px;
+      border-radius: 5px;
+      outline:none;
     }
 </style>

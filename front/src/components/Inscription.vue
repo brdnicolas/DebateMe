@@ -81,9 +81,16 @@
                 return;
             }
             if (!email || !password || !repassword || !username || !firstname || !lastname ) {
-                this.error = "Veuillez remplir tous les champs.";
+                this.error = "Vous avez oublier quelque chose là ..";
                 return;
             }
+
+            const regexEmail = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}'
+            if (email.search(regexEmail) < 0) {
+              this.error = "Veuillez entrer une adresse email valide."
+              return;
+            }
+
             myAPI.post("auth/register", {
                 email: email,
                 password: password,
