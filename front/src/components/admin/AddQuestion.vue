@@ -12,7 +12,10 @@
                     </select>
                     <input id="fileQuestion" style="display:none" type="file" />
                     <button @click="selectFile" class="chooseFile">Choisir une image</button>
-                    <input id="titleQuestion" class="textarea" type="text" placeholder="Titre"/>
+                    <div style="display:flex;flex-direction:row">
+                      <input id="titleQuestion" class="textarea" type="text" placeholder="Titre"/>
+                      <input id="dateQuestion" class="textarea" type="date" placeholder="Date de lancement"/>
+                    </div>
                     <textarea id="docQuestion" class="textarea2" type="text" placeholder="Documentation"/>
                     <button @click="newQuestion" class="sendQuestion">Poser la question</button>
                 </div>
@@ -73,15 +76,13 @@
             const valueTitle = document.getElementById("titleQuestion") as HTMLElement;
             const valueDoc = document.getElementById("docQuestion") as HTMLElement;
             const valueImg = document.getElementById("fileQuestion") as HTMLElement;
+            const valueDate = document.getElementById("dateQuestion") as HTMLElement;
             const data = new FormData();
 
             if (valueImg.files[0])
               data.append('image', valueImg.files[0]);
 
-            if(valueTitle && valueDoc) {
-                data.append('title', valueTitle.value);
-                data.append('documentation', valueDoc.value);
-            }
+            
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -90,7 +91,10 @@
 
             let rep = null;
             await myAPI.post("themes/"+ this.selectedTheme +"/questions", {
-              data
+              data,
+              "title":valueTitle.value,
+              "start_time":valueDate.value,
+              "documentation":valueDoc.value
             })
                 .then(function(response) {
                   rep = response.data;
@@ -199,6 +203,7 @@
         margin-top: 15px;
         border-radius: 5px;
         outline:none;
+        margin-right:10px
     }
     .textarea2 {
       transition:0.2s;
