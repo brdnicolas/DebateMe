@@ -67,7 +67,6 @@
             });
             if (rep) {
                 this.themes = rep;
-                console.log("ok")
                 console.log(rep);
             }
         }
@@ -77,28 +76,36 @@
             const valueDoc = document.getElementById("docQuestion") as HTMLElement;
             const valueImg = document.getElementById("fileQuestion") as HTMLElement;
             const valueDate = document.getElementById("dateQuestion") as HTMLElement;
-            const data = new FormData();
+            const dataform = new FormData();
 
-            if (valueImg.files[0])
-              data.append('image', valueImg.files[0]);
+            if (valueImg.files[0] && valueTitle && valueDate && valueDoc) {
+                dataform.append('image', valueImg.files[0], valueImg.files[0].name);
+                dataform.append('title', valueTitle.value);
+                dataform.append('documentation', valueDoc.value);
+                dataform.append('start_time', valueDate.value);
+            }
 
-            
-            const Toast = Swal.mixin({
+          const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
               showConfirmButton: false,
             });
 
             let rep = null;
-            await myAPI.post("themes/"+ this.selectedTheme +"/questions", {
-              data,
-              "title":valueTitle.value,
-              "start_time":valueDate.value,
-              "documentation":valueDoc.value
-            })
+            await myAPI.post("themes/"+ this.selectedTheme +"/questions", dataform)
                 .then(function(response) {
                   rep = response.data;
-                });
+                  valueTitle.value = ""
+                  valueDoc.value = "";
+                  valueImg.value = "";
+                  valueDate.value = "";
+                })
+            .catch(error => {
+              Toast.fire({
+                icon: 'error',
+                title: "Erreur lors de la création de la question."
+              })
+            });
             if (rep) {
                 await Toast.fire({
                   icon: 'success',
