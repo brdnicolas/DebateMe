@@ -3,8 +3,8 @@
         <headerComponent />
 
         <div class="explore-category">
-            <h1>Explorer les catégories</h1>
-            <div class="categories-container">
+            <h1 class="darkmode-ignore">Explorer les catégories</h1>
+            <div class="categories-container darkmode-ignore">
                 <img @click="SwipeLeft" alt="swipe-left" src="../assets/icon/row.png" />
                 <ul id="categories" class="categories">
                     <li v-for="item in this.themes" :key="item.created_at">
@@ -15,16 +15,16 @@
             </div>
             <div v-if="idThemeActuel !== 0" class="Filter">
                 <div>
-                    <h4>Date</h4>
+                  <h4><span class="darkmode-ignore">Date</span></h4>
                     <select>
-                        <option selected value="recents">Plus récents</option>
-                        <option value="mois">Ce mois-ci</option>
-                        <option value="annee">Cette année</option>
-                        <option value="ancien">Plus ancien</option>
+                      <option selected value="recents">Plus récents</option>
+                      <option value="mois">Ce mois-ci</option>
+                      <option value="annee">Cette année</option>
+                      <option value="ancien">Plus ancien</option>
                     </select>
                 </div>
                 <div>
-                    <h4>Sujet</h4>
+                  <h4><span class="darkmode-ignore">Sujet</span></h4>
                     <select>
                         <option selected value="actualite">Actualité</option>
                         <option value="populaire">Populaire</option>
@@ -39,12 +39,12 @@
 
         <div class="bienvenue" v-if="idThemeActuel === 0">
             <h1>Bienvenue,</h1>
-            <p>Veuillez <span>choisir une catégorie</span> afin d'explorer les débats !</p>
+            <p>Veuillez <span class="darkmode-ignore">choisir une catégorie</span> afin d'explorer les débats !</p>
 
             <div class="delimiteur"/>
 
             <h2>Nouveautés : </h2>
-            <p>Parmis les nouveautés, nous avons <span>mis à jour les différents thèmes</span> et le formulaire de contact. Nous comptons sur vos <span>retours</span> dans le formulaire de contact <a href="/contact">ici</a> afin que nous puissions vite nous améliorer !</p>
+            <p>Parmis les nouveautés, nous avons <span class="darkmode-ignore">mis à jour les différents thèmes</span> et le formulaire de contact. Nous comptons sur vos <span class="darkmode-ignore">retours</span> dans le formulaire de contact <a class="darkmode-ignore" href="/contact">ici</a> afin que nous puissions vite nous améliorer !</p>
 
         </div>
         <footerComponent/>
@@ -204,6 +204,9 @@
     }
     .Filter div {
         margin-right:40px;
+    }
+    .darkmode--activated select {
+      color:black !important;
     }
     .Filter input, .Filter select {
         width: 250px;

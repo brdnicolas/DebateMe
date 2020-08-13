@@ -3,13 +3,13 @@
         <header>
             <div class="leftHeader">
                 <img src="../../assets/img/logo2.png"/>
-                <a href="/home">Debate Me</a>
+                <a href="/home" class="darkmode-ignore">Debate Me</a>
                 <div class="nav">
-                    <a href="/home" v-bind:class="{'current': this.currentPage === 'home'}">Accueil</a>
-                    <a href="/message" v-bind:class="{'current': this.currentPage === 'message'}">Messages</a>
-                    <a href="/about" v-bind:class="{'current': this.currentPage === 'about'}">A propos</a>
-                    <a href="/notifications" v-bind:class="{'current': this.currentPage === 'notifications'}">Notifications (53)</a>
-                    <a v-if="this.user.isAdmin" style="color:#EFA1A1" href="/panel" v-bind:class="{'currentAdmin': this.currentPage === 'panel'}">Modération</a>
+                    <a href="/home" v-bind:class="{'current darkmode-ignore': this.currentPage === 'home'}">Accueil</a>
+                    <a href="/message" v-bind:class="{'current darkmode-ignore': this.currentPage === 'message'}">Messages</a>
+                    <a href="/about" v-bind:class="{'current darkmode-ignore': this.currentPage === 'about'}">A propos</a>
+                    <a href="/notifications" v-bind:class="{'current darkmode-ignore': this.currentPage === 'notifications'}">Notifications (53)</a>
+                    <a class="darkmode-ignore" v-if="this.user.isAdmin" style="color:#EFA1A1" href="/panel" v-bind:class="{'currentAdmin': this.currentPage === 'panel'}">Modération</a>
                 </div>
             </div>
             <div class="rightHeader">

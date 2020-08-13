@@ -2,10 +2,10 @@
     <div @click="RedirectToQuestion" class="card">
         <img v-if="this.image" v-bind:src="this.image"/>
         <img v-else src="../../assets/img/noImage.png"/>
-        <h3>{{titre}}</h3>
+        <h3 class="darkmode-ignore">{{titre}}</h3>
         <div class="upvote">
             <div class="date-sujet">
-                <p>{{this.fromnow}}</p>
+                <p class="darkmode-ignore">{{this.fromnow}}</p>
             </div>
         </div>
     </div>

@@ -4,15 +4,15 @@
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
         <img v-else class="image_poste" src="../assets/img/noImage.png"/>
         <div id="banner">
-            <h1 class="titre">{{question.title}}</h1>
+            <h1 class="titre darkmode-ignore">{{question.title}}</h1>
             <div class="icons">
                 <div class="left">
-                    <div @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
-                    <div><img src="../assets/icon/comment.png"/> 532</div>
-                    <div><img src="../assets/icon/share.png"/> Share</div>
+                    <div class="darkmode-ignore" @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
+                    <div class="darkmode-ignore"><img src="../assets/icon/comment.png"/> 532</div>
+                    <div class="darkmode-ignore"><img src="../assets/icon/share.png"/> Share</div>
                 </div>
                 <div class="right">
-                    <p>Créé le {{this.date}}</p>
+                    <p class="darkmode-ignore">Créé le {{this.date}}</p>
                 </div>
             </div>
         </div>
@@ -25,9 +25,9 @@
                     placeholder="Écrivez votre plus beau commentaire !"
             />
             <div class="bottom">
-                <button @click="postComment($event)">Poster</button>
+                <button class="darkmode-ignore" @click="postComment($event)">Poster</button>
                 <div>
-                    <p>Anonyme</p>
+                    <p class="darkmode-ignore">Anonyme</p>
                     <switch-component :switch-value="switchValue" @switchValueChanged="switchValue = !switchValue"/>
                 </div>
             </div>
@@ -194,13 +194,25 @@
     }
     #banner {
         background:white;
+        z-index:800;
     }
     .sticky {
         position: fixed;
         top: 0;
         width: 100vw;
     }
+    .darkmode--activated .writecomment textarea {
+       background: black;
+    }
+    .darkmode--activated .sticky {
+      background: black !important;
+    }
+    .darkmode--activated .sticky .icons {
+      box-shadow: 0px 9px 8px -5px #444444;
+
+    }
     .back {
+        z-index:800;
         transition:0.5s;
         position: absolute;
         top: 0;
@@ -259,6 +271,7 @@
         height:200px;
         resize:none;
         font-weight: 800;
+      isolation: isolate;
     }
     .writecomment button {
         width: 200px;

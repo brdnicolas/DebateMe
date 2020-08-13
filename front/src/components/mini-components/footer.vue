@@ -9,7 +9,7 @@
                 </div>
                 <div>
                     <h1>Informations</h1>
-                    <a href="/contact" style="color:#1c8eff;text-decoration: none">Contactez nous</a>
+                    <a class="darkmode-ignore" href="/contact" style="color:#1c8eff;text-decoration: none">Contactez nous</a>
                     <p>F.A.Q</p>
                     <p>Equipe</p>
                 </div>
@@ -22,7 +22,7 @@
                 <div>
                     <h1>Actualités</h1>
                     <input placeholder="Email" type="text"/>
-                    <button>OK</button>
+                    <button class="darkmode-ignore">OK</button>
                 </div>
             </div>
             <div class="footerBottom">
