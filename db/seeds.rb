@@ -201,3 +201,5 @@ questions.each_with_index do |q, i|
   Question.last.image.attach(io: File.open("public/questions/sport/#{questions_pictures[i]}"), filename: questions_pictures[i])
   print '.'
 end
+
+

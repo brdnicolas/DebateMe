@@ -36,7 +36,7 @@ class ThemesController < ApplicationController
   private
 
   def theme_params
-    params.permit(:name, :logo)
+    params.permit(:name, :logo, :color)
   end
 
   def set_theme
