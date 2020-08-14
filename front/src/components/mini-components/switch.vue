@@ -1,5 +1,5 @@
 <template>
-    <div class="switch-component-wrapper" @click="changeSwitchValue">
+    <div class="switch-component-wrapper darkmode-ignore" @click="changeSwitchValue">
         <div class="switch-wrapper" :class="{'on':switchValue, 'off': !switchValue}">
             <div class="circle">
             </div>

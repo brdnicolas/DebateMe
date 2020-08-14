@@ -151,6 +151,7 @@
             if(citation && areaCitation && btnModify && btnValider && btnAnnuler) {
                 console.log("fuck");
                 areaCitation.style.display = "block";
+                areaCitation.value = this.user.quote ? this.user.quote : "En panne d'inspiration ? Créez votre propre citation";
                 citation.style.display = "none";
                 btnModify.style.display = "none";
                 btnValider.style.display = "block";
@@ -237,6 +238,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    * {
+      font-family: 'Roboto', sans-serif !important;
+    }
     .modifyBanner {
         z-index:30 !important;
         height:20px !important;

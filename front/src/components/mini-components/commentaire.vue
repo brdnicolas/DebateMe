@@ -19,23 +19,22 @@
                 <img @click="sendReport" id="report" title="signaler" alt="signaler" src="../../assets/icon/report.png"/>
             </div>
         </div>
-        <p class="date">{{this.date}}</p>
+        <p class="date darkmode-ignore">{{this.date}}</p>
         <p class="message">{{commentaire.content}}</p>
         <div class="bottom">
             <div class="upvote">
                 <img src="../../assets/icon/upvote.png"/>
-                <h2 @click="upVote" >Upvoted</h2>
-                <p>{{commentaire.up}}</p>
-                <p>{{this.voted}}</p>
+                <h2 class="darkmode-ignore" @click="upVote" >Upvoted</h2>
+              <p><span class="darkmode-ignore">{{commentaire.up}}</span></p>
             </div>
             <div>
                 <img src="../../assets/icon/comment.png"/>
-                <h2>Comments</h2>
-                <p>{{commentaire.down}}</p>
+                <h2 class="darkmode-ignore">Comments</h2>
+              <p><span class="darkmode-ignore">{{commentaire.down}}</span></p>
             </div>
             <div>
                 <img src="../../assets/icon/share.png"/>
-                <h2>Share</h2>
+                <h2 class="darkmode-ignore">Share</h2>
             </div>
         </div>
     </div>

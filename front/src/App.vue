@@ -15,6 +15,9 @@
   .swal2-modal {
     font-family: 'Roboto', sans-serif !important;
   }
+  .darkmode--activated .swal2-modal {
+    background:#16191D !important;
+  }
   body {
     background:white;
   }

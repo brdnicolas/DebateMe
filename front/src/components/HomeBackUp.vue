@@ -3,36 +3,16 @@
         <headerComponent />
 
         <div class="explore-category">
-          <div style="dispaly:flex;flex-direction: row;align-items: center;margin-top:20px;margin-left:13px">
-            <img src="../../src/assets/icon/explore.png" alt="explore" style="width:31px; height:31px; object-fit: cover;"/>
-            <h1 class="darkmode-ignore">Explorer</h1>
-          </div>
+            <h1 class="darkmode-ignore">Explorer les catégories</h1>
             <div class="categories-container darkmode-ignore">
                 <img @click="SwipeLeft" alt="swipe-left" src="../assets/icon/row.png" />
                 <ul id="categories" class="categories">
-                    <li style="padding-top:20px;padding-bottom:20px" v-for="item in this.themes" :key="item.created_at">
-                        <div class="part" @click.capture="ChangeTheme($event,item.id)" style="background: #FFFFFF;
-box-shadow: 0px 6px 20px rgba(89, 89, 89, 0.1);
-cursor:pointer;
-border-radius: 4px;
-display:flex;
-flex-direction: row;
-align-items: center;
-margin-left:20px;
-margin-right:20px;
-padding-left:20px;
-padding-right:20px;
-height: 50px;">
-                          <img style="width:27px;height:27px;object-fit: cover" :alt="item.name" :title="item.name" v-bind:src="item.logo">
-                          <p v-bind:style="'color:' + item.color" style="margin-left:12px">{{item.name}}</p>
-                        </div>
+                    <li v-for="item in this.themes" :key="item.created_at">
+                        <img :class="'theme' + item.id" id="notselected" @click="ChangeTheme($event,item.id)" :alt="item.name" :title="item.name" v-bind:src="item.logo"/>
                     </li>
                 </ul>
                 <img @click="SwipeRight" alt="swipe-right" src="../assets/icon/row2.png" />
             </div>
-          <svg class="darkmode-ignore" style="margin-left:12px;width:100vw;border-radius:50px" height="2">
-            <rect width="300" height="2" style="fill:#F9803B;width:calc(80vw - 24px);border-radius:50px" />
-          </svg>
             <div v-if="idThemeActuel !== 0" class="Filter">
                 <div>
                   <h4><span class="darkmode-ignore">Date</span></h4>
@@ -138,23 +118,7 @@ height: 50px;">
         }
 
         ChangeTheme(e: Event, id: number): void {
-
-
-
-
-
-
-
-
-
-            let target = e.target as HTMLTextAreaElement;
-
-
-            if(target.tagName != 'DIV')
-             target = target.parentElement as HTMLTextAreaElement
-
-
-
+            const target = e.target as HTMLTextAreaElement;
             const selected = document.getElementById('selected');
             if (selected) {
                 selected.id = 'notselected';
@@ -261,12 +225,12 @@ height: 50px;">
         min-width: 80vw;
         margin-left:10vw;
     }
-    .explore-category > div > h1 {
+    .explore-category > h1 {
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
         color: #F9813B;
-        margin-left:10px;
+        margin-left:15px;
         margin-top:50px;
 
     }
@@ -275,23 +239,16 @@ height: 50px;">
         flex-direction: row;
         padding-bottom:30px;
         align-items: center;
+        border-bottom: 2px solid #F9813B;
         width:100%;
     }
-    .categories-container > img:nth-child(1) {
-        width:48px;
-        height:48px;
-        object-fit: cover;
-        padding-right:10px;
+    .categories-container > img {
+        width:20px;
+        height:35px;
+        padding-left:20px;
+        padding-right:20px;
         margin-top:25px;
         cursor:pointer;
-    }
-    .categories-container > img:nth-child(3) {
-      width:48px;
-      height:48px;
-      object-fit: cover;
-      padding-left:10px;
-      margin-top:25px;
-      cursor:pointer;
     }
     .categories {
         margin-top:30px;
@@ -316,14 +273,13 @@ height: 50px;">
     #selected {
         display: flex;
         min-height: min-content;
+        width:70px;
+        height:70px;
         object-fit: cover;
         border-radius: 50px;
         border: 2px solid #1569ff;
         margin-left:15px;
         margin-right:15px;
         cursor:pointer;
-    }
-    .darkmode--activated .part {
-      background:#25292F !important;
     }
 </style>

@@ -19,7 +19,7 @@
 
 
         <div id="writecomment" class="writecomment">
-            <p class="errorPostComment">{{this.errorPostComment}}</p>
+            <p class="errorPostComment darkmode-ignore">{{this.errorPostComment}}</p>
             <textarea
                     id="message"
                     placeholder="Écrivez votre plus beau commentaire !"
@@ -203,6 +203,7 @@
     }
     .darkmode--activated .writecomment textarea {
        background: black;
+      color:#ABBEDB
     }
     .darkmode--activated .sticky {
       background: black !important;
@@ -210,6 +211,9 @@
     .darkmode--activated .sticky .icons {
       box-shadow: 0px 9px 8px -5px #444444;
 
+    }
+    .darkmode--activated .back {
+      background: black !important;
     }
     .back {
         z-index:800;

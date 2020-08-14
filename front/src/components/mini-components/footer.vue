@@ -16,7 +16,7 @@
                 <div>
                     <h1>Services</h1>
                     <p>Abonnement</p>
-                    <p>Email marketing : <a href="mailto:marketing@debate.me" style="color:#e6654a;text-decoration: underline">marketing@debate.me</a></p>
+                    <p>Email marketing : <a href="mailto:marketing@debate.me" class="darkmode-ignore" style="color:#e6654a;text-decoration: underline">marketing@debate.me</a></p>
                     <a href="/about">A propos</a>
                 </div>
                 <div>
