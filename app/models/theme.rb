@@ -5,7 +5,7 @@ class Theme < ApplicationRecord
   has_one_attached :logo
 
   validates_presence_of :name
-  validates_format_of :color, { with: /(#[A-Fa-f0-9]{6})|(rgb\((\d{3},){2}\d{3}\))/ }
+  validates_format_of :color, { with: /(#[A-Fa-f0-9]{6})|(rgb\((\d{1,3},){2}\d{1,3}\))/ }
 
   def get_image_url
     url_for(logo) if logo.attached?
