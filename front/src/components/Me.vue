@@ -70,13 +70,13 @@
 
 <script lang="ts">
     // @ts-nocheck
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Vue } from 'vue-property-decorator';
     import headerComponent from "@/components/mini-components/header.vue";
     import footerComponent from "@/components/mini-components/footer.vue";
     import activitePoste from "@/components/mini-components/activitePoste.vue"
     import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
     import Swal from 'sweetalert2/dist/sweetalert2.js'
-    import myAPI from "@/components/myAPI";
+    import DAO from "@/components/DAO"
 
 
     @Component({
@@ -91,12 +91,11 @@
     export default class HelloWorld extends Vue {
         showPostes: boolean;
         user: object;
-
         profilPic: string;
         bannerPic: string;
-
         achivments: Array<string>;
         posts: object;
+        api = new DAO();
 
         constructor() {
             super();
@@ -125,19 +124,16 @@
         }
 
         async getCurrentUser(): Promise<void> {
-            let rep = null;
-            await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
-                rep = response.data;
-            }).catch(error => {
+            this.api.getCurrentUser().then(data => {
+                this.user = data;
+                this.profilPic = (data as Record<string,any>).img.profile_picture;
+                this.bannerPic = (data as Record<string,any>).img.banner;
+                this.achivments = (data as Record<string,any>).achievements;
+                this.posts = (data as Record<string,any>).posts;
+            })
+            .catch(error => {
                 this.deconnexion();
-            });
-            if (rep) {
-                this.user = rep;
-                this.profilPic = (rep as Record<string,any>).img.profile_picture;
-                this.bannerPic = (rep as Record<string,any>).img.banner;
-                this.achivments = (rep as Record<string,any>).achievements;
-                this.posts = (rep as Record<string,any>).posts;
-            }
+            })
         }
 
         CSSModifyQuote(): void {
@@ -171,24 +167,25 @@
                 showConfirmButton: false,
             });
 
-            await myAPI.patch("users/" + (this.user as Record<string,any>).user_id, {
-                'quote': value
+            const datas = {
+              'quote': value
+            }
+            this.api.patchChangeQuote((this.user as Record<string,any>).user_id, datas).then(data => {
+              this.CSSRetablir();
+              location.reload();
+              Toast.fire({
+                icon: 'success',
+                title: "Citation modifiée."
+              });
             })
-            .then((response: { data: any}) =>  {
-                this.CSSRetablir();
-                location.reload();
-                Toast.fire({
-                    icon: 'success',
-                    title: "Citation modifiée."
-                });
-            }).catch(error => {
+            .catch(error => {
                 console.log(error);
                 this.CSSRetablir();
                 Toast.fire({
-                    icon: 'error',
-                    title: "Un problème est survenu."
+                  icon: 'error',
+                  title: "Un problème est survenu."
                 })
-            });
+            })
         }
 
         async updatePicture(): Promise<void> {
@@ -204,12 +201,11 @@
                 fd.append('profile_picture', profilePicture.files[0]);
                 profilePicture.value = null;
             }
-            await myAPI.patch("users/" + (this.user as Record<string,any>).user_id, fd)
-                .then((response: { data: any}) =>  {
-                    location.reload();
-                }).catch(error => {
-                    console.log(error)
-                });
+
+            this.api.patchChangeProfilPicture((this.user as Record<string,any>).user_id, fd).then(data => {
+                location.reload();
+            })
+
         }
 
         CSSRetablir() {
@@ -226,7 +222,6 @@
                 btnAnnuler.style.display = "none";
             }
         }
-
 
         deconnexion(): void {
             localStorage.token = "";

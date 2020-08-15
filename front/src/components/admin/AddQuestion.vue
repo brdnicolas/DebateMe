@@ -30,7 +30,7 @@
     import { Component, Vue } from 'vue-property-decorator';
     import Menu from "@/components/admin/Menu.vue";
     import Header from "@/components/mini-components/header.vue";
-    import myAPI from "@/components/myAPI";
+    import myAPI from "@/components/mainAPI";
     import Swal from 'sweetalert2/dist/sweetalert2.js'
 
     @Component({

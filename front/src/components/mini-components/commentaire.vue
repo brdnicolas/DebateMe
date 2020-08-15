@@ -45,7 +45,7 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import moment from 'moment'
     import Swal from 'sweetalert2/dist/sweetalert2.js'
-    import myAPI from "@/components/myAPI";
+    import myAPI from "@/components/mainAPI";
     @Component
     export default class Header extends Vue {
 
@@ -84,7 +84,6 @@
 
         mounted() {
             this.getCurrentUser();
-            console.log(this.user);
         }
 
         async sendReport(): Promise<void> {
@@ -116,7 +115,6 @@
                 type: "warning",
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             }).then(r => {
-                console.log(r.dismiss);
                 const radios = document.getElementsByName('reportCause');
                 let type = 0;
                 for (let i = 0, length = radios.length; i < length; i++) {
@@ -129,14 +127,12 @@
                 if(!message)
                     message = null;
 
-                console.log(message);
 
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
                 });
-                console.log(r);
 
                 if( r.dismiss != "cancel" && r.dismiss != "esc" && r.dismiss != "backdrop") {
                     if(type == "aucune") {

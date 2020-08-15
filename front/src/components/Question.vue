@@ -46,7 +46,7 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import commentaire from '@/components/mini-components/commentaire.vue'
     import switchComponent from "@/components/mini-components/switch.vue";
-    import myAPI from "@/components/myAPI";
+    import DAO from "@/components/DAO";
     @Component({
         components: {
             headerComponent,
@@ -62,7 +62,7 @@
         user: object;
         votesID: number;
         errorPostComment: string;
-
+        api = new DAO();
         constructor() {
             super();
             this.posts = [];
@@ -110,29 +110,31 @@
         }
 
         async postComment(): Promise<void> {
-            let rep = false;
             const content = (document.getElementById("message") as HTMLInputElement);
             if(content.value.length < 50) {
                 this.errorPostComment = "Veuillez écrire un texte de plus 50 charactères ..";
                 return;
             }
             this.errorPostComment = "";
+            // eslint-disable-next-line
             let listTermes: Record<string, any> = [];
 
             let probleme = false;
-            await myAPI.post("posts", {
-                content: content.value,
-                'question_id' : this.$route.params.idQuestion,
-                'isAnonym':this.switchValue
-            }).then((response) =>  {
-                rep = true;
-                listTermes = response.data;
-                console.log(response.data);
+
+
+            const datas = {
+              content: content.value,
+              'question_id' : this.$route.params.idQuestion,
+              'isAnonym':this.switchValue
+            }
+
+            await this.api.postComment(datas).then(data => {
+                const response = data as unknown as Record<string, any>;
+                listTermes = response.data
                 if(response.status == 206) {
                     probleme = true;
-
                 }
-            } );
+            })
 
             if (probleme) {
                 let error = "Les termes comme : ";
@@ -147,14 +149,14 @@
                 this.errorPostComment = error;
             }
 
-            if(rep && !probleme) {
+            if(listTermes && !probleme) {
                 this.switchValue = false;
                 const element = document.getElementById("message") as  HTMLInputElement;
                 if(element) {
                     element.value = "";
                 }
             }
-            this.getComments();
+            await this.getComments();
         }
 
         showDocu(): void {
@@ -162,27 +164,16 @@
         }
 
         async getComments(): Promise<void> {
-            let posts = [null];
-
-            await myAPI.get("questions/" + this.$route.params.idQuestion + "/posts").then((response) =>  {
-                posts = response.data;
-            });
-            if (posts)
-                this.posts = posts;
+            this.api.getComments(this.$route.params.idQuestion).then(response => {
+                this.posts = response;
+            })
         }
+
         async getQuestion(): Promise<void> {
-            let rep = null;
-            let date = "";
-
-            await myAPI.get("themes/" + this.$route.params.idTheme + "/questions/" + this.$route.params.idQuestion).then((response) =>  {
-                rep = response.data;
-                date = response.data.created_at;
-            });
-
-            if (rep && date) {
-                this.question = rep;
-                this.date = date.slice(0,10)
-            }
+            this.api.getQuestion(this.$route.params.idTheme, this.$route.params.idQuestion).then(response => {
+                this.question = response;
+                this.date = (response as Record<string, any>).created_at.slice(0, 10);
+            })
         }
     }
 </script>

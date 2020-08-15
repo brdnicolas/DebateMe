@@ -55,7 +55,7 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import cardComponent from '@/components/mini-components/card.vue'
-    import myAPI from "@/components/myAPI";
+    import myAPI from "@/components/mainAPI";
     @Component({
         components: {
             headerComponent,

@@ -48,13 +48,12 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Vue } from 'vue-property-decorator';
     import headerComponent from "@/components/mini-components/header.vue";
     import footerComponent from "@/components/mini-components/footer.vue";
     import activitePoste from "@/components/mini-components/activitePoste.vue"
     import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
-    import myAPI from "@/components/myAPI";
-
+    import DAO from "@/components/DAO";
 
     @Component({
         components: {
@@ -73,6 +72,7 @@
 
         achivments: Array<string>;
         posts: object;
+        api = new DAO();
         constructor() {
             super();
             this.user = [null];
@@ -89,31 +89,24 @@
 
         async getCurrentUser(): Promise<void> {
             const profilToFind = document.URL.split("/")[4];
-            let rep = null;
-            await myAPI.get("users/search/" + profilToFind).then((response: { data: any}) =>  {
-                rep = response.data;
-            }).catch(error => {
+
+            this.api.getUserByName(profilToFind).then(data => {
+                if ( data && (data as Record<string, any>).length > 0)
+                    this.userFound((data[0] as Record<string, any>).id);
+            })
+            .catch(error => {
                 this.$router.go(-1)
-            });
-            if (rep && (rep as Record<string,any>).length > 0)
-                this.userFound((rep[0] as Record<string,any>).id);
+            })
         }
 
         async userFound(userId: number): Promise<void> {
-            let rep = null;
-            await myAPI.get("users/" + userId).then((response: { data: any}) =>  {
-                rep = response.data;
-            }).catch(error => {
-                //this.$router.go(-1)
-                console.log(error);
-            });
-            if (rep) {
-                this.user = rep;
-                this.profilPic = (rep as Record<string,any>).img.profile_picture;
-                this.bannerPic = (rep as Record<string,any>).img.banner;
-                this.achivments = (rep as Record<string,any>).achievements;
-                this.posts = (rep as Record<string,any>).posts;
-            }
+            this.api.getUserByID(userId).then(data => {
+                this.user = data;
+                this.profilPic = (data as Record<string,any>).img.profile_picture;
+                this.bannerPic =  (data as Record<string,any>).img.banner;
+                this.achivments =  (data as Record<string,any>).achievements;
+                this.posts =  (data as Record<string,any>).posts;
+            })
         }
 
     }

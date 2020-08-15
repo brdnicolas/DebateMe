@@ -28,7 +28,7 @@
     import Menu from "@/components/admin/Menu.vue";
     import Header from "@/components/mini-components/header.vue";
     import LineChart from './LineChart.js';
-    import myAPI from "@/components/myAPI";
+    import myAPI from "@/components/mainAPI";
 
     /*
     <div style="width:500px;height:500px;">

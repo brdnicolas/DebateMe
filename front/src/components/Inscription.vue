@@ -34,7 +34,8 @@
     import { Component, Vue } from 'vue-property-decorator'
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
-    import myAPI from "@/components/myAPI";
+    import DAO from "@/components/DAO";
+
     @Component({
         components: {
             headerComponent,
@@ -55,6 +56,7 @@
         inscriptionFirstName: string;
         inscriptionLastName: string;
         error: string;
+        api = new DAO();
 
         constructor() {
             super();
@@ -91,21 +93,22 @@
               return;
             }
 
-            myAPI.post("auth/register", {
-                email: email,
-                password: password,
-                username: username,
-                firstname: firstname,
-                lastname: lastname,
-                // eslint-disable-next-line @typescript-eslint/camelcase
-                password_confirmation: repassword,
-            }).then((response: { data: any}) =>  {
-                localStorage.token = response.data.auth_token;
-                window.location.href = '/home';
-            } )
-                .catch(error => {
-                    this.error = "Une erreur s'est produite."
-                });
+            const datas = {
+              email: email,
+              password: password,
+              username: username,
+              firstname: firstname,
+              lastname: lastname,
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              password_confirmation: repassword,
+            }
+            this.api.postInscription(datas).then(data => {
+              localStorage.token = (data as Record<string, any>).auth_token;
+              window.location.href = '/home';
+            })
+            .catch(error => {
+              this.error = "Une erreur s'est produite."
+            });
         }
     }
 </script>

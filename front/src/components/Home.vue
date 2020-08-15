@@ -75,7 +75,7 @@ height: 50px;">
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import cardComponent from '@/components/mini-components/card.vue'
-    import myAPI from "@/components/myAPI";
+    import DAO from "@/components/DAO";
     @Component({
         components: {
             headerComponent,
@@ -87,7 +87,8 @@ height: 50px;">
         themes: Record<string, any>;
         listePostes: Record<string, any>;
         idThemeActuel: number;
-        constructor() {
+        api =  new DAO();
+      constructor() {
             super();
             this.themes = {};
             this.listePostes = {};
@@ -110,51 +111,27 @@ height: 50px;">
         }
 
         checkToken(): void {
-
             if(localStorage.token === "") {
                 window.location.href = '/';
             }
         }
 
         async getThemes(): Promise<void> {
-            let rep = null;
-            await myAPI.get('themes').then((response: { data: any}) =>  {
-                rep = response.data;
-                console.log(response.data);
-            } );
-            if (rep)
-                this.themes = rep;
+            await this.api.getThemes().then(data => {
+                this.themes = data as unknown as Record<string, any>
+            })
         }
 
         async getPostesByTheme(): Promise<void> {
-            let rep = null;
-            await myAPI.get("themes/" + this.idThemeActuel + "/questions").then((response: { data: any}) =>  {
-                rep = response.data;
-                console.log(response.data);
-                console.log("hhé");
-            } );
-            if (rep)
-                this.listePostes = rep;
+          await this.api.getPostesByTheme(this.idThemeActuel).then(data => {
+              this.listePostes = data as unknown as Record<string, any>
+          })
         }
 
         ChangeTheme(e: Event, id: number): void {
-
-
-
-
-
-
-
-
-
             let target = e.target as HTMLTextAreaElement;
-
-
             if(target.tagName != 'DIV')
              target = target.parentElement as HTMLTextAreaElement
-
-
-
             const selected = document.getElementById('selected');
             if (selected) {
                 selected.id = 'notselected';

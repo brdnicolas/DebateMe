@@ -47,7 +47,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import myAPI from "@/components/myAPI";
+    import myAPI from "@/components/mainAPI";
 
     @Component
     export default class Header extends Vue {

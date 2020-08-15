@@ -158,7 +158,8 @@
   import { Component, Vue } from 'vue-property-decorator'
   import headerComponent from '@/components/mini-components/header.vue'
   import footerComponent from '@/components/mini-components/footer.vue'
-  import myAPI from "@/components/myAPI";
+  import DAO from "@/components/DAO";
+
   @Component({
     components: {
       headerComponent,
@@ -180,6 +181,7 @@
     inscriptionFirstName: string;
     inscriptionLastName: string;
     error: string;
+    api = new DAO();
 
     constructor() {
       super();
@@ -251,13 +253,15 @@
         return;
       }
 
-      myAPI.post("auth/login", {
+      const datas = {
         email : email,
         password: password
-      }).then((response: { data: any}) =>  {
-        localStorage.token = response.data.auth_token;
-        window.location.href = '/home';
-      }).catch(error => {
+      }
+      this.api.postConnexion(datas).then(datas => {
+          localStorage.token = (datas as Record<string, any>).auth_token;
+          window.location.href = '/home';
+      })
+      .catch(error => {
         this.error = "Email ou mot de passe invalide."
       });
     }

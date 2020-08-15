@@ -24,7 +24,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import myAPI from "@/components/myAPI";
+    import myAPI from "@/components/mainAPI";
     import moment from 'moment'
     @Component
     export default class Header extends Vue {

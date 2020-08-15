@@ -6,17 +6,12 @@
                 <h1>Support</h1>
                 <p>Si vous rencontrez un quelconque problème avec la plateforme Debate Me, n’hésitez pas à nous contacter à notre adresse mail : <span>support@debate.me</span> ou sur twitter <span>@SupportDebateMe</span><br><br>
                     Afin de rendre votre expérience de débat plus seine et agréable, nous avons mis au point une IA qui va régulariser les débats afin d’éviter les disputes inutiles ou les insultes.
-
                 </p>
             </div>
             <div>
                 <h1>À propos</h1>
                 <p>Nous sommes <span>Debate Me</span>, une plateforme où tu pourras <span>débatre tranquillement</span>, sereinement et sans risques de te faire insulter. Cette plateforme à été créée afin que chacun puisse donner son avis ainsi que l’exposer sans embûches.<br><br>
                     Nous fonctionnons en catégories, un pannel large de catégories existe et chaque semaine un nouveau <span>“sujet de la semaine”</span> apparait par catégorie. Vous êtes <span>libres de choisir</span> vous même vos catégories préférées afin d’améliorer votre éxpérience !
-
-
-
-
                 </p>
             </div>
         </div>
