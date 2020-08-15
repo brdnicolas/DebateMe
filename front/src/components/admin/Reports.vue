@@ -23,12 +23,12 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Vue } from 'vue-property-decorator';
     import report from "@/components/admin/mini-components/report-comp.vue";
     import Menu from "@/components/admin/Menu.vue";
     import Header from "@/components/mini-components/header.vue";
     import LineChart from './LineChart.js';
-    import myAPI from "@/components/mainAPI";
+    import DAO from "@/components/DAO";
 
     /*
     <div style="width:500px;height:500px;">
@@ -45,6 +45,8 @@
         },
     })
 
+
+
     export default class HelloWorld extends Vue {
         mounted() {
             this.checkAdmin();
@@ -56,53 +58,37 @@
         }
 
         reports: object;
-        constructor() {
+        api = new DAO();
+
+
+      constructor() {
             super();
             this.reports = [];
         }
 
         async getReports(): Promise<void> {
-            let rep = null;
-            await myAPI.get("reports/")
-            .then(function(response) {
-                rep = response.data;
-            });
-            if (rep) {
-                this.reports = rep;
-                console.log(rep);
-            }
+            await this.api.getReports().then(datas => {
+              this.reports = datas
+            })
         }
 
         async deletePost(idPost: number): Promise<void> {
-            let reponse = 0;
-            await myAPI.delete("posts/" + idPost)
-            .then(function(rep) {
-                reponse = 1;
-            });
-            if(reponse)
+            await this.api.deletePost(idPost).then(datas => {
                 this.$router.go(0);
+            })
         }
 
         async deleteReport(idReport: number): Promise<void> {
-            let reponse = 0;
-            await myAPI.delete("reports/" + idReport)
-            .then(function(rep) {
-                reponse = 1;
-            });
-            if(reponse)
+            await this.api.deleteReport(idReport).then(datas => {
                 this.$router.go(0);
+            })
         }
 
         async checkAdmin(): Promise<void> {
-            let rep = null;
-            await myAPI.get("users/me/profile")
-            .then(function(response) {
-                rep = response.data;
-            });
-            if (rep) {
-                if( !(rep as Record<string,any>).isAdmin )
+            await this.api.getCurrentUser().then(datas => {
+                if( !(datas as Record<string,any>).isAdmin )
                     window.location.href = '/';
-            }
+            })
         }
 
 

@@ -30,7 +30,7 @@
     import { Component, Vue } from 'vue-property-decorator';
     import Menu from "@/components/admin/Menu.vue";
     import Header from "@/components/mini-components/header.vue";
-    import myAPI from "@/components/mainAPI";
+    import DAO from "@/components/DAO";
     import Swal from 'sweetalert2/dist/sweetalert2.js'
 
     @Component({
@@ -49,6 +49,7 @@
 
         themes: object;
         selectedTheme: string;
+        api = new DAO();
         constructor() {
               super();
               this.themes = [];
@@ -60,15 +61,9 @@
         }
 
         async getThemes(): Promise<void> {
-            let rep = null;
-            await myAPI.get("themes/")
-            .then(function(response) {
-                rep = response.data;
-            });
-            if (rep) {
-                this.themes = rep;
-                console.log(rep);
-            }
+            await this.api.getThemes().then(datas => {
+                this.themes = datas;
+            })
         }
 
         async newQuestion(): Promise<void> {
@@ -91,44 +86,30 @@
               showConfirmButton: false,
             });
 
-            let rep = null;
-            await myAPI.post("themes/"+ this.selectedTheme +"/questions", dataform)
-                .then(function(response) {
-                  rep = response.data;
-                  valueTitle.value = ""
-                  valueDoc.value = "";
-                  valueImg.value = "";
-                  valueDate.value = "";
-                })
-            .catch(error => {
-              Toast.fire({
-                icon: 'error',
-                title: "Erreur lors de la création de la question."
-              })
-            });
-            if (rep) {
-                await Toast.fire({
+            await this.api.postQuestion(this.selectedTheme, dataform)
+                .then(datas => {
+                valueTitle.value = ""
+                valueDoc.value = "";
+                valueImg.value = "";
+                valueDate.value = "";
+                Toast.fire({
                   icon: 'success',
                   title: 'La question a bien été créée'
                 })
-            } else {
-                await Toast.fire({
-                  icon: 'error',
-                  title: "Erreur lors de la création de la question."
                 })
-            }
+                .catch(error => {
+                  Toast.fire({
+                    icon: 'error',
+                    title: "Erreur lors de la création de la question."
+                  })
+                });
         }
 
         async checkAdmin(): Promise<void> {
-            let rep = null;
-            await myAPI.get("users/me/profile")
-            .then(function(response) {
-                rep = response.data;
-            });
-            if (rep) {
-                if( !(rep as Record<string,any>).isAdmin )
+            await this.api.getCurrentUser().then(datas => {
+                if( !(datas as Record<string,any>).isAdmin )
                     window.location.href = '/';
-            }
+            })
         }
 
 

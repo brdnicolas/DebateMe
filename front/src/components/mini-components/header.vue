@@ -47,7 +47,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import myAPI from "@/components/mainAPI";
+    import DAO from "@/components/DAO";
 
     @Component
     export default class Header extends Vue {
@@ -57,6 +57,8 @@
         user: object;
         visibleMenu: boolean;
         profilPic: string;
+        api = new DAO();
+
         constructor() {
             super();
             this.currentPage = "";
@@ -71,17 +73,13 @@
         }
 
         async getCurrentUser(): Promise<void> {
-            let rep = null;
-            await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
-                rep = response.data;
-            }).catch(error => {
-                console.log(error);
+            this.api.getCurrentUser().then(datas => {
+                this.user = datas;
+                this.profilPic = (datas as Record<string,any>).img.profile_picture;
+            })
+            .catch(error => {
                 this.deconnexion();
-            });
-            if (rep) {
-                this.user = rep;
-                this.profilPic = (rep as Record<string,any>).img.profile_picture;
-            }
+            })
         }
 
         redirectTo(page: string): void {

@@ -109,6 +109,54 @@ class DAO {
         return rep;
     }
 
+    async postReport(datas) {
+        let rep = {};
+        await this.axios.post("reports", datas).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async getVotes(commentaireID) {
+        let rep = {};
+        await this.axios.get("posts/" + commentaireID + "/vote" ).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async getReports() {
+        let rep = {};
+        await this.axios.get("reports/" ).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async deletePost(postID) {
+        let rep = {};
+        await this.axios.delete("posts/" + postID).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async deleteReport(reportID) {
+        let rep = {};
+        await this.axios.delete("reports/" + reportID).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async postQuestion(themeID, datas) {
+        let rep = {};
+        await this.axios.post("themes/"+ themeID +"/questions", datas).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
 }
 
 export default DAO;

@@ -45,7 +45,8 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import moment from 'moment'
     import Swal from 'sweetalert2/dist/sweetalert2.js'
-    import myAPI from "@/components/mainAPI";
+    import DAO from "@/components/DAO";
+
     @Component
     export default class Header extends Vue {
 
@@ -64,6 +65,7 @@
         date: string;
         voted: boolean;
         currentUser: object;
+        api = new DAO();
 
         constructor() {
             super();
@@ -142,47 +144,42 @@
                         })
                     } else {
 
-                        myAPI.post("reports", {
-                            'post_id' : this.commentaire.id,
-                            'reason_report_id' : type,
-                            'message': message
-                        }).then((response: { data: any}) =>  {
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Nous avons reçu votre signalement !'
-                            })
-                        }).catch(error => {
-                            console.log(error);
-                            Toast.fire({
-                                icon: 'error',
-                                title: "Une erreure s'est produite lors de l'envoie.."
-                            })
-                        });
 
+                      const data = {
+                        'post_id' : this.commentaire.id,
+                        'reason_report_id' : type,
+                        'message': message
+                      }
+
+                      this.api.postReport(data).then(datas => {
+                          Toast.fire({
+                            icon: 'success',
+                            title: 'Nous avons reçu votre signalement !'
+                          })
+                      }).catch(error => {
+                        console.log(error);
+                        Toast.fire({
+                          icon: 'error',
+                          title: "Une erreure s'est produite lors de l'envoie.."
+                        })
+                      });
                     }
                 }
-
-
             });
         }
 
         async getCurrentUser(): Promise<void> {
-            let rep = null;
-
-            await myAPI.get("users/me/profile").then((response: { data: any}) =>  {
-                rep = response.data;
-            });
-
-
-            if (rep) {
-                this.currentUser = rep;
-            }
+            this.api.getCurrentUser().then(datas => {
+              this.currentUser = datas;
+            })
+            .catch(error => {
+              this.deconnexion();
+            })
             this.voted = !!this.votes?.includes((this.currentUser as Record<string, any>).id);
-
         }
 
         async upVote(): Promise<void> {
-            await myAPI.get("posts/" + (this.commentaire as Record<string, any>).id + "/vote" );
+            await this.api.getVotes((this.commentaire as Record<string, any>).id);
             this.voted = !this.voted;
             this.$forceUpdate();
             this.$emit('refresh');

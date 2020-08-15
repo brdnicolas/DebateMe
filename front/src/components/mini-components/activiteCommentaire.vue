@@ -24,8 +24,9 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import myAPI from "@/components/mainAPI";
     import moment from 'moment'
+    import DAO from "@/components/DAO";
+
     @Component
     export default class Header extends Vue {
         @Prop({default: 0})
@@ -43,6 +44,8 @@
 
         question: object;
         dateFrom: string;
+        api = new DAO();
+
         constructor() {
             super();
             this.question = [null];
@@ -60,14 +63,9 @@
         }
 
         async getQuestion(): Promise<void> {
-            let rep = null;
-
-            await myAPI.get("themes/" + this.theme_id + "/questions/" + this.question_id).then((response) =>  {
-                rep = response.data;
-            });
-
-            if (rep)
-                this.question = rep;
+            this.api.getQuestion(this.theme_id, this.question_id).then(datas => {
+              this.question = datas;
+            })
         }
 
 

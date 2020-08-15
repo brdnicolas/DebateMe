@@ -68,7 +68,6 @@
         }
 
         async getPostMessage(postId): Promise<void> {
-            console.log(postId);
             let rep = null;
             await axios.get("https://api.hugovast.tech/posts/" + postId,{
                 headers: {
