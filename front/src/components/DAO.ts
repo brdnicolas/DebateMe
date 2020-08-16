@@ -6,7 +6,7 @@ class DAO {
     constructor() {
         this.axios = axios.create({
             baseURL: 'https://api.hugovast.tech/',
-            timeout: 2000,
+            timeout: 4000,
             headers: {
                 Authorization: localStorage.token,
             }
@@ -152,6 +152,22 @@ class DAO {
     async postQuestion(themeID, datas) {
         let rep = {};
         await this.axios.post("themes/"+ themeID +"/questions", datas).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async getRaisonReport() {
+        let rep = [];
+        await this.axios.get("reports_reasons/" ).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async getPostByID(posteID) {
+        let rep = [];
+        await this.axios.get("posts/" + posteID).then((response: { data: any}) =>  {
             rep =  response.data;
         } );
         return rep;
