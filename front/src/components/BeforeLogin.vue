@@ -106,46 +106,54 @@
           <h4>Gratuit</h4>
           <div class="liste">
             <li>
-              <img src="../assets/icon/uncheck.png">
-              <p>Raison 1</p>
+              <img src="../assets/icon/check.png">
+              <p>Thèmes de marques</p>
             </li>
             <li>
               <img src="../assets/icon/check.png">
-              <p>Raison 2</p>
-            </li>
-            <li>
-              <img src="../assets/icon/check.png">
-              <p>Raison 3</p>
+              <p>Avis expert</p>
             </li>
             <li>
               <img src="../assets/icon/uncheck.png">
-              <p>Raison 4</p>
+              <p>Aucune publicité</p>
+            </li>
+            <li>
+              <img src="../assets/icon/uncheck.png">
+              <p>Thèmes illimités</p>
+            </li>
+            <li>
+              <img src="../assets/icon/uncheck.png">
+              <p>Possibilité de proposer un sujet / thème</p>
             </li>
           </div>
-          <button>Choisir</button>
+          <button class="choiceTarif">Choisir</button>
         </div>
         <div class="profits-card">
           <h3>Premium</h3>
-          <h4>10€ / mois</h4>
+          <h4>9.99€ / mois</h4>
           <div class="liste">
             <li>
               <img src="../assets/icon/check.png">
-              <p>Raison 1</p>
+              <p>Thèmes de marques</p>
             </li>
             <li>
               <img src="../assets/icon/check.png">
-              <p>Raison 2</p>
+              <p>Avis expert</p>
             </li>
             <li>
               <img src="../assets/icon/check.png">
-              <p>Raison 3</p>
+              <p>Aucune publicité</p>
             </li>
             <li>
               <img src="../assets/icon/check.png">
-              <p>Raison 4</p>
+              <p>Thèmes illimités</p>
+            </li>
+            <li>
+              <img src="../assets/icon/check.png">
+              <p>Possibilité de proposer un sujet / thème</p>
             </li>
           </div>
-          <button>Choisir</button>
+          <button class="choiceTarif">Choisir</button>
         </div>
       </div>
     </div>
@@ -303,6 +311,10 @@
   .liste {
     width:100%;
     margin-top:20px;
+  }
+  .liste p {
+    margin-left:10px;
+    text-align: left;
   }
   .liste li {
     list-style: none;
@@ -573,7 +585,14 @@
     box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
     transition: 0.4s ease-out;
   }
-  button:hover {
+  .choiceTarif {
+    transition: 0.5s;
+  }
+  .choiceTarif:hover {
+    transition: 0.5s;
+    background:#3E68B4;
+  }
+  .button:hover {
     box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
   }
   #log {

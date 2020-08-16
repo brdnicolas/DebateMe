@@ -33,7 +33,6 @@
 <script lang="ts">
     // @ts-nocheck
     import { Component, Vue } from 'vue-property-decorator';
-    import report from "@/components/admin/mini-components/report-comp.vue";
     import Menu from "@/components/admin/Menu.vue";
     import Header from "@/components/mini-components/header.vue";
     import LineChart from './LineChart.js';
@@ -41,17 +40,10 @@
     import reportTAB from "@/components/admin/mini-components/reportTAB.vue"
     import moment from "moment"
 
-    /*
-    <div style="width:500px;height:500px;">
-        <line-chart :chart-data="datacollection"></line-chart>
-    </div>
-    */
-
     @Component({
         components: {
             Header,
             LineChart,
-            report,
             Menu,
             reportTAB,
         },

@@ -14,7 +14,6 @@
 <script lang="ts">
 // @ts-nocheck
 import {Component, Prop, Vue} from 'vue-property-decorator';
-import report from "@/components/admin/mini-components/report-comp.vue";
 import Menu from "@/components/admin/Menu.vue";
 import Header from "@/components/mini-components/header.vue";
 import DAO from "@/components/DAO";
@@ -23,7 +22,6 @@ import DAO from "@/components/DAO";
 @Component({
   components: {
     Header,
-    report,
     Menu
   },
 })

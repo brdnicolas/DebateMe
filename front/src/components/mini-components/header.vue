@@ -31,7 +31,7 @@
                         <img src="../../assets/icon/Menu/params.png"/>
                         <a>Paramètres</a>
                     </li>
-                    <li>
+                    <li @click="redirectTo('abonnement')">
                         <img src="../../assets/icon/Menu/prix.png"/>
                         <a>Abonnement</a>
                     </li>
