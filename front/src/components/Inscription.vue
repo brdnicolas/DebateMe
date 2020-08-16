@@ -9,14 +9,15 @@
                 <h1>Bienvenue chez nous !</h1>
                 <p>Inscrivez-vous pour ne manquer aucun débat ! Nous savons à quel point donner son avis importe alors n'hésitez pas.</p>
                 <p>Oh mais attendez... Vous êtes peut-être déjà inscrit ?</p>
+                <p class="darkmode-ignore">{{errorConnexion}}</p>
                 <input class="textarea2" id="username" type="text" v-model="connexionEmail" placeholder="Email"/>
                 <input class="textarea2" id="pass" type="text" v-model="connexionPassword" placeholder="Mot de passe"/>
-                <button type="submit" class="connexion"><b>CONNEXION</b></button>
+                <button type="submit" class="connexion" @click="ConnexionPOST($event,connexionEmail,connexionPassword)"><b>CONNEXION</b></button>
             </div>
             <div class ="rightSide">
                 <form>
-                    <h1>Créez votre compte</h1>
-                    <p style="color:red;margin-bottom:40px;">{{error}}</p>
+                    <h1 class="darkmode-ignore">Créez votre compte</h1>
+                    <p class="darkmode-ignore" style="color:red;margin-bottom:40px;">{{error}}</p>
                     <input class="textarea" id="nom" type="text" v-model="inscriptionLastName" placeholder="Nom"/>
                     <input class="textarea" id="prenom" type="text" v-model="inscriptionFirstName" placeholder="Prénom"/>
                     <input class="textarea" id="email" type="email" v-model="inscriptionEmail" placeholder="Email"/>
@@ -56,6 +57,7 @@
         inscriptionFirstName: string;
         inscriptionLastName: string;
         error: string;
+        errorConnexion: string;
         api = new DAO();
 
         constructor() {
@@ -69,12 +71,38 @@
             this.inscriptionPseudo = "";
             this.inscriptionFirstName = "";
             this.inscriptionLastName = "";
+            this.errorConnexion = "";
         }
 
         checkToken(): void {
             if (localStorage.token != "") {
                 window.location.href = '/home';
             }
+        }
+        ConnexionPOST(e: Event, email: string,password: string): void {
+          e.preventDefault();
+          if (!email || !password) {
+            this.errorConnexion = "Vous avez oublié quelque chose là ..";
+            return;
+          }
+
+          const regexEmail = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}'
+          if (email.search(regexEmail) < 0) {
+            this.errorConnexion = "Veuillez entrer une adresse email valide."
+            return;
+          }
+
+          const datas = {
+            email : email,
+            password: password
+          }
+          this.api.postConnexion(datas).then(datas => {
+            localStorage.token = (datas as Record<string, any>).auth_token;
+            window.location.href = '/home';
+          })
+              .catch(error => {
+                this.errorConnexion = "Email ou mot de passe invalide."
+              });
         }
         InscriptionPost(e: Event, email: string,password: string, repassword: string, username: string, firstname: string, lastname: string): void {
             e.preventDefault();
@@ -114,6 +142,12 @@
 </script>
 
 <style scoped>
+    .darkmode--activated .inscription {
+      background: #CB9B55;
+    }
+    .darkmode--activated .leftSide {
+      background :#0D0F11 !important;
+    }
     .backgroundImage {
         background-image: url('../assets/img/background.png');
         background-repeat:no-repeat;
@@ -279,7 +313,7 @@
         font-size:22px;
     }
     .leftSide h1 {
-        margin-top: 100px;
+        margin-top: 90px;
     }
     .leftSide p {
         margin-top: 10px;
@@ -289,7 +323,13 @@
         margin-left:20px;
         margin-top:40px;
     }
-    .leftSide p:nth-child(4) {
-        padding-bottom:54px;
+    .leftSide p:nth-child(5) {
+        width:100%;
+        padding-left:25px;
+        text-align: left !important;
+        color: #FF644D;
+      display: block;
+      height:20px;
+
     }
 </style>

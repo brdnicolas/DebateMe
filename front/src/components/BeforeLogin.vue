@@ -7,10 +7,10 @@
       </div>
       <div class="right">
         <button id="log" class ="button" @click="showLogin">
-          Connexion
+          <span class="darkmode-ignore">Connexion</span>
         </button>
         <button id="sign" class ="button" @click="showSignIn">
-          Inscription
+          <span class="inscriptionMark">Inscription</span>
         </button>
 
       </div>
@@ -243,7 +243,7 @@
     ConnexionPOST(e: Event, email: string,password: string): void {
       e.preventDefault();
       if (!email || !password) {
-        this.error = "Vous avez oublier quelque chose là ..";
+        this.error = "Vous avez oublié quelque chose là ..";
         return;
       }
 
@@ -269,7 +269,24 @@
 </script>
 
 <style scoped>
-
+  .darkmode--activated #sign {
+    background: #1bb1f3 !important;
+  }
+  .darkmode--activated .logbox {
+      background: #16191d !important;
+  }
+  .darkmode--activated .logbox input {
+      background: #17191D;
+  }
+  .darkmode--activated .inscriptionMark {
+    color : #651f00 !important;
+  }
+  .darkmode--activated header {
+      background: #faab12 !important;
+  }
+  .darkmode--activated .background {
+      mix-blend-mode: difference;
+  }
   .profits-card button {
     width: 125px;
     height: 35px;
@@ -506,6 +523,7 @@
     align-items: center;
   }
   .cover .background {
+    isolation: isolate !important;
     width:100vw;
     height:900px;
     position: absolute;
