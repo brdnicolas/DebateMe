@@ -122,6 +122,10 @@ td {
 }
 td:hover {
   white-space: normal;
+  overflow: scroll;
+  overflow-wrap: break-word;
+  text-overflow: clip;
+  height:auto;
 }
 .garder {
   transition:0.2s;
