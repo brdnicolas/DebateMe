@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: [ :create, :search, :show ]
-  before_action :set_user, only: [:update, :destroy, :show, :show_achievements, :show_activities]
+  skip_before_action :authorize_request, only: %i[create search show]
+  before_action :set_user, only: %i[update destroy show show_achievements show_activities]
 
   # GET /users
   def index
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     user = User.create!(user_params)
-    UserInfo.create!(user_info_params.merge({user_id: user.id}))
+    UserInfo.create!(user_info_params.merge({ user_id: user.id }))
     auth_token = AuthenticateUser.new(user.email, user.password).call
     response = { message: Message.account_created, auth_token: auth_token }
     json_response(response, :created)
@@ -41,17 +41,17 @@ class UsersController < ApplicationController
   end
 
   def user_pay
-    Stripe.api_key = 'sk_test_51H0icEEfP5i1LDx8OJXaM7sUcckxNisoWOARRdwuPxGbWJxnVkH9FAIcu177cgHPB1tb6CqQ0wY3cwQhf40D8cqk00g00NEeGQ'
-    session = Stripe::Checkout::Session.create(
-        payment_method_types: ['card'],
-        line_items: [{
-                         price: 'price_1HH8WLEfP5i1LDx8jZu9mHPl',
-                         quantity: 1,
-                     }],
-        mode: 'subscription',
-        success_url: 'https://pli.hugovast.tech/me',
-        cancel_url: 'https://pli.hugovast.tech/home',
-        )
+    # Stripe.api_key = 'sk_test_51H0icEEfP5i1LDx8OJXaM7sUcckxNisoWOARRdwuPxGbWJxnVkH9FAIcu177cgHPB1tb6CqQ0wY3cwQhf40D8cqk00g00NEeGQ'
+    # session = Stripe::Checkout::Session.create(
+    #     payment_method_types: ['card'],
+    #     line_items: [{
+    #                      price: 'price_1HH8WLEfP5i1LDx8jZu9mHPl',
+    #                      quantity: 1,
+    #                  }],
+    #     mode: 'subscription',
+    #     success_url: 'https://pli.hugovast.tech/me',
+    #     cancel_url: 'https://pli.hugovast.tech/home',
+    #     )
   end
 
   def set_premium
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   end
 
   def user_info_params
-    params.permit( :username, :firstname, :lastname, :quote, :profile_picture, :banner)
+    params.permit(:username, :firstname, :lastname, :quote, :profile_picture, :banner)
   end
 
   def set_user

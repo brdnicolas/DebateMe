@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   # GET /posts
   def index
     json_response(current_user.posts)
@@ -17,13 +18,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     content = post_params[:content]
-    validation = validation_content(content)
-    if validation.class == Array
-      json_response(validation, :partial_content)
-    else
-      @post = current_user.posts.create!(post_params)
-      json_response(@post, :created)
-    end
+    validation_content(content)
   end
 
   # PUT /posts/:id
@@ -42,7 +37,7 @@ class PostsController < ApplicationController
   def vote
     @post = Post.find(params[:id])
     vote = UserHasVote.records(current_user.id, @post.id)
-    vote.count == 0 ? create_vote : destroy_vote(vote.first)
+    vote.count.zero ? create_vote : destroy_vote(vote.first)
   end
 
   private
@@ -61,7 +56,7 @@ class PostsController < ApplicationController
   end
 
   def create_vote
-    UserHasVote.create({user_id: current_user.id, post_id: @post.id })
+    UserHasVote.create({ user_id: current_user.id, post_id: @post.id })
     @post.up_vote
     json_response('vote')
   end
@@ -73,7 +68,13 @@ class PostsController < ApplicationController
   end
 
   def validation_content(content)
-    ValidationContent.new(content).get_corrected_text
+    validation = ValidationContent.new(content).get_corrected_text
+    if validation.class == Array
+      json_response(validation, :partial_content)
+    else
+      @post = current_user.posts.create!(post_params)
+      json_response(@post, :created)
+    end
   end
 
 end

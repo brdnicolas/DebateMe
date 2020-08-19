@@ -11,7 +11,7 @@ class Post < ApplicationRecord
 
   def get_vote_ids
     votes_id = user_has_vote_ids
-    votes_id.inject([]) { |memo, element| memo.append(UserHasVote.find(element).user_id) }
+    votes_id.reduce([]) { |memo, element| memo.append(UserHasVote.find(element).user_id) }
   end
 
   def up_vote

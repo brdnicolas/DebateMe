@@ -1,5 +1,5 @@
 class TestController < ApplicationController
   def ping
-    render :json => 'pong'
+    json_response 'pong', 200
   end
 end

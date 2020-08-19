@@ -1,8 +1,7 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:update, :destroy, :show]
-  before_action :is_admin, except: [:create, :update, :get_reasons]
-  # skip_before_action :authorize_request
-  skip_before_action :is_admin
+  before_action :set_report, only: %i[update destroy show]
+  before_action :admin?, except: %i[create update get_reasons]
+  skip_before_action :admin?
 
   # GET /reports
   def index
@@ -18,14 +17,13 @@ class ReportsController < ApplicationController
 
   # GET /reports_sort
   def get_sorted_reports
-    @reports = Report.all.where("processed = false").order('post_id, reason_report_id')
+    @reports = Report.all.where('processed = false').order('post_id, reason_report_id')
     json_response(@reports)
   end
 
   # POST /reports
   def create
-    params = report_params
-    params[:user_id] = current_user.id
+    params = report_params.merge({ user_id: current_user.id })
     report = Report.create!(params)
     json_response(report, :created)
   end
@@ -37,7 +35,7 @@ class ReportsController < ApplicationController
 
   # PUT /reports/:id
   def update
-    if @report.user == current_user or current_user.isAdmin
+    if (@report.user == current_user) || current_user.isAdmin
       @report.update(report_params)
       head :no_content
     else
@@ -61,7 +59,7 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
-  def is_admin
+  def admin?
     head :forbidden unless current_user.isAdmin
   end
 end

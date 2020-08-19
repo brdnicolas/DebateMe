@@ -5,9 +5,7 @@ class AuthorizeApiRequest
 
   # Service entry point - return valid user object
   def call
-    {
-        user: user
-    }
+    { user: user }
   end
 
   private
@@ -17,14 +15,11 @@ class AuthorizeApiRequest
   def user
     # check if user is in the database
     # memoize user object
-    @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
-      # handle user not found
+    @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token 
+  # handle user not found
   rescue ActiveRecord::RecordNotFound => e
     # raise custom error
-    raise(
-        Exceptions::InvalidToken,
-        ("#{Message.invalid_token} #{e.message}")
-    )
+    raise(Exceptions::InvalidToken, ("#{Message.invalid_token} #{e.message}"))
   end
 
   # decode authentication token
@@ -34,9 +29,8 @@ class AuthorizeApiRequest
 
   # check for token in `Authorization` header
   def http_auth_header
-    if headers['Authorization'].present?
-      return headers['Authorization'].split(' ').last
-    end
+    return headers['Authorization'].split(' ').last if headers['Authorization'].present?
+
     raise(Exceptions::MissingToken, Message.missing_token)
   end
 end

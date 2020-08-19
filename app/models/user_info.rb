@@ -12,10 +12,7 @@ class UserInfo < ApplicationRecord
   def get_image_url
     pp = url_for(profile_picture) if profile_picture.attached?
     ban = url_for(banner) if banner.attached?
-    {
-      profile_picture: pp,
-      banner: ban
-    }
+    { profile_picture: pp, banner: ban }
   end
 
   def update(attributes = {})

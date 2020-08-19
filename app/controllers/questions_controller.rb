@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :set_theme
-  skip_before_action :set_theme, only: [:get_posts]
+  skip_before_action :set_theme, only: %i[get_posts]
   skip_before_action :authorize_request
-  before_action :set_theme_question, only: [:show, :update, :destroy]
+  before_action :set_theme_question, only: %i[show update destroy]
 
   # GET /themes/:id/questions
   def index
@@ -44,7 +44,6 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    # whitelist params
     params.permit(:title, :documentation, :start_time, :end_time, :image)
   end
 
@@ -57,6 +56,6 @@ class QuestionsController < ApplicationController
   end
 
   def set_theme_question
-    @question = @theme.questions.find_by!(id: params[:id]) if @theme
+    @question = @theme&.questions&.find_by!(id: params[:id])
   end
 end

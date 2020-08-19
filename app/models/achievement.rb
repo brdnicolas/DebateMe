@@ -5,7 +5,7 @@ class Achievement < ApplicationRecord
   has_and_belongs_to_many :user_infos
 
   def get_image_url
-    url_for(self.badge) if self.badge.attached?
+    url_for(badge) if badge.attached?
   end
 
   def get_full_info

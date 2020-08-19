@@ -1,5 +1,5 @@
 class ThemesController < ApplicationController
-  before_action :set_theme, only: [:show, :update, :destroy]
+  before_action :set_theme, only: %i[show update destroy]
   skip_before_action :authorize_request
 
 
@@ -11,7 +11,7 @@ class ThemesController < ApplicationController
 
   # POST /themes
   def create
-    @theme = Theme.create!(theme_params) # '!' is here for raise an AR::RecordInvalid exception
+    @theme = Theme.create!(theme_params)
     json_response(@theme.get_theme_image, :created)
   end
 

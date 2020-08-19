@@ -2,18 +2,18 @@ class Tracking::Post < ApplicationRecord
   self.table_name = 'tracking_posts'
 
   def self.get_collection
-    Post.where("created_at > ?", 1.days.ago)
+    Post.where('created_at > ?', 1.days.ago)
   end
 
   def self.get_most_publisher_user_id(collection)
     h = {}
-    collection.pluck(:user_id).each { |id| h["#{id}"].nil? ? h["#{id}"] = 1 : h["#{id}"] += 1}
+    collection.pluck(:user_id).each { |id| h[id.to_s].nil? ? h[id.to_s] = 1 : h[id.to_s] += 1 }
     h.max_by(&:last)[0]
   end
 
   def self.get_most_post_question_id(collection)
     h = {}
-    collection.pluck(:question_id).each { |id| h["#{id}"].nil? ? h["#{id}"] = 1 : h["#{id}"] += 1}
+    collection.pluck(:question_id).each { |id| h[id.to_s].nil? ? h[id.to_s] = 1 : h[id.to_s] += 1 }
     h.max_by(&:last)[0]
   end
 
