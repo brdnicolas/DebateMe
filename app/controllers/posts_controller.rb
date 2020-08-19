@@ -37,7 +37,7 @@ class PostsController < ApplicationController
   def vote
     @post = Post.find(params[:id])
     vote = UserHasVote.records(current_user.id, @post.id)
-    vote.count.zero ? create_vote : destroy_vote(vote.first)
+    vote.count.zero? ? create_vote : destroy_vote(vote.first)
   end
 
   private
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
 
   def set_user_post
     @user ||= current_user
-    @post = @user.posts.find_by!(id: params[:id]) if @user or @user.isAdmin
+    @post = @user.posts.find_by!(id: params[:id]) if @user || @user.isAdmin
   end
 
   def create_vote
