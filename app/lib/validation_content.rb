@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+
 class ValidationContent
   attr_accessor :content
 
@@ -8,26 +9,25 @@ class ValidationContent
   end
 
   def get_response
-    uri = URI('https://debatememoderator.cognitiveservices.azure.com/contentmoderator/moderate/v1.0/ProcessText/Screen')
-    uri.query = URI.encode_www_form({
-                                        :autocorrect => 'True',
-                                        :PII => 'True',
-                                        :language => 'fra'
-                                    })
-
+    uri = URI(ENV.fetch('AZURE_ENDPOINT'))
+    uri.query = URI.encode_www_form({ autocorrect: 'True', PII: 'True', language: 'fra' })
     request = Net::HTTP::Post.new(uri.request_uri)
     request['Content-Type'] = 'text/plain'
-    request['Ocp-Apim-Subscription-Key'] = '15143594e225468d87284d82119c43b1'
+    request['Ocp-Apim-Subscription-Key'] = ENV.fetch('AZURE_KEY')
     request.body = @content
-    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') { |http| http.request(request) }
+    response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') { |http| http.request(request) }
+    puts response.code
+    raise KeyError if %w[401 404].include? response.code
+
     response.body
+  rescue
+    { Terms: nil, AutoCorrectedText: @content }.to_json
   end
 
   def get_corrected_text
     response = JSON.parse(get_response)
-    if !response['Terms'].nil? and response['Terms'].count > 0
-      return response['Terms']
-    end
+    return response['Terms'] if !response['Terms'].nil? && response['Terms'].count.positive?
+
     response['AutoCorrectedText']
   end
 

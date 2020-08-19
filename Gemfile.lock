@@ -66,6 +66,10 @@ GEM
     crass (1.0.6)
     database_cleaner (1.8.5)
     diff-lcs (1.4.2)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.9.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -176,6 +180,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (5.23.1)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
@@ -195,6 +200,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   database_cleaner
+  dotenv-rails
   factory_bot_rails (~> 4.0)
   faker
   httparty
@@ -209,6 +215,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
+  stripe
   tzinfo-data
   whenever
 
