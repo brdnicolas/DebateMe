@@ -127,7 +127,7 @@ class DAO {
 
     async deleteTheme(themeID) {
         let rep = {};
-        await this.axios.delete("themes/" + themeID, datas).then((response: { data: any}) =>  {
+        await this.axios.delete("themes/" + themeID).then((response: { data: any}) =>  {
             rep =  response.data;
         } );
         return rep;
