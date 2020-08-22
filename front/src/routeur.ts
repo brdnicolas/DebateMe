@@ -69,6 +69,11 @@ export default new Router({
             component: () => import(/* webpackChunkName: "about" */ './components/admin/AddQuestion.vue'),
         },
         {
+            path: '/panel/themes',
+            name: "Themes",
+            component: () => import(/* webpackChunkName: "about" */ './components/admin/Themes.vue'),
+        },
+        {
 
             path: "*",
             component: () => import("./components/404notFound.vue")

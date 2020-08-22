@@ -14,6 +14,10 @@
                     <img style="width:20px" src="../../assets/icon/question.png"/>
                     <a>Debats</a>
                 </div>
+              <div v-bind:class="{'currentPage': this.currentPage === 'themes'}" @click="redirectTo('themes')">
+                <img style="width:20px" src="../../assets/icon/admin/themes.png"/>
+                <a>Thèmes</a>
+              </div>
             </div>
         </div>
     </div>

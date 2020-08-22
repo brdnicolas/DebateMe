@@ -21,6 +21,14 @@ class DAO {
         return rep;
     }
 
+    async getThemeByID(themeID) {
+        let rep = {};
+        await this.axios.get('themes/' + themeID).then((response: { data: any}) =>  {
+            rep = response.data;
+        } );
+        return rep;
+    }
+
     async getPostesByTheme(themeID) {
         let rep = {};
         await this.axios.get('themes/' + themeID + "/questions").then((response: { data: any}) =>  {
@@ -104,6 +112,30 @@ class DAO {
     async postConnexion(datas) {
         let rep = {};
         await this.axios.post("auth/login", datas).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async postTheme(datas) {
+        let rep = {};
+        await this.axios.post("themes", datas).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async deleteTheme(themeID) {
+        let rep = {};
+        await this.axios.delete("themes/" + themeID, datas).then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
+    async patchTheme(themeID, datas) {
+        let rep = {};
+        await this.axios.patch("themes/" + themeID, datas).then((response: { data: any}) =>  {
             rep =  response.data;
         } );
         return rep;
