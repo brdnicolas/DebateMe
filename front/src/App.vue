@@ -14,6 +14,12 @@
   </div>
 </template>
 <style>
+#st-1 .st-btn[data-network='sharethis'] {
+  background-color: #1965FF !important;
+}
+.st-logo, .st-disclaimer {
+  display:none;
+}
   #phone {
     display:none;
   }

@@ -4,12 +4,14 @@
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
         <img v-else class="image_poste" src="../assets/img/noImage.png"/>
         <div id="banner">
-            <h1 class="titre darkmode-ignore">{{question.title}}</h1>
+
+          <h1 class="titre darkmode-ignore">{{question.title}}</h1>
             <div class="icons">
+
                 <div class="left">
                     <div class="darkmode-ignore" @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
                     <div class="darkmode-ignore"><img src="../assets/icon/comment.png"/> 532</div>
-                    <div class="darkmode-ignore"><img src="../assets/icon/share.png"/> Share</div>
+                    <div class="sharethis-inline-share-buttons"></div>
                 </div>
                 <div class="right">
                     <p class="darkmode-ignore">Créé le {{this.date}}</p>
@@ -47,6 +49,8 @@
     import commentaire from '@/components/mini-components/commentaire.vue'
     import switchComponent from "@/components/mini-components/switch.vue";
     import DAO from "@/components/DAO";
+    import $ from 'jquery'
+
     @Component({
         components: {
             headerComponent,
@@ -63,6 +67,7 @@
         votesID: number;
         errorPostComment: string;
         api = new DAO();
+
         constructor() {
             super();
             this.posts = [];
@@ -79,6 +84,11 @@
         }
         destroyed () {
             window.removeEventListener('scroll', this.handleScroll);
+        }
+
+        headerControl(): void {
+          const btn = $(".sharepart");
+          btn.css('display','block')
         }
 
         handleScroll(): void {
@@ -101,6 +111,7 @@
             this.getComments();
             this.getQuestion();
             this.checkToken();
+
         }
 
         checkToken(): void {
@@ -172,6 +183,7 @@
         async getQuestion(): Promise<void> {
             this.api.getQuestion(this.$route.params.idTheme, this.$route.params.idQuestion).then(response => {
                 this.question = response;
+                document.title = (response as Record<string,any>).title;
                 this.date = (response as Record<string, any>).created_at.slice(0, 10);
             })
         }
@@ -179,6 +191,19 @@
 </script>
 
 <style scoped>
+    .sharepart {
+      z-index:400;
+        width:100vw;
+        height:90px;
+        background:white;
+        position: absolute;
+        float:left;
+      margin-top:5px;
+      padding-left:35px;
+    }
+    .sharebtn {
+        cursor:pointer;
+    }
     .errorPostComment {
         color:#FF8F86;
         padding-bottom:10px;
