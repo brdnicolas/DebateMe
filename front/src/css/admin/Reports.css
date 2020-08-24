@@ -1,0 +1,94 @@
+
+.headerTab th {
+    color : #8D8FA2;
+    font-weight: bold;
+    font-size:15px;
+    height:30px;
+}
+
+
+table.blueTable {
+    border: 1px solid #E5E5E5;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    margin-top:40px;
+    padding-bottom:100px;
+}
+table.blueTable td, table.blueTable th {
+    border: 2px solid #E5E5E5;
+    padding: 0px 2px;
+}
+table.blueTable thead {
+    border-bottom: 2px solid #E5E5E5;
+}
+table.blueTable tfoot .links {
+    text-align: right;
+}
+table.blueTable tfoot .links a{
+    display: inline-block;
+    background: #1C6EA4;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.main {
+    background:#f8f9fe;
+    max-height: 100%;
+}
+.main2 {
+    display:flex;
+    flex-direction: row;
+}
+
+.subMain {
+    padding:50px;
+    width:calc(100% - 220px);
+    max-height:calc(100vh - 220px);
+    overflow: scroll;
+}
+.main2 {
+    max-height:100%;
+    overflow:hidden;
+}
+.subMain .graph1 h1 {
+    text-align: center;
+    font-weight:bold;
+    color:#154a85;
+    font-size: 18px;
+}
+.content ul {
+    list-style: none;
+    padding-bottom:100px;
+}
+.content li {
+    display:flex;
+    flex-direction: row;
+}
+.content li img {
+    cursor:pointer;
+    width:30px;
+    height:30px;
+    margin-top:10px;
+    margin-left:10px;
+}
+.content li img:first-child {
+    margin-top:40px;
+}
+.content h1 {
+    color:#1072ff;
+}
+.choose {
+    display: flex;
+    flex-direction: column;
+}

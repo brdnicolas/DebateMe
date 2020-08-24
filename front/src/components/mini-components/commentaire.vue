@@ -45,11 +45,12 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import moment from 'moment'
     import Swal from 'sweetalert2/dist/sweetalert2.js'
-    import DAO from "@/components/DAO";
+    import DAO from "@/DAO";
 
     @Component
     export default class Header extends Vue {
 
+        // Récupération des variables parentes
         @Prop({default: "Attente d'informations"})
         message: string | undefined;
         @Prop({default:true})
@@ -62,11 +63,20 @@
         user: object | undefined;
         @Prop({default:[]})
         votes: Array<number> | undefined;
+
+        // Date que l'on va passer au paquet moment
         date: string;
+
+        // Si l'user à voté ou non
         voted: boolean;
+
+        // User actuellement connécté
         currentUser: object;
+
+        // DAO
         api = new DAO();
 
+        // On associe à chaque varialbe une valeur par défaut.
         constructor() {
             super();
             this.date = "";
@@ -74,21 +84,27 @@
             this.currentUser = {};
         }
 
+        // Afficher le profil d'un utilisateur
         showProfil(username: string): void {
             window.location.href = "/profil/" + username;
         }
 
-        created() {
+        // Fonction qui se lance avant le rendu d'un composant
+        created(): void {
             moment.locale('fr');
             if (this.commentaire)
                 this.date = moment((this.commentaire as Record<string, any>).created_at).fromNow()
         }
 
-        mounted() {
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.getCurrentUser();
         }
 
+        // Fonction permetter de report quelqu'un
         async sendReport(): Promise<void> {
+
+            // Style de la pop up
             this.$fire({
                 title: "Choisissez la raison de votre signalement",
                 showCancelButton: true,
@@ -168,6 +184,7 @@
             });
         }
 
+        // Récupération de l'utilisateur actuellement connécté
         async getCurrentUser(): Promise<void> {
             this.api.getCurrentUser().then(datas => {
               this.currentUser = datas;
@@ -178,6 +195,7 @@
             this.voted = !!this.votes?.includes((this.currentUser as Record<string, any>).id);
         }
 
+        // Fonction permettant de upvoter un commentaire
         async upVote(): Promise<void> {
             await this.api.getVotes((this.commentaire as Record<string, any>).id);
             this.voted = !this.voted;
@@ -188,111 +206,4 @@
 
 </script>
 
-<style scoped>
-    #report {
-        width:20px;
-        height:20px;
-        border-radius: 0;
-    }
-    .date {
-        font-size:13px;
-        color:#749cd7;
-        margin-left:20px;
-        margin-top:20px;
-        font-weight: 500;
-    }
-    .bottom img {
-         width:15px;
-         height:15px;
-         cursor:pointer;
-     }
-    .bottom, .bottom div {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .bottom div {
-        margin-right:80px;
-    }
-    .bottom {
-        margin-left:20px;
-        margin-top:20px;
-        padding-bottom:20px;
-    }
-
-    .bottom p {
-        margin-left:4px;
-        background: #f1f1f1;
-        font-size:12px;
-        font-weight: 700;
-        color:#1864ff;
-        padding:5px;
-        border-radius: 3px;
-        height:15px;
-    }
-
-    .bottom h2 {
-        font-size:12px;
-        color:#1864ff;
-        margin-left:2px;
-        cursor:pointer;
-    }
-    .message {
-        margin-left:20px;
-        margin-top:10px;
-        font-weight: 500;
-        padding-right:20px;
-    }
-    .comment {
-        width:80vw;
-        margin-left:10vw;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(217,217,217,1);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(217,217,217,1);
-        box-shadow: 0px 0px 5px 0px rgba(217,217,217,1);
-        margin-top:20px;
-    }
-
-    .top {
-        display:flex;
-        flex-direction: row;
-        padding: 20px 0 0 20px;
-        justify-content: space-between;
-    }
-
-    .left {
-        display:flex;
-        flex-direction: row;
-    }
-    .right {
-        padding-right:20px;
-        font-weight: 800;
-        color:#1864ff;
-        cursor:pointer;
-    }
-    .top img {
-        width:60px;
-        height:60px;
-        object-fit: cover;
-        border-radius: 50px;
-        cursor:pointer;
-    }
-    .username {
-        font-weight: 500;
-        margin-left:10px;
-        font-size:20px;
-        cursor:pointer;
-    }
-    .citation {
-        color:#a7a7a7;
-        font-size:13px;
-        font-weight: 400;
-        margin-left:10px;
-        margin-top:3px;
-    }
-    .upvoted h2 {
-        color:#a7a7a7;
-    }
-    .upvote h2 {
-        color: #1864ff;
-    }
-</style>
+<style scoped src="../../css/mini-components/commentaire.css"/>

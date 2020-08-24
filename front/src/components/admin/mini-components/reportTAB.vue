@@ -16,31 +16,41 @@
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import Menu from "@/components/admin/Menu.vue";
 import Header from "@/components/mini-components/header.vue";
-import DAO from "@/components/DAO";
-
+import DAO from "@/DAO";
 
 @Component({
   components: {
+    // Importation du menu & du header
     Header,
     Menu
   },
 })
 
-
-
 export default class HelloWorld extends Vue {
-  mounted() {
+
+  // Fonction qui s'éxécute en même temps que le rendu du composant
+  mounted(): void {
     this.getRaisonReport();
     this.getPost();
     this.getUserWhoReport();
   }
 
+  // Type de report
   type: string;
+
+  // Post reporté
   contentPost: string;
+
+  // Pseudo de la personne qui a report
   pseudoReporteur: string;
+
+  // Pseudo de la personne signalée
   pseudoSignale: string;
+
+  // DAO
   api = new DAO();
 
+  // On récupère les variables parentes
   @Prop({default: ""})
   date: string | undefined;
   @Prop({default: 0})
@@ -54,6 +64,7 @@ export default class HelloWorld extends Vue {
   @Prop({default: 0})
   reasonID: number | undefined;
 
+  // On associe à chaque varialbe une valeur par défaut.
   constructor() {
     super();
     this.type = "";
@@ -62,6 +73,7 @@ export default class HelloWorld extends Vue {
     this.pseudoSignale = "";
   }
 
+  // Fonction pour récupérer la raison du report
   async getRaisonReport() {
       this.api.getRaisonReport().then(datas => {
           datas.forEach(element => {
@@ -71,6 +83,7 @@ export default class HelloWorld extends Vue {
       })
   }
 
+  // Fonction permettant de récupérer le poste reporté
   async getPost() {
     await this.api.getPostByID(this.postID).then(datas => {
         this.contentPost = datas.content;
@@ -78,106 +91,35 @@ export default class HelloWorld extends Vue {
     })
   }
 
+  // Fonction permettant de garder le poste et supprimer le report
   async garder(): Promise<void> {
     await this.api.deleteReport(this.reportID).then(datas => {
       this.$router.go(0);
     })
   }
 
+  // Fonction permettant de supprimer le post reporté
   async supprimer(): Promise<void> {
     await this.api.deletePost(this.postID).then(datas => {
       this.$router.go(0);
     })
   }
 
+  // Fonction permettant de récupérer les infos sur l'user qui a report
   async getUserWhoReport() {
       await this.api.getUserByID(this.userWhoReported).then( datas => {
             this.pseudoReporteur = datas.username;
       })
   }
 
+
+  // Fonction permettant de récupérer les infos sur l'user reporté
   async getUserReported(userID) {
     await this.api.getUserByID(userID).then( datas => {
       this.pseudoSignale = datas.username;
     })
   }
-
-
-
-
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-td {
-  padding: 5px 10px !important;
-  color:#AAABAD;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 0;
-}
-td:hover {
-  white-space: normal;
-  overflow: scroll;
-  overflow-wrap: break-word;
-  text-overflow: clip;
-  height:auto;
-}
-.garder {
-  transition:0.2s;
-  border-radius: 6px;
-  border: none;
-  width:100%;
-  height:40px;
-  background-color: #76E27E;
-  color: white;
-  padding: 10px 0 10px 0;
-  cursor:pointer;
-  text-transform: uppercase;
-}
-.garder:hover {
-  transition:0.2s;
-  background:#6BCE73;
-}
-
-.supprimer {
-  transition:0.2s;
-  border-radius: 6px;
-  border: none;
-  width:100%;
-  height:40px;
-  background-color: #F6786D;
-  color: white;
-  padding: 10px 0 10px 0;
-  cursor:pointer;
-  text-transform: uppercase;
-}
-.supprimer:hover {
-  transition:0.2s;
-  background:#D76960;
-}
-
-table.blueTable td, table.blueTable th {
-  border: 2px solid #E5E5E5;
-  padding: 0px 2px;
-}
-table.blueTable thead {
-  border-bottom: 2px solid #E5E5E5;
-}
-table.blueTable tfoot td {
-  font-size: 14px;
-}
-table.blueTable tfoot .links {
-  text-align: right;
-}
-table.blueTable tfoot .links a{
-  display: inline-block;
-  background: #1C6EA4;
-  color: #AAABAD;
-  padding: 2px 8px;
-  border-radius: 5px;
-}
-
-</style>
+<style scoped src="../../../css/admin/mini-components/reportTAB.css"/>

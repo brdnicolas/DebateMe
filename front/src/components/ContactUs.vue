@@ -36,20 +36,25 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     @Component({
+        // Importation des composants : header & footer
         components: {
             headerComponent,
             footerComponent
         },
-	data () {
-		return {
-			selectRaison:"Veuillez choisir une raison"
-		}
-	}
+      data () {
+        return {
+          selectRaison:"Veuillez choisir une raison"
+        }
+      }
     })
     export default class HelloWorld extends Vue {
-        mounted() {
+
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.checkToken();
         }
+
+        // Fonction vérifiant si l'utilisateur est connécté.
         checkToken(): void {
             if(localStorage.token === "") {
                 window.location.href = '/';
@@ -58,101 +63,5 @@
 
     }
 </script>
-<style scoped>
-    .contact {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        height:100%;
-        width:100%;
-        padding:200px 0 200px 0;
-        background:#F6FAFF;
-    }
-    .card h4 {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        color: #1072FF;
-        padding-bottom:8px;
-        margin-top:50px;
-    }
-    .card form {
-        margin-top:50px;
-        display:flex;
-        flex-direction: row;
-    }
-    .card form .right, .card form .left {
-        display:flex;
-        flex-direction: column;
-        margin-left:50px;
-        margin-right:50px;
-    }
-    .card input, .card select{
-        width: 350px;
-        height: 51px;
-        border: 2px solid #EFEFEF;
-        box-sizing: border-box;
-        border-radius: 5px;
-        padding:10px;
-        outline:none;
-        color:#1644A4;
-        font-weight: bold;
-    }
-    .card button {
-        width: 350px;
-        height:53px;
-        background: #1864FF;
-        border-radius: 5px;
-        margin-top:86px;
-        border:none;
-        cursor:pointer;
-        color: #F7F9FF;
-        font-weight: 500;
-        font-size: 18px;
-        text-transform: uppercase;
-    }
-    .card textarea {
-        width: 350px;
-        height: 190px;
-        border: 2px solid #EFEFEF;
-        box-sizing: border-box;
-        border-radius: 5px;
-        padding:10px;
-        outline:none;
-        resize: none;
-        color:#1644A4;
-        font-weight: bold;
-    }
-    .card input::placeholder, .card textarea::placeholder, .card select:disabled {
-        color: #BCBCCA;
-        font-weight: 600;
-    }
-    .card {
-        background:white;
-        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-        border-radius: 4px;
-        display:flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        padding:80px 150px 80px 150px;
 
-    }
-    .card h1 {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 40px;
-        color: #154A85;
-    }
-    .card h3 {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        color: #154A85;
-
-    }
-   .contactUs {
-       background:#F6FAFF;
-   }
-</style>
+<style scoped src="../css/ContactUs.css"/>

@@ -1,0 +1,69 @@
+td {
+  padding: 5px 10px !important;
+  color:#AAABAD;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}
+td:hover {
+  white-space: normal;
+  overflow: scroll;
+  overflow-wrap: break-word;
+  text-overflow: clip;
+  height:auto;
+}
+.garder {
+  transition:0.2s;
+  border-radius: 6px;
+  border: none;
+  width:100%;
+  height:40px;
+  background-color: #76E27E;
+  color: white;
+  padding: 10px 0 10px 0;
+  cursor:pointer;
+  text-transform: uppercase;
+}
+.garder:hover {
+  transition:0.2s;
+  background:#6BCE73;
+}
+
+.supprimer {
+  transition:0.2s;
+  border-radius: 6px;
+  border: none;
+  width:100%;
+  height:40px;
+  background-color: #F6786D;
+  color: white;
+  padding: 10px 0 10px 0;
+  cursor:pointer;
+  text-transform: uppercase;
+}
+.supprimer:hover {
+  transition:0.2s;
+  background:#D76960;
+}
+
+table.blueTable td, table.blueTable th {
+  border: 2px solid #E5E5E5;
+  padding: 0px 2px;
+}
+table.blueTable thead {
+  border-bottom: 2px solid #E5E5E5;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #AAABAD;
+  padding: 2px 8px;
+  border-radius: 5px;
+}

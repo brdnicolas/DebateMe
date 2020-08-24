@@ -4,7 +4,6 @@
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
         <img v-else class="image_poste" src="../assets/img/noImage.png"/>
         <div id="banner">
-
           <h1 class="titre darkmode-ignore">{{question.title}}</h1>
             <div class="icons">
 
@@ -18,8 +17,6 @@
                 </div>
             </div>
         </div>
-
-
         <div id="writecomment" class="writecomment">
             <p class="errorPostComment darkmode-ignore">{{this.errorPostComment}}</p>
             <textarea
@@ -34,12 +31,10 @@
                 </div>
             </div>
         </div>
-
         <div class="listComments">
             <commentaire v-on:refresh="getComments" v-for="item in this.posts" :votes="item.votes_id" :questionID="question.id" :commentaire="item.post"  :key="item.id" :user="item.user"/>
         </div>
         <div id="bottom"/>
-
     </div>
 </template>
 
@@ -48,10 +43,11 @@
     import headerComponent from '@/components/mini-components/header.vue'
     import commentaire from '@/components/mini-components/commentaire.vue'
     import switchComponent from "@/components/mini-components/switch.vue";
-    import DAO from "@/components/DAO";
+    import DAO from "@/DAO";
     import $ from 'jquery'
 
     @Component({
+      // Components : header, footer & les commentaires
         components: {
             headerComponent,
             commentaire,
@@ -59,15 +55,32 @@
         },
     })
     export default class Question extends Vue {
+
+        // tous les commentaires
         posts: object;
+
+        // La question du débat
         question: object;
+
+        // La date pour la changer avec moment
         date: string;
+
+        // Le switcher d'anonyme à user
         switchValue: boolean;
+
+        // Récupération des données du user
         user: object;
+
+        // Savoir si il a déjà voté ou non
         votesID: number;
+
+        // Erreur à afficher si il y a un problème
         errorPostComment: string;
+
+        // DAO api
         api = new DAO();
 
+        // Assigniation d'une valeur par défaut
         constructor() {
             super();
             this.posts = [];
@@ -79,18 +92,17 @@
             this.errorPostComment = "";
         }
 
-        created() {
+        // Fonction s'éxécutant au moment de la création de la vue, avant son montage
+        created(): void {
             window.addEventListener('scroll', this.handleScroll);
         }
-        destroyed () {
+
+        // Llors de la déstruction de la vue ( quand on part )
+        destroyed(): void {
             window.removeEventListener('scroll', this.handleScroll);
         }
 
-        headerControl(): void {
-          const btn = $(".sharepart");
-          btn.css('display','block')
-        }
-
+        // Fonction permettant de faire un effet de banderole au scroll
         handleScroll(): void {
             const banner = document.getElementById("banner");
             const padding = document.getElementById("writecomment");
@@ -107,38 +119,51 @@
             }
         }
 
-        mounted() {
+        // Lors du montage de la vue ( la fonction s'éxécute en même temps que le rendu se fait )
+        mounted(): void {
+            // On appelle ces fonctions pour : avoir les commentaires, la question et vérifier si l'utilisateur est connécté.
             this.getComments();
             this.getQuestion();
             this.checkToken();
 
         }
 
+        // Vérification si l'user est connécté.
         checkToken(): void {
             if(localStorage.token === "") {
                 window.location.href = '/';
             }
         }
 
+        // Fonction qui gère l'envoie d'un nouveau commentaire.
         async postComment(): Promise<void> {
+            // Récupération de l'élément html du textarea
             const content = (document.getElementById("message") as HTMLInputElement);
+
+            // Si le commentaire fait moins de 50 charactères : refus
             if(content.value.length < 50) {
                 this.errorPostComment = "Veuillez écrire un texte de plus 50 charactères ..";
                 return;
             }
+
+            // On affiche aucune erreur
             this.errorPostComment = "";
+
+            // Liste des termes injurieux présents dans le commentaire
             // eslint-disable-next-line
             let listTermes: Record<string, any> = [];
 
+            // Boolean si il y a une erreur
             let probleme = false;
 
-
+            // données à envoyé à l'API
             const datas = {
               content: content.value,
               'question_id' : this.$route.params.idQuestion,
               'isAnonym':this.switchValue
             }
 
+            // Requete axios à l'API via le DAO
             await this.api.postComment(datas).then(data => {
                 const response = data as unknown as Record<string, any>;
                 listTermes = response.data
@@ -147,6 +172,7 @@
                 }
             })
 
+            // Si il y a un problème, une erreur s'affiche expliquant pourquoi
             if (probleme) {
                 let error = "Les termes comme : ";
                 const termesMauvais: any[] = [];
@@ -160,6 +186,7 @@
                 this.errorPostComment = error;
             }
 
+            // Si il n'y a pas de problème, alors on vide le textarea.
             if(listTermes && !probleme) {
                 this.switchValue = false;
                 const element = document.getElementById("message") as  HTMLInputElement;
@@ -167,19 +194,24 @@
                     element.value = "";
                 }
             }
+
+            // On récupère les commentaires pour mettre à jour.
             await this.getComments();
         }
 
+        // Popup pour montrer la documentation de la question
         showDocu(): void {
             this.$alert((this.question as Record<string, any>).documentation);
         }
 
+        // Fonction permettant de récupérer les commentaires
         async getComments(): Promise<void> {
             this.api.getComments(this.$route.params.idQuestion).then(response => {
                 this.posts = response;
             })
         }
 
+        // Fonction permettant de récupérer la question posée.
         async getQuestion(): Promise<void> {
             this.api.getQuestion(this.$route.params.idTheme, this.$route.params.idQuestion).then(response => {
                 this.question = response;
@@ -190,167 +222,4 @@
     }
 </script>
 
-<style scoped>
-    .sharepart {
-      z-index:400;
-        width:100vw;
-        height:90px;
-        background:white;
-        position: absolute;
-        float:left;
-      margin-top:5px;
-      padding-left:35px;
-    }
-    .sharebtn {
-        cursor:pointer;
-    }
-    .errorPostComment {
-        color:#FF8F86;
-        padding-bottom:10px;
-    }
-    #banner {
-        background:white;
-        z-index:800;
-    }
-    .sticky {
-        position: fixed;
-        top: 0;
-        width: 100vw;
-    }
-    .darkmode--activated .writecomment textarea {
-       background: black;
-      color:#ABBEDB
-    }
-    .darkmode--activated .sticky {
-      background: black !important;
-    }
-    .darkmode--activated .sticky .icons {
-      box-shadow: 0px 9px 8px -5px #444444;
-
-    }
-    .darkmode--activated .back {
-      background: black !important;
-    }
-    .back {
-        z-index:800;
-        transition:0.5s;
-        position: absolute;
-        top: 0;
-        left:0;
-        margin:30px;
-        width:20px;
-        height:20px;
-        object-fit: contain;
-        background:whitesmoke;
-        padding:10px;
-        border-radius:20px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(102,102,102,1);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(102,102,102,1);
-        box-shadow: 0px 0px 5px 0px rgba(102,102,102,1);
-        cursor:pointer;
-    }
-
-    .back:hover {
-        transition:0.5s;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(5,5,5,1);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(5,5,5,1);
-        box-shadow: 0px 0px 5px 0px rgba(5,5,5,1);
-    }
-
-    .listComments {
-        padding-bottom:50px;
-    }
-    .bottom div {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .bottom div p {
-        margin-right:10px;
-        color:#1864ff;
-        font-weight: 600;
-    }
-    .bottom {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .writecomment {
-        width:80vw;
-        margin-left:10vw;
-        margin-top:50px;
-        padding-bottom:40px;
-    }
-    .writecomment textarea {
-        width:100%;
-        border: 2px solid #EFEFEF;
-        box-sizing: border-box;
-        border-radius: 5px;
-        padding:10px;
-        height:200px;
-        resize:none;
-        font-weight: 800;
-      isolation: isolate;
-    }
-    .writecomment button {
-        width: 200px;
-        height:40px;
-        background: #1864FF;
-        border-radius: 5px;
-        margin-top:10px;
-        border:none;
-        cursor:pointer;
-        color: #F7F9FF;
-        font-weight: 500;
-        font-size: 18px;
-        text-transform: uppercase;
-    }
-    .post .image_poste {
-        width:100vw;
-        height:40vh;
-        object-fit: cover;
-    }
-    .right p {
-        color:#A2C1FF;
-        font-style: italic;
-        font-size:18px;
-    }
-    .left, .right {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .left div:first-child {
-        cursor: pointer;
-    }
-    .right {
-        margin-right:60px;
-    }
-    .post .titre {
-        font-weight: 500;
-        font-size: 36px;
-        color: #185BAB;
-        margin:30px;
-        padding-right:30px;
-    }
-    .post .icons {
-        display:flex;
-        flex-direction: row;
-        font-size:20px;
-        color:#1864ff;
-        font-weight:500;
-        justify-content: space-between;
-        -webkit-box-shadow: 0px 9px 8px -5px rgba(168,168,168,1);
-        -moz-box-shadow: 0px 9px 8px -5px rgba(168,168,168,1);
-        box-shadow: 0px 9px 8px -5px rgba(168,168,168,1);
-        padding-bottom:20px;
-    }
-    .post .icons div {
-        margin-left:17px;
-    }
-    .post .icons img {
-        width:15px;
-        height:15px;
-    }
-</style>
+<style scoped src="../css/Question.css"/>
