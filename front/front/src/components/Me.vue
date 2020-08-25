@@ -73,56 +73,69 @@
     import { Component, Vue } from 'vue-property-decorator';
     import headerComponent from "@/components/mini-components/header.vue";
     import footerComponent from "@/components/mini-components/footer.vue";
-    import activitePoste from "@/components/mini-components/activitePoste.vue"
     import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
     import Swal from 'sweetalert2/dist/sweetalert2.js'
-    import DAO from "@/components/DAO"
+    import DAO from "@/DAO"
 
-
+    // Importation des composants : header, footer, commentaires
     @Component({
         components: {
             headerComponent,
             footerComponent,
-            activitePoste,
             activiteCommentaire,
         },
     })
 
     export default class HelloWorld extends Vue {
-        showPostes: boolean;
+
+        // Informations de l'utilisateur
         user: object;
+
+        // Image de profil
         profilPic: string;
+
+        // Bannière
         bannerPic: string;
+
+        // Liste des badges
         achivments: Array<string>;
+
+        // Liste des commentaires
         posts: object;
+
+        // DAO
         api = new DAO();
 
+        // On assigne une valeur par défaut à chaque variable
         constructor() {
             super();
             this.user = [null];
-            this.showPostes= true;
             this.profilPic = "";
             this.bannerPic = "";
             this.achivments = [""];
             this.posts = [""];
         }
 
-        mounted() {
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.getCurrentUser();
         }
 
+        // Fonction permettant de choisir un fichier lors du clique sur l'image de profil
         changeProfilePicture(): void {
             const element = document.getElementById('profilePicture');
             if (element)
                 element.click();
         }
 
+      // Fonction permettant de choisir un fichier lors du clique sur la bannière
         changeBannerPicture(): void {
             const element = document.getElementById('bannerPicture');
             if (element)
                 element.click();
         }
 
+        // Fonction permettant de récupérer des informations sur l'utilisateur actuellement connécté.
         async getCurrentUser(): Promise<void> {
             this.api.getCurrentUser().then(data => {
                 this.user = data;
@@ -136,6 +149,7 @@
             })
         }
 
+        // Fonction permettant de gérer le css lors de la modification de la citation
         CSSModifyQuote(): void {
             console.log("nice");
             const citation = document.getElementById("citation");
@@ -155,21 +169,30 @@
             }
         }
 
+        // Fonction permettant de changer de citation via un call api
         async PATCHQuote(): Promise<void> {
+
+            // Récupération du textarea
             const newCitation = document.getElementById("modifyQuote");
+
+            // Valeur du textarea
             let value = "";
             if (newCitation)
                 value = (newCitation as HTMLTextAreaElement).value;
 
+            // Pop en haut a droite permettant de dire que ça a bien été pris en compte
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
             });
 
+            // donnée envoyée à l'api
             const datas = {
               'quote': value
             }
+
+            // Requete au DAO
             this.api.patchChangeQuote((this.user as Record<string,any>).user_id, datas).then(data => {
               this.CSSRetablir();
               location.reload();
@@ -188,11 +211,13 @@
             })
         }
 
+        // Fonction permettant de changer d'image de profile ou de bannière
         async updatePicture(): Promise<void> {
+
+            // Récupération des images
             const banner = document.getElementById('bannerPicture');
             const profilePicture = document.getElementById('profilePicture');
             const fd = new FormData();
-
             if (banner.files[0]) {
                 fd.append('banner', banner.files[0]);
                 banner.value = null;
@@ -202,13 +227,14 @@
                 profilePicture.value = null;
             }
 
+            // Requete API pour changer les images.
             this.api.patchChangeProfilPicture((this.user as Record<string,any>).user_id, fd).then(data => {
                 location.reload();
             })
-
         }
 
-        CSSRetablir() {
+        // Fonction permettant de remettre le CSS en ordre pour la citation
+        CSSRetablir(): void {
             const citation = document.getElementById("citation");
             const areaCitation = document.getElementById("modifyQuote");
             const btnModify = document.getElementById("modifyBtn");
@@ -223,6 +249,7 @@
             }
         }
 
+        // Fonction pour déconnecter l'utilisateur.
         deconnexion(): void {
             localStorage.token = "";
             sessionStorage.token = "";
@@ -231,147 +258,4 @@
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-    * {
-      font-family: 'Roboto', sans-serif !important;
-    }
-    .modifyBanner {
-        z-index:30 !important;
-        height:20px !important;
-        width:20px !important;
-        position:absolute !important;
-        right:20px !important;
-        top:35px !important;
-        padding:10px !important;
-        background:white !important;
-        border-radius:20px !important;
-        cursor: pointer !important;
-    }
-    .profil_pic {
-        cursor:pointer;
-    }
-    .liste {
-        width:50vw;
-        margin-left:25vw;
-        padding-bottom:50px;
-    }
-    .choice-categorie {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        padding-bottom:20px;
-    }
-    .choice-categorie p {
-        color:#1469ff;
-        font-weight: 500;
-        font-size:30px;
-        margin-right:15px;
-        margin-left:15px;
-    }
-    .activite {
-        display:flex;
-        flex-wrap: wrap;
-        margin-top:50px;
-    }
-    .liste-badge {
-        width:65vw;
-        padding:40px 17.5vw 40px 17.5vw;
-        text-align: center;
-        margin-top:60px;
-        height:auto;
-        background-color:#F9F9F9;
-    }
-    .liste-badge img {
-        margin-left:5px;
-        margin-right:5px;
-        width:60px;
-    }
-    .quoteleft {
-        width:100px;
-        padding-bottom:60px;
-    }
-    .quoteright {
-        width:100px;
-        padding-top:20px;
-    }
-    #modifyQuote {
-        width:600px;
-        max-width: 50vw;
-        margin-left:40px;
-        margin-right:40px;
-        font-size: 24px;
-        padding-left:8px;
-        padding-right: 8px;
-        line-height: 28px;
-    }
-    .profil-citation > p {
-        max-width:50vw;
-        font-weight: 300;
-        font-size: 24px;
-        line-height: 28px;
-        padding-left:40px;
-        padding-right:40px;
-    }
-    .profil-citation {
-        margin-top:100px;
-        width:100vw;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .profil-info > div {
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-left:50px;
-        margin-right:50px;
-        text-align: center;
-    }
-    .profil-info > div > h3 {
-        width:120px;
-        font-size:20px;
-        color:#1469ff;
-    }
-    .profil-info > div > p {
-        margin-top:5px;
-        color:#A7A7A7;
-    }
-    .profil-info {
-        width:100vw;
-        display:flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-    .top-profil > img {
-        width:100vw;
-        height:400px;
-        object-fit: cover;
-        position:absolute;
-        z-index:-1;
-        top:0;
-        margin-top:60px;
-    }
-    .top-profil {
-        width:500px;
-    }
-    .photo-profil {
-        width:100vw;
-        text-align: center;
-        margin-top:250px;
-    }
-    .photo-profil img {
-        width:184px;
-        height:184px;
-        object-fit: cover;
-        border-radius: 150px;
-        border: 4px solid white;
-    }
-    .photo-profil h1 {
-        margin-top:10px;
-        padding-bottom:50px;
-    }
-</style>
+<style scoped src="../css/Me.css"/>

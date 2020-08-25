@@ -12,46 +12,16 @@
     import {Component, Prop, Vue} from 'vue-property-decorator';
     @Component
     export default class Header extends Vue {
+
+        // On récupère la variable du parent
         @Prop({default: false})
         switchValue: boolean | undefined;
 
+        // Fonction changeant le switch d'un coté à l'autre
         changeSwitchValue(): void {
             this.$emit('switchValueChanged');
         }
-
     }
 </script>
 
-<style scoped>
-    .switch-component-wrapper {
-        display:flex;
-    }
-    .switch-wrapper {
-        width:44px;
-        min-height: 22px;
-        display:flex;
-        cursor:pointer;
-        border-radius:22px;
-        align-items: center;
-        padding:2px;
-        transition: 0.5s;
-    }
-    .on {
-        background: #C0FEBD;
-        justify-content: flex-end;
-    }
-    .off {
-        background: #D8D8D8;
-        justify-content: flex-start;
-    }
-    .circle {
-        background:white;
-        width:18px;
-        height:18px;
-        border-radius: 18px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-</style>
+<style scoped src="../../css/mini-components/switch.css"/>

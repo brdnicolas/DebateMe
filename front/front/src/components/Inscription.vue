@@ -17,7 +17,7 @@
             <div class ="rightSide">
                 <form>
                     <h1 class="darkmode-ignore">Créez votre compte</h1>
-                    <p class="darkmode-ignore" style="color:red;margin-bottom:40px;">{{error}}</p>
+                    <p class="darkmode-ignore" style="color:red !important;margin-bottom:40px !important;">{{this.error}}</p>
                     <input class="textarea" id="nom" type="text" v-model="inscriptionLastName" placeholder="Nom"/>
                     <input class="textarea" id="prenom" type="text" v-model="inscriptionFirstName" placeholder="Prénom"/>
                     <input class="textarea" id="email" type="email" v-model="inscriptionEmail" placeholder="Email"/>
@@ -32,35 +32,52 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator'
-    import headerComponent from '@/components/mini-components/header.vue'
-    import footerComponent from '@/components/mini-components/footer.vue'
-    import DAO from "@/components/DAO";
+    import { Vue } from 'vue-property-decorator'
+    import DAO from "@/DAO";
 
-    @Component({
-        components: {
-            headerComponent,
-            footerComponent,
-        },
-    })
     export default class Inscription extends Vue {
-        mounted() {
+
+
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.checkToken();
         }
 
+        // Adresse email de connexion
         connexionEmail: string;
+
+        // Mot de passe de connexion
         connexionPassword: string;
+
+        // Email d'inscription
         inscriptionEmail: string;
+
+        // Mot de passe d'inscription
         inscriptionPassword: string;
+
+        // Mot de passe de vérification d'inscription
         inscriptionPasswordRe: string;
+
+        // Pseudo d'inscription
         inscriptionPseudo: string;
+
+        // Prénom d'inscription
         inscriptionFirstName: string;
+
+        // Nom d'inscription
         inscriptionLastName: string;
+
+        // Erreur à afficher lors de l'inscription
         error: string;
+
+        // Erreur à afficher lors de la connexion
         errorConnexion: string;
+
+        // DAO
         api = new DAO();
 
-        constructor() {
+      // On associe à chaque varialbe une valeur par défaut.
+      constructor() {
             super();
             this.error = "";
             this.connexionEmail = "";
@@ -74,53 +91,83 @@
             this.errorConnexion = "";
         }
 
+        // On vérifie que l'utilisateur soit connécté
         checkToken(): void {
             if (localStorage.token != "") {
                 window.location.href = '/home';
             }
         }
+
+        // Fonction permettant la connexion de l'utilisateur
         ConnexionPOST(e: Event, email: string,password: string): void {
+
+          // Eviter de reload la page
           e.preventDefault();
+
+          // Vérification : Si il y a pas de mdp ou de pseudo on dit qu'il manque qlque chose
           if (!email || !password) {
             this.errorConnexion = "Vous avez oublié quelque chose là ..";
+            this.$forceUpdate();
             return;
           }
 
+          // Verification par regex que l'adresse mail entré en est bien une
           const regexEmail = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}'
           if (email.search(regexEmail) < 0) {
             this.errorConnexion = "Veuillez entrer une adresse email valide."
+            this.$forceUpdate();
             return;
           }
 
+          // données envoyées lors de la requete api
           const datas = {
             email : email,
             password: password
           }
+
+          // requete api
           this.api.postConnexion(datas).then(datas => {
             localStorage.token = (datas as Record<string, any>).auth_token;
             window.location.href = '/home';
           })
               .catch(error => {
                 this.errorConnexion = "Email ou mot de passe invalide."
+                this.$forceUpdate();
               });
         }
+
+        // Fonction permettant l'inscription d'un nouvel utilisateur
         InscriptionPost(e: Event, email: string,password: string, repassword: string, username: string, firstname: string, lastname: string): void {
+            // On évite le reload de la page
             e.preventDefault();
+
+            // Vérification : Si l'utilisateur n'a pas mis deux fois le même mdp on écrit l'erreur
             if (password !== repassword) {
                 this.error = "Les mots de passe ne sont pas identiques.";
-                return;
-            }
-            if (!email || !password || !repassword || !username || !firstname || !lastname ) {
-                this.error = "Vous avez oublier quelque chose là ..";
+                this.$forceUpdate();
                 return;
             }
 
-            const regexEmail = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}'
-            if (email.search(regexEmail) < 0) {
-              this.error = "Veuillez entrer une adresse email valide."
+
+          // Vérification : si il manque un champ on le notifie
+            if (!email || !password || !repassword || !username || !firstname || !lastname ) {
+              this.$forceUpdate();
+              this.error = "Vous avez oublier quelque chose là ..";
+              this.$forceUpdate();
               return;
             }
 
+
+          // On vérifie par regex que l'email entrée en est bien une
+            const regexEmail = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}'
+            if (email.search(regexEmail) < 0) {
+              this.error = "Veuillez entrer une adresse email valide."
+              this.$forceUpdate();
+              return;
+            }
+
+
+          // données envoyées lors de la requete api
             const datas = {
               email: email,
               password: password,
@@ -130,206 +177,18 @@
               // eslint-disable-next-line @typescript-eslint/camelcase
               password_confirmation: repassword,
             }
+
+            // requete api
             this.api.postInscription(datas).then(data => {
               localStorage.token = (data as Record<string, any>).auth_token;
               window.location.href = '/home';
             })
             .catch(error => {
               this.error = "Une erreur s'est produite."
+              this.$forceUpdate();
             });
         }
     }
 </script>
 
-<style scoped>
-    .darkmode--activated .inscription {
-      background: #CB9B55;
-    }
-    .darkmode--activated .leftSide {
-      background :#0D0F11 !important;
-    }
-    .backgroundImage {
-        background-image: url('../assets/img/background.png');
-        background-repeat:no-repeat;
-        background-size:cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        width:100vw;
-    }
-    .container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 1000px;
-        height: 700px;
-        background-color: #1965FF;
-        border-radius: 10px 10px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
-        box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
-    }
-    .leftSide {
-        display: flex;
-        flex-direction: column;
-        width:360px;
-        padding-left:20px;
-        padding-right:20px;
-        align-items: center;
-        overflow: hidden;
-        border-radius: 10px 0px 0px 10px;
-        color: white;
-    }
-    .logo {
-        display: flex;
-        flex-direction: row;
-    }
-    .logo img {
-        width: 35px;
-        height:35px;
-    }
-    .rightSide {
-        flex: 3;
-        background-color: white;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        border-radius: 0px 10px 10px 0px;
-
-    }
-    .rightSide form {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .textarea {
-         transition:0.2s;
-        border : 1px solid #efefef;
-        padding: 15px;
-        padding-left: 35px;
-        width: 300px;
-        margin-top: 15px;
-        border-radius: 5px;
-        outline:none;
-    }
-    .textarea2 {
-         transition:0.2s;
-        border: none;
-        border : 1px solid #efefef;
-        padding: 15px;
-        padding-left: 35px;
-        width: 270px;
-        margin-top: 15px;
-        border-radius: 5px;
-        outline:none;
-    }
-    .textarea:focus {
-        transition:0.2s;
-        -webkit-box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
-        -moz-box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
-        box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
-    }
-    .textarea2:hover {
-        transition:0.2s;
-        -webkit-box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
-        -moz-box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
-        box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
-    }
-    #username {
-        background-image: url(../assets/icon/user.png);
-        background-position: 10px 13px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
-    #pass {
-        background-image: url(../assets/icon/password.png);
-        background-position: 10px 13px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
-    .connexion {
-        transition:0.2s;
-        border-radius: 40px;
-        border: none;
-        background-color: white;
-        color: #1965ff;
-        padding: 18px 70px 18px 70px;
-        margin-top: 50px;
-        cursor:pointer;
-    }
-    .connexion:hover {
-        transition:0.2s;
-        background:#CFDFFF;
-    }
-    #email {
-        background-image: url(../assets/icon/email.png);
-        background-position: 10px 16px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
-    #password, #Cpassword {
-        background-image: url(../assets/icon/password.png);
-        background-position: 10px 13.5px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
-    #prenom, #nom, #pseudo {
-        background-image: url(../assets/icon/user.png);
-        background-position: 10px 13px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
-    .inscription {
-        transition:0.2s;
-        border-radius: 40px;
-        border: none;
-        background-color: #1965FF;
-        color: white;
-        padding: 18px 70px 18px 70px;
-        margin-top: 50px;
-        cursor:pointer;
-    }
-    .inscription:hover {
-        transition:0.2s;
-        background:#6b94ff;
-    }
-    .rightSide form > h1 {
-        color: #154a85;
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-    .logo {
-        align-self: flex-start;
-        margin-left: 20px;
-        margin-top: 20px;
-    }
-    .logo p {
-        margin-left: 5px;
-        margin-top:10px;
-        color: white;
-        font-size:22px;
-    }
-    .leftSide h1 {
-        margin-top: 90px;
-    }
-    .leftSide p {
-        margin-top: 10px;
-        margin-left:10px;
-    }
-    .leftSide > p {
-        margin-left:20px;
-        margin-top:40px;
-    }
-    .leftSide p:nth-child(5) {
-        width:100%;
-        padding-left:25px;
-        text-align: left !important;
-        color: #FF644D;
-      display: block;
-      height:20px;
-
-    }
-</style>
+<style scoped src="../css/Inscription.css"/>

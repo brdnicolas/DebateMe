@@ -1,0 +1,30 @@
+.main {
+    background:#f8f9fe;
+}
+.main2 {
+    display:flex;
+    flex-direction: row;
+}
+
+
+.subMain {
+    padding:50px;
+    width:calc(100% - 220px);
+}
+.subMain .graph1 {
+    padding:20px;
+    width:35%;
+    background:white;
+    box-shadow:
+            0 0px 5.3px rgba(0, 0, 0, 0.02),
+            0 0px 17.9px rgba(0, 0, 0, 0.03),
+            0 0px 80px rgba(0, 0, 0, 0.05)
+;
+    border-radius:5px;
+}
+.subMain .graph1 h1 {
+    text-align: center;
+    font-weight:bold;
+    color:#154a85;
+    font-size: 18px;
+}

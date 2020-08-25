@@ -17,7 +17,6 @@
         </div>
         <footer-component/>
     </div>
-
 </template>
 
 <script lang="ts">
@@ -26,6 +25,7 @@
     import footerComponent from "@/components/mini-components/footer.vue";
 
     @Component({
+        // Importation des composants : header & footer
         components: {
             headerComponent,
             footerComponent,
@@ -33,51 +33,22 @@
     })
 
     export default class HelloWorld extends Vue {
+
+        // On récupère les variables du parent
         @Prop() private msg!: string;
 
-        mounted() {
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.checkToken();
         }
 
+        // On vérifie que l'utilisateur est connécté
         checkToken(): void {
             if(localStorage.token === "") {
                 window.location.href = '/';
             }
         }
-
-
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-    .APropos {
-        display:flex;
-        flex-direction: row;
-        justify-content: center;
-        width:100vw;
-        height:calc(100vh - 60px - 60px - 5px);
-    }
-    .APropos div {
-        width:550px;
-        margin-left:50px;
-        margin-right: 50px;
-        padding-top:25vh;
-    }
-
-    .APropos div h1 {
-        font-weight: bold;
-        font-size: 35px;
-    }
-
-    .APropos div p {
-        font-weight: 300;
-        font-size: 16px;
-        line-height: 24px;
-        margin-top:30px;
-    }
-    .APropos div span {
-        color: #0D78FF;
-        font-weight: 500;
-    }
-</style>
+<style scoped src="../css/About.css"/>

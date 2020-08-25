@@ -11,7 +11,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script lang="ts">
@@ -21,14 +20,9 @@
     import Menu from "@/components/admin/Menu.vue";
     import LineChart from './LineChart.js';
 
-    /*
-    <div style="width:500px;height:500px;">
-        <line-chart :chart-data="datacollection"></line-chart>
-    </div>
-    */
-
     @Component({
         components: {
+            // Importation du menu, du header & du graphique
             Header,
             LineChart,
             Menu
@@ -36,19 +30,24 @@
     })
 
     export default class HelloWorld extends Vue {
-        mounted() {
+
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.checkAdmin();
             this.fillData();
         }
 
+        // Données du graphique
         datacollection: object;
 
+        // On associe à chaque varialbe une valeur par défaut.
         constructor() {
             super();
             this.datacollection = [null];
         }
 
-        fillData () {
+        // Remplissage des données
+        fillData(): void {
             this.datacollection = {
                 labels: ['Lundi', 'Mardi','Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
                 datasets: [
@@ -65,6 +64,7 @@
             }
         }
 
+        // On vérifie que l'user est admin
         async checkAdmin(): Promise<void> {
             let rep = null;
             await axios.get("https://api.hugovast.tech/users/me/profile",{
@@ -80,41 +80,7 @@
                    window.location.href = '/';
             }
         }
-
-
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-    .main {
-        background:#f8f9fe;
-    }
-    .main2 {
-        display:flex;
-        flex-direction: row;
-    }
-
-
-    .subMain {
-        padding:50px;
-        width:calc(100% - 220px);
-    }
-    .subMain .graph1 {
-        padding:20px;
-        width:35%;
-        background:white;
-        box-shadow:
-                0 0px 5.3px rgba(0, 0, 0, 0.02),
-                0 0px 17.9px rgba(0, 0, 0, 0.03),
-                0 0px 80px rgba(0, 0, 0, 0.05)
-        ;
-        border-radius:5px;
-    }
-    .subMain .graph1 h1 {
-        text-align: center;
-        font-weight:bold;
-        color:#154a85;
-        font-size: 18px;
-    }
-</style>
+<style scoped src="../../css/admin/Admin.css"/>

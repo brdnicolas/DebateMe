@@ -1,0 +1,73 @@
+.souligne {
+    text-decoration: underline;
+}
+footer * {
+    font-family: 'Quicksand', sans-serif;
+}
+a {
+    text-decoration: none;
+    font-weight: normal;
+    margin-top:15px;
+    margin-bottom:15px;
+    color:#8c8c90;
+}
+footer {
+    margin-top:100px;
+    width:80vw;
+    margin-left:10vw;
+    height:60px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom:200px;
+}
+.footerTop {
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom:20px;
+    border-bottom: 1px solid #ebecf0;
+}
+.footerBottom {
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top:10px;
+    padding-bottom:20px;
+}
+h1 {
+    font-weight: bold;
+    color:#252a35;
+    font-size:18px;
+    margin-bottom:30px;
+}
+p {
+    font-weight: normal;
+    margin-top:15px;
+    margin-bottom:15px;
+    color:#8c8c90;
+}
+
+input {
+    width:170px;
+    height:30px;
+    border:2px solid #ebecf0;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 4px;
+}
+button {
+    height:32px;
+    width:32px;
+    margin-left:10px;
+    background: #1c8eff;
+    color:white;
+    border:1px solid #1475e8;
+    cursor: pointer;
+    border-radius: 4px;
+}

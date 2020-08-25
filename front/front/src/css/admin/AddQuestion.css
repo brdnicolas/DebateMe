@@ -1,0 +1,87 @@
+.main {
+    background:#f8f9fe;
+    max-height: 100%;
+}
+.main2 {
+    display:flex;
+    flex-direction: row;
+}
+
+.subMain {
+    padding:50px;
+    width:calc(100% - 220px);
+    max-height:calc(100vh - 50px);
+    overflow: scroll;
+}
+.main2 {
+    max-height:100%;
+    overflow:hidden;
+}
+.subMain > h1 {
+    color:#154a85;
+}
+.form {
+    display:flex;
+    flex-direction: column;
+}
+.sendQuestion {
+    transition:0.2s;
+    border-radius: 6px;
+    border: none;
+    width:320px;
+    height:50px;
+    background-color: #76E27E;
+    color: white;
+    padding: 18px 70px 18px 70px;
+    margin-top: 50px;
+    cursor:pointer;
+}
+.sendQuestion:hover {
+    transition:0.2s;
+    background:#6BCE73;
+}
+.themesInput {
+    margin-top: 50px;
+    border : 1px solid #efefef;
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+    outline:none;
+}
+.chooseFile {
+    transition:0.2s;
+    border-radius: 6px;
+    border: none;
+    width:200px;
+    background-color: #1965FF;
+    color: white;
+    padding: 12px 30px 12px 30px;
+    margin-top:15px;
+    cursor:pointer;
+}
+.chooseFile:hover {
+    transition:0.2s;
+    background:#6b94ff;
+}
+.textarea {
+    transition:0.2s;
+    border : 1px solid #efefef;
+    padding: 15px;
+    width: 300px;
+    margin-top: 15px;
+    border-radius: 5px;
+    outline:none;
+    margin-right:10px
+}
+.textarea2 {
+    transition:0.2s;
+    border : 1px solid #efefef;
+    padding: 15px;
+    min-width: 900px;
+    max-width: 1300px;
+    min-height:250px;
+    max-height:500px;
+    margin-top: 15px;
+    border-radius: 5px;
+    outline:none;
+}

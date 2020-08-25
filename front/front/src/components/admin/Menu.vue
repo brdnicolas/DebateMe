@@ -14,86 +14,42 @@
                     <img style="width:20px" src="../../assets/icon/question.png"/>
                     <a>Debats</a>
                 </div>
+              <div v-bind:class="{'currentPage': this.currentPage === 'themes'}" @click="redirectTo('themes')">
+                <img style="width:20px" src="../../assets/icon/admin/themes.png"/>
+                <a>Thèmes</a>
+              </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import LineChart from './LineChart.js';
-
     @Component({
-        components: {
-            LineChart,
-        },
     })
 
     export default class HelloWorld extends Vue {
 
+      // Page actuelle
+      currentPage: string;
 
-        currentPage: string;
-        constructor() {
+      // On associe à chaque varialbe une valeur par défaut.
+      constructor() {
             super();
             this.currentPage = "";
         }
 
-        mounted() {
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.currentPage = document.URL.split("/")[4];
-            console.log(this.currentPage);
+            console.log(this.currentPage)
         }
 
+        // Fonction qui redirige vers une autre page du admin panel
         redirectTo(page: string): void {
             window.location.href = '/panel/' + page;
         }
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-    .main {
-        background:#f8f9fe;
-    }
-    .main2 {
-        display:flex;
-        flex-direction: row;
-    }
-    .Menu {
-        z-index:2;
-        min-width:220px;
-        max-width:220px;
-        height:100%;
-        min-height:calc(100vh - 76px - 30px);
-        display:flex;
-        flex-direction: column;
-        border-right: 1px solid #ADB7CB;
-        background:white;
-        padding-top:30px;
-    }
-    .Menu div {
-        padding-left:32px;
-        padding-top:12px;
-        padding-bottom:12px;
-        text-decoration: none;
-        font-weight: bold;
-        color:#2f3a4f;
-        font-size:17px;
-        cursor:pointer;
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .Menu div a {
-        margin-left:5px;
-        margin-top:6px;
-    }
-    .Menu div:hover {
-        background:rgba(15, 115, 255, 0.10);
-        border-left: 4px solid #1273ff;
-    }
-    .currentPage {
-        background:rgba(15, 115, 255, 0.10);
-        border-left: 4px solid #1273ff;
-    }
-</style>
+<style scoped src="../../css/admin/Menu.css"/>

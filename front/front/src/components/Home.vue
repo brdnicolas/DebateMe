@@ -75,59 +75,71 @@ height: 50px;">
     import headerComponent from '@/components/mini-components/header.vue'
     import footerComponent from '@/components/mini-components/footer.vue'
     import cardComponent from '@/components/mini-components/card.vue'
-    import DAO from "@/components/DAO";
+    import DAO from "@/DAO";
     @Component({
         components: {
+            // Importation des composants : footer, header, cartes des sujets
             headerComponent,
             footerComponent,
             cardComponent,
         },
     })
     export default class ContactUs extends Vue {
+
+        // Liste des thèmes
         themes: Record<string, any>;
+
+        // Liste des questions
         listePostes: Record<string, any>;
+
+        // id du thème choisi
         idThemeActuel: number;
+
+        // DAO
         api =  new DAO();
+
+      // On associe à chaque varialbe une valeur par défaut.
       constructor() {
             super();
             this.themes = {};
             this.listePostes = {};
             this.idThemeActuel = 0;
         }
-        mounted() {
+
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.getThemes();
             this.checkToken();
         }
-        computed() {
-            const element = document.getElementById("categories");
-            if (element) {
-                console.log(element.firstChild);
-            }
-        }
 
+        // Lorsque lorsque l'on choisi un thème, on execute une fonction qui va récupérer toutes les questions corréspondantes au thème
         @Watch('idThemeActuel')
         onPropertyChanged(value: string, oldValue: string) {
             this.getPostesByTheme();
         }
 
+        // On vérifie que l'utilisateur est connécté
         checkToken(): void {
             if(localStorage.token === "") {
                 window.location.href = '/';
             }
         }
 
+        // Fonction qui récupère les thèmes
         async getThemes(): Promise<void> {
             await this.api.getThemes().then(data => {
                 this.themes = data as unknown as Record<string, any>
             })
         }
 
+        // Fonction qui récupère toutes les questions d'un poste via l'id
         async getPostesByTheme(): Promise<void> {
           await this.api.getPostesByTheme(this.idThemeActuel).then(data => {
               this.listePostes = data as unknown as Record<string, any>
           })
         }
 
+        // Fonction gérant le style lorsque l'on clique sur un thème
         ChangeTheme(e: Event, id: number): void {
             let target = e.target as HTMLTextAreaElement;
             if(target.tagName != 'DIV')
@@ -142,6 +154,7 @@ height: 50px;">
             this.idThemeActuel = id;
         }
 
+        // Fonction qui gère la flèche pour scroll vers la gauche
         SwipeLeft (): void {
             const ele = document.getElementById("categories");
             if(ele != null) {
@@ -155,6 +168,8 @@ height: 50px;">
                 }, 25);
             }
         }
+
+      // Fonction qui gère la flèche pour scroll vers la droite
         SwipeRight (): void {
             const ele = document.getElementById("categories");
             if(ele != null) {
@@ -170,137 +185,5 @@ height: 50px;">
         }
     }
 </script>
-<style scoped>
-    .bienvenue {
-        margin:50px 10vw 16% 10vw;
-        color:#353640;
-    }
-    .bienvenue > h1 {
-        font-size:40px;
-        font-weight: 500;
-        color:#353640;
-    }
-    .bienvenue > p {
-        margin-top:10px;
-        padding-bottom:50px;
-        width:50vw;
-        font-weight: 400;
-        color:#353640;
-    }
-    .bienvenue span {
-        color:#048aff;
-        font-weight: 500;
-    }
-    .bienvenue a {
-        color:#048aff;
-        font-weight: 500;
-    }
-    .card-list {
-        width:calc(80% + (100px *2));
-        margin-left:calc(10% );
-        height:40%;
-        padding: 50px 0 50px 0;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        min-height: 40vh;
-    }
-    .Filter {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        color: #1072FF;
-        margin-top:50px;
-        display:flex;
-        flex-direction: row;
-    }
-    .Filter div {
-        margin-right:40px;
-    }
-    .darkmode--activated select {
-      color:black !important;
-    }
-    .Filter input, .Filter select {
-        width: 250px;
-        height: 45px;
-        bdorder: 2px solid #EFEFEF;
-        box-sizing: border-box;
-        border-radius: 5px;
-        padding: 10px;
-        outline: none;
-        color: #1644A4;
-        font-weight: bold;
-        margin-top:15px;
-    }
-    .explore-category {
-        width:80vw;
-        min-width: 80vw;
-        margin-left:10vw;
-    }
-    .explore-category > div > h1 {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        color: #F9813B;
-        margin-left:10px;
-        margin-top:50px;
 
-    }
-    .categories-container {
-        display:flex;
-        flex-direction: row;
-        padding-bottom:30px;
-        align-items: center;
-        width:100%;
-    }
-    .categories-container > img:nth-child(1) {
-        width:48px;
-        height:48px;
-        object-fit: cover;
-        padding-right:10px;
-        margin-top:25px;
-        cursor:pointer;
-    }
-    .categories-container > img:nth-child(3) {
-      width:48px;
-      height:48px;
-      object-fit: cover;
-      padding-left:10px;
-      margin-top:25px;
-      cursor:pointer;
-    }
-    .categories {
-        margin-top:30px;
-        min-width: calc(80vw - 120px);
-        display:flex;
-        flex-direction: row;
-        list-style: none;
-        overflow:hidden;
-    }
-    .categories li > img {
-        display: flex;
-        min-height: min-content;
-        width:70px;
-        height:70px;
-        object-fit: cover;
-        border-radius: 50px;
-        border: 2px solid #F9813B;
-        margin-left:15px;
-        margin-right:15px;
-        cursor:pointer;
-    }
-    #selected {
-        display: flex;
-        min-height: min-content;
-        object-fit: cover;
-        border-radius: 50px;
-        border: 2px solid #1569ff;
-        margin-left:15px;
-        margin-right:15px;
-        cursor:pointer;
-    }
-    .darkmode--activated .part {
-      background:#25292F !important;
-    }
-</style>
+<style scoped src="../css/Home.css"/>

@@ -51,54 +51,71 @@
     import { Component, Vue } from 'vue-property-decorator';
     import headerComponent from "@/components/mini-components/header.vue";
     import footerComponent from "@/components/mini-components/footer.vue";
-    import activitePoste from "@/components/mini-components/activitePoste.vue"
     import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
-    import DAO from "@/components/DAO";
+    import DAO from "@/DAO";
 
     @Component({
         components: {
+            // importation des composants suivants : header, footer, liste des commentaires du user
             headerComponent,
             footerComponent,
-            activitePoste,
             activiteCommentaire,
         },
     })
 
     export default class HelloWorld extends Vue {
-        showPostes: boolean;
+
+        // Les informations relatives à l'utilisateur
         user: object;
+
+        // Image de profile
         profilPic: string;
+
+        // Bannière
         bannerPic: string;
 
+        // Liste des badges de l'utilisateur
         achivments: Array<string>;
+
+        // Liste des commentaires de l'utilisateur
         posts: object;
+
+        // Le DAO
         api = new DAO();
+
+        // On associe à chaque varialbe une valeur par défaut.
         constructor() {
             super();
             this.user = [null];
-            this.showPostes= true;
             this.profilPic = "";
             this.bannerPic = "";
             this.achivments = [""];
             this.posts = [""];
         }
 
-        mounted() {
+        // Fonction qui s'éxécute en même temps que le rendu du composant
+        mounted(): void {
             this.getCurrentUser();
         }
 
+        // Fonction qui fait un appel à l'api afin de récupérer les informations de l'uilisateur
         async getCurrentUser(): Promise<void> {
+
+            // Récupération dans l'url, le nom du user
             const profilToFind = document.URL.split("/")[4];
 
+            // Requete axios avec le nom d'utilisateur permettant de récupérer son id
             this.api.getUserByName(profilToFind).then(data => {
                 if ( data && (data as Record<string, any>).length > 0)
                     this.userFound((data[0] as Record<string, any>).id);
             })
+            // Si erreur, on retourne en arrière
             .catch(error => {
                 this.$router.go(-1)
             })
         }
 
+        // Recherche de l'utilisateur via son ID
         async userFound(userId: number): Promise<void> {
             this.api.getUserByID(userId).then(data => {
                 this.user = data;
@@ -112,131 +129,4 @@
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-    .modifyBanner {
-        z-index:30 !important;
-        height:20px !important;
-        width:20px !important;
-        position:absolute !important;
-        right:20px !important;
-        top:35px !important;
-        padding:10px !important;
-        background:white !important;
-        border-radius:20px !important;
-        cursor: pointer !important;
-    }
-    .liste {
-        width:50vw;
-        margin-left:25vw;
-        padding-bottom:50px;
-    }
-    .choice-categorie {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        padding-bottom:20px;
-    }
-    .choice-categorie p {
-        color:#1469ff;
-        font-weight: 500;
-        font-size:30px;
-        margin-right:15px;
-        margin-left:15px;
-    }
-    .activite {
-        display:flex;
-        flex-wrap: wrap;
-        margin-top:50px;
-    }
-    .liste-badge {
-        width:65vw;
-        padding:40px 17.5vw 40px 17.5vw;
-        text-align: center;
-        margin-top:60px;
-        height:auto;
-        background-color:#F9F9F9;
-    }
-    .liste-badge img {
-        margin-left:5px;
-        margin-right:5px;
-        width:60px;
-    }
-    .quoteleft {
-        width:100px;
-        padding-bottom:60px;
-    }
-    .quoteright {
-        width:100px;
-        padding-top:20px;
-    }
-    .profil-citation > p {
-        max-width:50vw;
-        font-weight: 300;
-        font-size: 24px;
-        line-height: 28px;
-        padding-left:40px;
-        padding-right:40px;
-    }
-    .profil-citation {
-        margin-top:100px;
-        width:100vw;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .profil-info > div {
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-left:50px;
-        margin-right:50px;
-        text-align: center;
-    }
-    .profil-info > div > h3 {
-        width:120px;
-        font-size:20px;
-        color:#1469ff;
-    }
-    .profil-info > div > p {
-        margin-top:5px;
-        color:#A7A7A7;
-    }
-    .profil-info {
-        width:100vw;
-        display:flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-    .top-profil > img {
-        width:100vw;
-        height:400px;
-        object-fit: cover;
-        position:absolute;
-        z-index:-1;
-        top:0;
-        margin-top:60px;
-    }
-    .top-profil {
-        width:500px;
-    }
-    .photo-profil {
-        width:100vw;
-        text-align: center;
-        margin-top:250px;
-    }
-    .photo-profil img {
-        width:184px;
-        height:184px;
-        object-fit: cover;
-        border-radius: 150px;
-        border: 4px solid white;
-    }
-    .photo-profil h1 {
-        margin-top:10px;
-        padding-bottom:50px;
-    }
-</style>
+<style scoped src="../css/Profil.css"/>
