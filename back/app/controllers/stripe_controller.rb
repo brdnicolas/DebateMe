@@ -1,4 +1,5 @@
 class StripeController < ApplicationController
+  skip_before_action :authorize_request, only: [:webhook]
 
   # GET /payment/build
   def checkout
