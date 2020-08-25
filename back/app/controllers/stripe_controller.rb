@@ -10,13 +10,7 @@ class StripeController < ApplicationController
   def webhook
     post_data = request.body.read
     req = JSON.parse(post_data)
-    type = req['type']
-    metadata = req['data']['object']['lines']['data'][0]['metadata']
-    if type == 'invoice.upcoming'
-      user = User.find(metadata['user_id'])
-      user.update!(isPremuim: true)
-      json_response 'done'
-    end
+    json_response SessionStripe.confirm_order(req)
   end
 
 end
