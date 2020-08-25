@@ -16,6 +16,7 @@ cd $hub && git pull && cd ..
 
 cp -fR "${hub}/front" "${lab}/front"
 cp -fR "${hub}/back" "${lab}/back"
+cp -fR "${hub}/README.md" "${lab}/README.md"
 
 cd $lab
 
