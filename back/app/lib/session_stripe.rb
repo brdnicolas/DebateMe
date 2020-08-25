@@ -1,7 +1,7 @@
 require 'stripe'
-Stripe.api_key = ENV['STRIPE_KEY']
 
 class SessionStripe
+  Stripe.api_key = ENV['STRIPE_KEY']
 
   def self.get_checkout(user)
     Stripe::Checkout::Session.create(payment_method_types: ['card'],
