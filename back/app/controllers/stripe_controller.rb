@@ -8,10 +8,15 @@ class StripeController < ApplicationController
 
   # POST /payment/webhook
   def webhook
-    type = req.body.type
-    data = req.body
-    puts data
-    puts type
+    post_data = request.body.read
+    req = JSON.parse(post_data)
+    type = req['type']
+    metadata = req['data']['object']['lines']['data'][0]['metadata']
+    if type == 'invoice.upcoming'
+      user = User.find(metadata['user_id'])
+      user.update!(isPremuim: true)
+      json_response 'done'
+    end
   end
 
 end
