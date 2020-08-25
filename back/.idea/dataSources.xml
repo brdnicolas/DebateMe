@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="MySQL - DebateMe@hugovast.tech" uuid="72c4bd19-bbf2-4e74-9627-b90656541b16">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306/DebateMe</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails PLI: development" uuid="5a1f2073-2d84-4165-b22b-a07bf5cca2b7">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306/DebateMe</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails PLI: test" uuid="19edd986-069d-4890-9920-b27838bd1680">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306/DebateMe</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails PLI: default" uuid="478f59ef-9705-4cc3-8aab-d516692333bd">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306/DebateMe</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails PLI: production" uuid="a9347808-0e8f-49e3-9bdf-9c4635ac3db9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306/DebateMe</jdbc-url>
+    </data-source>
+  </component>
+</project>
