@@ -41,6 +41,7 @@ Sur MacOS
    ```
 
 2. ```
+   cd back/
    rbenv install 2.5.0 && rbenv global 2.5.0
    ```
 
