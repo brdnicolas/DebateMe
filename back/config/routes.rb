@@ -28,4 +28,6 @@ Rails.application.routes.draw do
 
   get '/posts/:id/vote' => 'posts#vote'
 
+  get '/payment/build' => 'stripe#checkout'
+  post '/payment/webhook' => 'stripe#webhook'
 end
