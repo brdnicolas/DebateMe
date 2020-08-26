@@ -90,7 +90,6 @@ Question.all.each do |question|
     question.posts.create!(content: Faker::Lorem.paragraphs,
                            isAnonym: (true if rand > 0.8),
                            up: Integer(rand * 10),
-                           down: Integer(rand * 10),
                            user_id: @users.sample.id,
                            subpost_id: (question.posts.sample&.id if rand > 0.8))
     print '.'
