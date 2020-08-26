@@ -205,6 +205,14 @@ class DAO {
         return rep;
     }
 
+    async getStripeCheckout() {
+        let rep = [];
+        await this.axios.get("payment/build").then((response: { data: any}) =>  {
+            rep =  response.data;
+        } );
+        return rep;
+    }
+
 }
 
 export default DAO;
