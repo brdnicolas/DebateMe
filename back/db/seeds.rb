@@ -56,15 +56,17 @@ end
 end
 User.create!(email: 'admin@hugovast.tech',
              password: 'admin',
-             isAdmin: true)
+             isAdmin: true,
+             isPremium: true)
 UserInfo.create!(user_id: User.last.id, firstname: 'admin', lastname: 'admin', username: 'admin')
 @users = User.all
 
 themes = %w[Science Écologie Politique Actualité Sports Musique Tech Gaming]
+themes_color = %w[#0cb1e6 65dc4a dee61f e6221f 454444 f02fa4 9ecc58 175cb8]
 themes_pic = %w[sciences.png earth.png democracy.png news.png gym.png music.png lightning.png games.png]
 puts "\n#{@users.size} users created"
 themes.each_with_index do |theme, i|
-  Theme.create!(name: theme)
+  Theme.create!(name: theme, color: themes_color[i])
   puts "public/logo_themes/#{themes_pic[i]}"
   Theme.last.logo.attach(io: File.open("public/logo_themes/#{themes_pic[i]}"), filename: themes_pic[i])
   print '.'

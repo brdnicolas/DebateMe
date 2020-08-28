@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   def complete_profile
     h = { username: user_info.username, quote: user_info.quote, img: user_info.get_image_url, user_id: id }
-    h.merge!({ achievements: user_info.get_achievements, isAdmin: isAdmin })
+    h.merge!({ achievements: user_info.get_achievements, isAdmin: isAdmin, isPremium: isPremium })
     h.merge(posts: posts.reduce([]) { |memo, acc| memo << acc.attributes.merge(theme_id: acc.question.theme.id) })
   end
 
@@ -55,7 +55,5 @@ class User < ApplicationRecord
     achievement = Achievement.find_by_name(achievement_name)
     user_info.achievements << achievement unless user_info.achievements.include?(achievement)
   end
-
-
 
 end
