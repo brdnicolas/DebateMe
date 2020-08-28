@@ -10,9 +10,9 @@ class UserInfo < ApplicationRecord
   validates_presence_of :username
 
   def get_image_url
-    pp = url_for(profile_picture) if profile_picture.attached?
-    ban = url_for(banner) if banner.attached?
-    { profile_picture: pp, banner: ban }
+    profile_pic = url_for(profile_picture) if profile_picture.attached?
+    banner_pic = url_for(banner) if banner.attached?
+    { profile_picture: profile_pic, banner: banner_pic }
   end
 
   def update(attributes = {})
@@ -26,7 +26,7 @@ class UserInfo < ApplicationRecord
   end
 
   def self.search(to_search)
-    where('username LIKE ?', '%' + to_search + '%')
+    where('username LIKE ?', '%' + to_search + '%').map { |user_info| user_info.user.complete_profile }
   end
 
   def get_achievements

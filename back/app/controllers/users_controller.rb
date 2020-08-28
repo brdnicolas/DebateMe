@@ -40,26 +40,6 @@ class UsersController < ApplicationController
     head :no_content
   end
 
-  def user_pay
-    # Stripe.api_key = 'sk_test_51H0icEEfP5i1LDx8OJXaM7sUcckxNisoWOARRdwuPxGbWJxnVkH9FAIcu177cgHPB1tb6CqQ0wY3cwQhf40D8cqk00g00NEeGQ'
-    # session = Stripe::Checkout::Session.create(
-    #     payment_method_types: ['card'],
-    #     line_items: [{
-    #                      price: 'price_1HH8WLEfP5i1LDx8jZu9mHPl',
-    #                      quantity: 1,
-    #                  }],
-    #     mode: 'subscription',
-    #     success_url: 'https://pli.hugovast.tech/me',
-    #     cancel_url: 'https://pli.hugovast.tech/home',
-    #     metadata
-    #     )
-  end
-
-  def set_premium
-    current_user.update!(isPremium: 1)
-    redirect_to 'https://pli.hugovast.tech/home'
-  end
-
   # GET /users/search/:search
   def search
     @users = UserInfo.search(params[:search])
