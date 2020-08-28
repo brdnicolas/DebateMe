@@ -6,7 +6,11 @@
                 <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && user.img.profile_picture" :alt="user.username" v-bind:src="this.user.img.profile_picture"/>
                 <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && !user.img.profile_picture" :alt="user.username" src="../../assets/img/profile.png"/>
                 <div v-if="!commentaire.isAnonym">
-                    <h3 @click="showProfil(user.username)" class="username">{{user.username}}</h3>
+                    <div v-if="this.user.is_premium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
+                      <h3>{{this.user.username}}</h3>
+                      <img style="width:20px;height:20px" src="../../assets/icon/Star.png"/>
+                    </div>
+                    <h3 @click="showProfil(user.username)" class="username" v-else>{{this.user.username}}</h3>
                     <p class="citation">{{user.quote}}</p>
                 </div>
                 <img v-if="commentaire.isAnonym" :alt="user.username" src="../../assets/img/anonymous.png"/>

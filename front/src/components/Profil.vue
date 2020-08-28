@@ -7,7 +7,11 @@
             <div class="photo-profil">
                 <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
                 <img class="profil_pic" v-else src="../assets/img/profile.png"/>
+              <div v-if="this.user.is_premium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
                 <h1>{{this.user.username}}</h1>
+                <img style="width:20px;height:20px" src="../assets/icon/Star.png"/>
+              </div>
+              <h1 v-else>{{this.user.username}}</h1>
             </div>
             <div class="profil-info">
                 <div>

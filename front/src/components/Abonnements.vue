@@ -70,16 +70,18 @@
               <p>Icon premium</p>
             </li>
           </div>
-          <button>Choisir</button>
+          <button @click="getSession">Choisir</button>
         </div>
       </div>
   </div>
 </template>
 
 <script lang="ts">
+// @ts-nocheck
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import headerComponent from "@/components/mini-components/header.vue";
 import footerComponent from "@/components/mini-components/footer.vue";
+import DAO from "@/DAO";
 
 @Component({
   components: {
@@ -94,6 +96,21 @@ export default class Abonnements extends Vue {
   // Fonction qui s'éxécute en même temps que le rendu du composant
   mounted(): void {
     this.checkToken();
+  }
+
+  stripe: any;
+  api = new DAO();
+
+  constructor() {
+    super();
+    // eslint-disable-next-line no-undef
+    this.stripe = Stripe("pk_test_51H0icEEfP5i1LDx8esmSOroVwElbIBllJEahdjBZVbcIbDsYYmbW7yH6xGLCZPHj1OiGatEyhXeJ8J1sGh6zSGEu00jOkYNNz3");
+  }
+
+  getSession(): void  {
+    this.api.getStripeCheckout().then( (result) => {
+      this.stripe.redirectToCheckout({sessionId: result.id})
+    })
   }
 
   // On vérifie que l'utilisateur est connécté

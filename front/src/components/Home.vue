@@ -110,9 +110,23 @@ height: 50px;">
         mounted(): void {
             this.getThemes();
             this.checkToken();
+            if (document.cookie == "abbo") {
+              window.location.href = '/abonnement'
+              this.deleteCookies();
+            }
         }
 
-        // Lorsque lorsque l'on choisi un thème, on execute une fonction qui va récupérer toutes les questions corréspondantes au thème
+        // Fonction pour enlever tous les cookies
+        deleteCookies() {
+          const allCookies = document.cookie.split(';');
+          // The "expire" attribute of every cookie is
+          // Set to "Thu, 01 Jan 1970 00:00:00 GMT"
+          for (let i = 0; i < allCookies.length; i++)
+            document.cookie = allCookies[i] + ";expires="
+                + new Date(0).toUTCString();
+        }
+
+      // Lorsque lorsque l'on choisi un thème, on execute une fonction qui va récupérer toutes les questions corréspondantes au thème
         @Watch('idThemeActuel')
         onPropertyChanged(value: string, oldValue: string) {
             this.getPostesByTheme();
