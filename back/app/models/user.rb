@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email, case_sensitive: true
 
   def full_info
-    user_info.attributes.merge(img: user_info.get_image_url)
+    user_info.attributes.merge(img: user_info.get_image_url, isPremium: user_info.user.isPremium)
   end
 
   def self.all_full_info

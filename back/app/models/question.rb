@@ -27,14 +27,7 @@ class Question < ApplicationRecord
     super(attributes)
   end
 
-  # @note A tester si marche bien la version non comment
   def posts_parsed
-    # new_posts = []
-    # posts.order(up: :desc).each do |element|
-    #   new_el = { user: element.user.full_info, post: element, votes_id: element.get_vote_ids }
-    #   new_posts.append(new_el)
-    # end
-    # new_posts
     posts.order(up: :desc)
          .reduce([]) { |memo, acc| memo << { user: acc.user.full_info, post: acc, votes_id: acc.get_vote_ids } }
   end
