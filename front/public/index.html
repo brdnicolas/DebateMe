@@ -3,7 +3,23 @@
   <head>
 
       <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.6/lib/darkmode-js.min.js"></script>
-
+      <script>
+          function addDarkmodeWidget() {
+              const options = {
+                  time: '0.5s', // default: '0.3s'
+                  mixColor: '#e9e6e1', // default: '#fff'
+                  backgroundColor: '#fff',  // default: '#fff'
+                  buttonColorDark: '#100f2c',  // default: '#100f2c'
+                  buttonColorLight: '#fff', // default: '#fff'
+                  saveInCookies: true, // default: true,
+                  label: '🌓', // default: ''
+                  autoMatchOsTheme: true // default: true
+              }
+              if(localStorage.is_premium)
+                  new Darkmode(options).showWidget();
+          }
+          window.addEventListener('load', addDarkmodeWidget);
+      </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
