@@ -15,7 +15,8 @@
                   label: '🌓', // default: ''
                   autoMatchOsTheme: true // default: true
               }
-              new Darkmode(options).showWidget();
+              if(localStorage.is_premium)
+                  new Darkmode(options).showWidget();
           }
           window.addEventListener('load', addDarkmodeWidget);
       </script>

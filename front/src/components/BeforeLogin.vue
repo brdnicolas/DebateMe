@@ -153,7 +153,7 @@
               <p>Possibilité de proposer un sujet / thème</p>
             </li>
           </div>
-          <button class="choiceTarif">Choisir</button>
+          <button @click="showLogin" class="choiceTarif">Choisir</button>
         </div>
       </div>
     </div>
@@ -212,7 +212,10 @@
     }
 
     // On affiche la pop up connexion
-    showLogin(): void {
+    showLogin(cookie = false): void {
+      if(cookie)
+        document.cookie = "abbo";
+      window.scrollTo(0,0);
       const ele = document.getElementById("html");
       this.showModalLogin = true;
       if (ele) {

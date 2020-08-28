@@ -20,45 +20,45 @@
 .st-logo, .st-disclaimer {
   display:none;
 }
+#phone {
+  display:none;
+}
+#phone img {
+  width:100vw;
+  -webkit-user-drag: none;
+}
+@media (max-width: 750px) {
+  #rooter {
+    display: none;
+  }
   #phone {
-    display:none;
-  }
-  #phone img {
+    display:flex;
     width:100vw;
-    -webkit-user-drag: none;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+    background: #e8edf0;
   }
-  @media (max-width: 750px) {
-    #rooter {
-      display: none;
-    }
-    #phone {
-      display:flex;
-      width:100vw;
-      height:100vh;
-      justify-content: center;
-      align-items: center;
-      background: #e8edf0;
-    }
-  }
-  #app {
-    font-family: 'Roboto', sans-serif;
-  }
-  .swal2-modal {
-    font-family: 'Roboto', sans-serif !important;
-  }
-  .darkmode--activated .swal2-modal {
-    background:#16191D !important;
-  }
-  body {
-    background:white;
-  }
-  html {
-    width:100vw;
-    overflow-x:hidden;
-    scroll-behavior: smooth;
-  }
-  * {
-    margin:0;
-    padding:0;
-  }
+}
+#app {
+  font-family: 'Roboto', sans-serif;
+}
+.swal2-modal {
+  font-family: 'Roboto', sans-serif !important;
+}
+.darkmode--activated .swal2-modal {
+  background:#16191D !important;
+}
+body {
+  background:white;
+}
+html {
+  width:100vw;
+  overflow-x:hidden;
+  scroll-behavior: smooth;
+}
+* {
+  margin:0;
+  padding:0;
+}
 </style>
