@@ -1,5 +1,5 @@
 <template>
-    <div class="post">
+    <div class="post" v-if="localStorage.token">
         <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back.png"/>
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
         <img v-else class="image_poste" src="../assets/img/noImage.png"/>

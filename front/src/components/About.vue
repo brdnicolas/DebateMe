@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="localStorage.token">
         <header-component/>
         <div class="APropos">
             <div>

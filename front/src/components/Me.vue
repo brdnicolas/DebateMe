@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="localStorage.token">
         <header-component/>
         <div class="top-profil">
             <img v-if="this.bannerPic" v-bind:src="this.user.img.banner"/>

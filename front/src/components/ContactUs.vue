@@ -1,5 +1,5 @@
 <template>
-    <div class="contactUs">
+    <div class="contactUs" v-if="localStorage.token">
         <headerComponent />
         <div class="contact">
             <div class="card">

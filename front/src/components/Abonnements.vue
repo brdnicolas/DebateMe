@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align:center;display: flex;flex-direction: row" class="main">
+  <div style="text-align:center;display: flex;flex-direction: row" class="main" v-if="localStorage.token">
     <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back2.png"/>
       <div class="left">
         <h1>Classique</h1>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="localStorage.token">
     <header-component/>
     <div class="FAQ">
       <h1>F.A.Q - Questions les plus souvent posées</h1>
