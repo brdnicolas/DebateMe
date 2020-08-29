@@ -1,5 +1,5 @@
 <template>
-  <div v-if="() => {localStorage.token && document.URL.split('/')[3] !== ''}">
+  <div v-if="localStorage.token">
     <header-component/>
     <div class="Equipage">
       <div class="Personne" v-for="item in this.equipage" :key="item.nom">
