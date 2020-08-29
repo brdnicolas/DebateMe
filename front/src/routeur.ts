@@ -78,8 +78,8 @@ export default new Router({
             component: () => import("./components/404notFound.vue")
         },
         {
-            path: "/stripe",
-            component: () => import("./components/Stripe.vue")
+            path: "/FAQ",
+            component: () => import("./components/FAQ.vue")
         }
     ],
 });

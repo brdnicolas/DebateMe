@@ -116,6 +116,13 @@ height: 50px;">
             }
         }
 
+      // Fonction qui récupère les thèmes
+      async getThemes(): Promise<void> {
+        await this.api.getThemes().then(data => {
+          this.themes = data as unknown as Record<string, any>
+        })
+      }
+
         // Fonction pour enlever tous les cookies
         deleteCookies() {
           const allCookies = document.cookie.split(';');
@@ -137,13 +144,6 @@ height: 50px;">
             if(localStorage.token === "") {
                 window.location.href = '/';
             }
-        }
-
-        // Fonction qui récupère les thèmes
-        async getThemes(): Promise<void> {
-            await this.api.getThemes().then(data => {
-                this.themes = data as unknown as Record<string, any>
-            })
         }
 
         // Fonction qui récupère toutes les questions d'un poste via l'id
