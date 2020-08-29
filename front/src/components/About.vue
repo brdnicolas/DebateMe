@@ -1,5 +1,5 @@
 <template>
-    <div v-if="localStorage.token">
+    <div v-if="checkToken">
         <header-component/>
         <div class="APropos">
             <div>
@@ -36,6 +36,11 @@
 
         // On récupère les variables du parent
         @Prop() private msg!: string;
+
+        // Fonction permettant de vérifier que l'utilisateur est connécté.
+        checkToken(): boolean {
+          return !!localStorage.token;
+        }
     }
 </script>
 

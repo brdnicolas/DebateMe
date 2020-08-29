@@ -1,5 +1,5 @@
 <template>
-  <div v-if="localStorage.token">
+  <div v-if="checkToken">
     <header-component/>
     <div class="Equipage">
       <div class="Personne" v-for="item in this.equipage" :key="item.nom">
@@ -68,9 +68,9 @@ export default class Question extends Vue {
     ]
   }
 
-  mounted(): void {
-    if(!localStorage.token)
-      window.location.href = "/"
+  // Fonction permettant de vérifier que l'utilisateur est connécté.
+  checkToken(): boolean {
+    return !!localStorage.token;
   }
 
 }

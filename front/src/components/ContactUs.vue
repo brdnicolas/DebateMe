@@ -1,5 +1,5 @@
 <template>
-    <div class="contactUs" v-if="localStorage.token">
+    <div class="contactUs" v-if="checkToken">
         <headerComponent />
         <div class="contact">
             <div class="card">
@@ -48,6 +48,10 @@
       }
     })
     export default class HelloWorld extends Vue {
+      // Fonction permettant de vérifier que l'utilisateur est connécté.
+      checkToken(): boolean {
+        return !!localStorage.token;
+      }
     }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="post" v-if="localStorage.token">
+    <div class="post" v-if="checkToken">
         <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back.png"/>
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
         <img v-else class="image_poste" src="../assets/img/noImage.png"/>
@@ -91,6 +91,11 @@
             this.user = {};
             this.votesID = 0;
             this.errorPostComment = "";
+        }
+
+        // Fonction permettant de vérifier que l'utilisateur est connécté.
+        checkToken(): boolean {
+          return !!localStorage.token;
         }
 
         // Fonction s'éxécutant au moment de la création de la vue, avant son montage

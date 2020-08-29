@@ -1,5 +1,5 @@
 <template>
-  <div v-if="localStorage.token">
+  <div v-if="checkToken">
     <header-component/>
     <div class="FAQ">
       <h1>F.A.Q - Questions les plus souvent posées</h1>
@@ -66,6 +66,10 @@ export default class Question extends Vue {
         reponse : "Ce projet vient de notre école où en première année nous avons dû créer un projet libre et innovant."
       }
     ]
+  }
+
+  checkToken(): boolean {
+    return !!localStorage.token;
   }
 
   toggleResponse(e, activated): void {

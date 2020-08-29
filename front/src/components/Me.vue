@@ -1,5 +1,5 @@
 <template>
-    <div v-if="localStorage.token">
+    <div v-if="checkToken">
         <header-component/>
         <div class="top-profil">
             <img v-if="this.bannerPic" v-bind:src="this.user.img.banner"/>
@@ -123,6 +123,11 @@
         // Fonction qui s'éxécute en même temps que le rendu du composant
         mounted(): void {
             this.getCurrentUser();
+        }
+
+        // Fonction permettant de vérifier que l'utilisateur est connécté.
+        checkToken(): boolean {
+          return !!localStorage.token;
         }
 
         // Fonction permettant de choisir un fichier lors du clique sur l'image de profil

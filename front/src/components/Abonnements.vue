@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align:center;display: flex;flex-direction: row" class="main" v-if="localStorage.token">
+  <div style="text-align:center;display: flex;flex-direction: row" class="main" v-if="checkToken">
     <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back2.png"/>
       <div class="left">
         <h1>Classique</h1>
@@ -101,6 +101,11 @@ export default class Abonnements extends Vue {
     // eslint-disable-next-line no-undef
     this.stripe = Stripe("pk_test_51H0icEEfP5i1LDx8esmSOroVwElbIBllJEahdjBZVbcIbDsYYmbW7yH6xGLCZPHj1OiGatEyhXeJ8J1sGh6zSGEu00jOkYNNz3");
   }
+
+    // Fonction permettant de vérifier que l'utilisateur est connécté.
+    checkToken(): boolean {
+      return !!localStorage.token;
+    }
 
   getSession(): void  {
     this.api.getStripeCheckout().then( (result) => {
