@@ -9,13 +9,13 @@
                 </div>
                 <div>
                     <h1>Informations</h1>
-                    <a class="darkmode-ignore" href="/contact" style="color:#1c8eff;text-decoration: none">Contactez nous</a>
-                    <p>F.A.Q</p>
-                    <p>Equipe</p>
+                    <a class="darkmode-ignore" href="/contact" style="color:#1c8eff;">Contactez nous</a>
+                    <a href="/faq">F.A.Q</a>
+                    <a href="/equipe">Equipe</a>
                 </div>
                 <div>
                     <h1>Services</h1>
-                    <p>Abonnement</p>
+                    <a href="/abonnement">Abonnement</a>
                     <p>Email marketing : <a href="mailto:marketing@debate.me" class="darkmode-ignore" style="color:#e6654a;text-decoration: underline">marketing@debate.me</a></p>
                     <a href="/about">A propos</a>
                 </div>
@@ -50,7 +50,6 @@
         font-family: 'Quicksand', sans-serif;
     }
     a {
-        text-decoration: none;
         font-weight: normal;
         margin-top:15px;
         margin-bottom:15px;
@@ -76,6 +75,10 @@
         padding-bottom:20px;
         border-bottom: 1px solid #ebecf0;
     }
+    .footerTop div {
+      display:flex;
+      flex-direction: column;
+    }
     .footerBottom {
         width:100%;
         display:flex;
@@ -97,7 +100,6 @@
         margin-bottom:15px;
         color:#8c8c90;
     }
-
     input {
         width:170px;
         height:30px;

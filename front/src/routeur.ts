@@ -80,6 +80,10 @@ export default new Router({
         {
             path: "/FAQ",
             component: () => import("./components/FAQ.vue")
+        },
+        {
+            path: "/equipe",
+            component: () => import("./components/Equipe.vue")
         }
     ],
 });

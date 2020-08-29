@@ -1,0 +1,30 @@
+.Equipage img {
+    width:200px;
+    margin-top:100px;
+}
+
+.Equipage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin:100px 100px 200px 100px;
+    flex-wrap: wrap;
+}
+
+.Personne {
+    text-align: center;
+}
+
+.Personne h2 {
+    color: #5D6A8D;
+}
+
+.Personne .role {
+    color:#3597FF;
+}
+
+.Personne .citation {
+    color: #9C9CA1;
+    margin-top:10px;
+    font-style:italic;
+}
