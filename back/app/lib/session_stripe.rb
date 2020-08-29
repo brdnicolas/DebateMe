@@ -16,11 +16,11 @@ class SessionStripe
     type = req['type']
     metadata = req['data']['object']['metadata']
     puts metadata
-    if type == 'checkout.session.completed'
-      user = User.find(metadata['user_id'])
-      user.update!(isPremium: true)
-      'done'
-    end
+    return unless type != 'checkout.session.completed'
+
+    user = User.find(metadata['user_id'])
+    user.update!(isPremium: true)
+    'done'
   end
 
 

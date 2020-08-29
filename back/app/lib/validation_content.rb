@@ -16,7 +16,6 @@ class ValidationContent
     request['Ocp-Apim-Subscription-Key'] = ENV.fetch('AZURE_KEY')
     request.body = @content
     response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') { |http| http.request(request) }
-    puts response.code
     raise KeyError if %w[401 404].include? response.code
 
     response.body

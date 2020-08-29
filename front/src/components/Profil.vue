@@ -7,7 +7,7 @@
             <div class="photo-profil">
                 <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
                 <img class="profil_pic" v-else src="../assets/img/profile.png"/>
-              <div v-if="this.user.is_premium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
+              <div v-if="this.user.isPremium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
                 <h1>{{this.user.username}}</h1>
                 <img style="width:20px;height:20px" src="../assets/icon/Star.png"/>
               </div>
@@ -43,7 +43,7 @@
                 <p id="activité"><span v-if="this.posts.length === 0">Aucune </span>Activité</p>
             </div>
             <div class="liste">
-                <activiteCommentaire v-for="item2 in this.user.posts" :key="item2.id" :theme_id="item2.theme_id" :date="item2.updated_at" :question_id="item2.question_id" :message="item2.content" :up="item2.up" :picture="user.profile_pic"/>
+                <activiteCommentaire v-for="item2 in this.user.posts" :key="item2.id" :id="item2.id" :theme_id="item2.theme_id" :date="item2.updated_at" :question_id="item2.question_id" :message="item2.content" :up="item2.up" :picture="user.profile_pic"/>
             </div>
         </div>
         <footer-component/>
@@ -117,6 +117,8 @@
             .catch(error => {
                 this.$router.go(-1)
             })
+            if (this.user[0] == null)
+                window.location.href = "/404";
         }
 
         // Recherche de l'utilisateur via son ID

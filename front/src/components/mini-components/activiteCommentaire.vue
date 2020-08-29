@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content" @click="goToGoodComment(theme_id, question_id)">
         <div>
             <p class="title">{{this.question.title}}</p>
             <div class="text">
@@ -41,6 +41,8 @@
         picture: string | undefined;
         @Prop({default: ""})
         date: string | undefined;
+        @Prop({default: 0})
+        id: number | undefined;
 
         question: object;
         dateFrom: string;
@@ -68,6 +70,10 @@
             })
         }
 
+        // Fonction permettant d'être redirigé vers le commentaire
+        goToGoodComment(themeID: number, questionID: number): void {
+            window.location.href = "/theme/" + themeID + "/question/" + questionID + "#commentairen" + this.id;
+        }
 
     }
 </script>

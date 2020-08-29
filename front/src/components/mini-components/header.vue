@@ -87,7 +87,7 @@
             this.api.getCurrentUser().then(datas => {
                 this.user = datas;
                 this.profilPic = (datas as Record<string,any>).img.profile_picture;
-                localStorage.premium = (datas as Record<string,any>).is_premium;
+                localStorage.premium = (datas as Record<string,any>).isPremium;
             })
             .catch(error => {
                 this.deconnexion();
