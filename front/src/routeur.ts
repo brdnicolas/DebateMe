@@ -4,6 +4,9 @@ import BeforeLogin from './components/BeforeLogin.vue';
 
 Vue.use(Router);
 
+if(!localStorage.token && document.URL.split("/")[3] != '')
+    window.location.href = "/"
+
 export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
