@@ -32,6 +32,7 @@
 
 .question h3 {
     font-weight: 400;
+    cursor: pointer;
 }
 
 .reponse {

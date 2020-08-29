@@ -6,9 +6,9 @@
       <ul>
         <li v-for="(item, index) in this.QandR" :key="item.question">
           <div class="question">
-            <h3>Q{{index + 1}}. {{ item.question }}</h3>
-            <img style="display:block" @click="toggleResponse($event, false)" src="../assets/icon/plus.png"/>
-            <img style="display:none" @click="toggleResponse($event, true)" src="../assets/icon/minus.png"/>
+            <h3 @click="toggleResponse($event)">Q{{index + 1}}. {{ item.question }}</h3>
+            <img style="display:block" @click="toggleResponse($event)" src="../assets/icon/plus.png"/>
+            <img style="display:none" @click="toggleResponse($event)" src="../assets/icon/minus.png"/>
           </div>
           <p class="reponse">{{ item.reponse }}</p>
         </li>
@@ -72,7 +72,7 @@ export default class Question extends Vue {
     return !!localStorage.token;
   }
 
-  toggleResponse(e, activated): void {
+  toggleResponse(e): void {
     const minus = e.target.parentNode.childNodes[2];
     const plus = e.target.parentNode.childNodes[1];
     console.log(e.target.parentNode.childNodes);

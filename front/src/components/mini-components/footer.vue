@@ -21,8 +21,11 @@
                 </div>
                 <div>
                     <h1>Actualités</h1>
-                    <input placeholder="Email" type="text"/>
-                    <button class="darkmode-ignore">OK</button>
+                    <div style="display:flex; flex-direction: row">
+                      <input placeholder="Email" type="text"/>
+                      <button class="darkmode-ignore">OK</button>
+                    </div>
+
                 </div>
             </div>
             <div class="footerBottom">
