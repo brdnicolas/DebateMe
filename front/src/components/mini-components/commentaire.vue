@@ -6,9 +6,9 @@
                 <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && user.img.profile_picture" :alt="user.username" v-bind:src="this.user.img.profile_picture"/>
                 <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && !user.img.profile_picture" :alt="user.username" src="../../assets/img/profile.png"/>
                 <div v-if="!commentaire.isAnonym">
-                    <div v-if="this.user.is_premium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
-                      <h3>{{this.user.username}}</h3>
-                      <img style="width:20px;height:20px" src="../../assets/icon/Star.png"/>
+                    <div v-if="this.user.isPremium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
+                        <img style="width:20px;height:20px" src="../../assets/icon/Star.png"/>
+                        <h3>{{this.user.username}}</h3>
                     </div>
                     <h3 @click="showProfil(user.username)" class="username" v-else>{{this.user.username}}</h3>
                     <p class="citation">{{user.quote}}</p>
@@ -103,6 +103,7 @@
         // Fonction qui s'éxécute en même temps que le rendu du composant
         mounted(): void {
             this.getCurrentUser();
+            console.log(this.commentaire)
         }
 
         // Fonction permetter de report quelqu'un

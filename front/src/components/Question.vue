@@ -4,7 +4,9 @@
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
         <img v-else class="image_poste" src="../assets/img/noImage.png"/>
         <div id="banner">
-          <h1 class="titre darkmode-ignore">{{question.title}}</h1>
+
+                <h1 @click="scrollToGoodComment('commentairen3')" class="titre darkmode-ignore">{{question.title}}</h1>
+
             <div class="icons">
 
                 <div class="left">
@@ -32,7 +34,7 @@
             </div>
         </div>
         <div class="listComments">
-            <commentaire v-on:refresh="getComments" v-for="item in this.posts" :votes="item.votes_id" :questionID="question.id" :commentaire="item.post"  :key="item.id" :user="item.user"/>
+            <commentaire v-on:refresh="getComments" v-for="item in this.posts" v-bind:id="idGenerator(item.post.id)" :votes="item.votes_id" :questionID="question.id" :commentaire="item.post"  :key="item.id" :user="item.user"/>
         </div>
         <div id="bottom"/>
     </div>
@@ -44,7 +46,6 @@
     import commentaire from '@/components/mini-components/commentaire.vue'
     import switchComponent from "@/components/mini-components/switch.vue";
     import DAO from "@/DAO";
-    import $ from 'jquery'
 
     @Component({
       // Components : header, footer & les commentaires
@@ -97,6 +98,30 @@
             window.addEventListener('scroll', this.handleScroll);
         }
 
+        // Fonction qui s'execute après le rendu.
+        updated(): void {
+            const scrollTo = document.URL.split("#")[1];
+            console.log(scrollTo);
+            this.scrollToGoodComment(scrollTo);
+        }
+
+        // Fonction qui permet de généer un id de commentaire
+        idGenerator(id: number): string {
+            return "commentairen" + id;
+        }
+
+        scrollToGoodComment(id: string): void {
+            const element = document.getElementById(id);
+            console.log(element);
+            if(element) {
+                const offsets = element.getBoundingClientRect();
+                const top = offsets.top;
+                const left = offsets.left;
+                console.log(element);
+                window.scrollTo(left,top - 200)
+            }
+        }
+
         // Llors de la déstruction de la vue ( quand on part )
         destroyed(): void {
             window.removeEventListener('scroll', this.handleScroll);
@@ -125,7 +150,6 @@
             this.getComments();
             this.getQuestion();
             this.checkToken();
-
         }
 
         // Vérification si l'user est connécté.

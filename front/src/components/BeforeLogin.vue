@@ -6,7 +6,7 @@
         <h3 class="name">Debate Me</h3>
       </div>
       <div class="right">
-        <button id="log" class ="button" @click="showLogin">
+        <button id="log" class ="button" @click="showLogin(false)">
           <span class="darkmode-ignore">Connexion</span>
         </button>
         <button id="sign" class ="button" @click="showSignIn">
@@ -153,7 +153,7 @@
               <p>Possibilité de proposer un sujet / thème</p>
             </li>
           </div>
-          <button @click="showLogin" class="choiceTarif">Choisir</button>
+          <button @click="showLogin(true)" class="choiceTarif">Choisir</button>
         </div>
       </div>
     </div>
