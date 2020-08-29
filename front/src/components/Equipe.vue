@@ -68,6 +68,11 @@ export default class Question extends Vue {
     ]
   }
 
+  mounted(): void {
+    if(!localStorage.token)
+      window.location.href = "/"
+  }
+
 }
 </script>
 

@@ -89,9 +89,6 @@
                 this.profilPic = (datas as Record<string,any>).img.profile_picture;
                 localStorage.premium = (datas as Record<string,any>).isPremium;
             })
-            .catch(error => {
-                this.deconnexion();
-            })
         }
 
         // Fonction pour rediriger vers une autre page

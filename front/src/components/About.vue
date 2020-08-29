@@ -36,18 +36,6 @@
 
         // On récupère les variables du parent
         @Prop() private msg!: string;
-
-        // Fonction qui s'éxécute en même temps que le rendu du composant
-        mounted(): void {
-            this.checkToken();
-        }
-
-        // On vérifie que l'utilisateur est connécté
-        checkToken(): void {
-            if(localStorage.token === "") {
-                window.location.href = '/';
-            }
-        }
     }
 </script>
 

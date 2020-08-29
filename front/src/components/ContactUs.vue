@@ -48,19 +48,6 @@
       }
     })
     export default class HelloWorld extends Vue {
-
-        // Fonction qui s'éxécute en même temps que le rendu du composant
-        mounted(): void {
-            this.checkToken();
-        }
-
-        // Fonction vérifiant si l'utilisateur est connécté.
-        checkToken(): void {
-            if(localStorage.token === "") {
-                window.location.href = '/';
-            }
-        }
-
     }
 </script>
 

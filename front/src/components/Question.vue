@@ -149,14 +149,6 @@
             // On appelle ces fonctions pour : avoir les commentaires, la question et vérifier si l'utilisateur est connécté.
             this.getComments();
             this.getQuestion();
-            this.checkToken();
-        }
-
-        // Vérification si l'user est connécté.
-        checkToken(): void {
-            if(localStorage.token === "") {
-                window.location.href = '/';
-            }
         }
 
         // Fonction qui gère l'envoie d'un nouveau commentaire.

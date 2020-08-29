@@ -109,7 +109,6 @@ height: 50px;">
         // Fonction qui s'éxécute en même temps que le rendu du composant
         mounted(): void {
             this.getThemes();
-            this.checkToken();
             if (document.cookie == "abbo") {
               window.location.href = '/abonnement'
               this.deleteCookies();
@@ -139,12 +138,6 @@ height: 50px;">
             this.getPostesByTheme();
         }
 
-        // On vérifie que l'utilisateur est connécté
-        checkToken(): void {
-            if(localStorage.token === "") {
-                window.location.href = '/';
-            }
-        }
 
         // Fonction qui récupère toutes les questions d'un poste via l'id
         async getPostesByTheme(): Promise<void> {

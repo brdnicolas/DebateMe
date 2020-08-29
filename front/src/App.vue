@@ -13,6 +13,32 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import headerComponent from '@/components/mini-components/header.vue'
+import footerComponent from '@/components/mini-components/footer.vue'
+import commentaire from '@/components/mini-components/commentaire.vue'
+import switchComponent from "@/components/mini-components/switch.vue";
+import DAO from "@/DAO";
+import $ from 'jquery'
+
+@Component({
+  // Components : header, footer & les commentaires
+  components: {
+    headerComponent,
+    commentaire,
+    switchComponent,
+    footerComponent
+  },
+})
+export default class Question extends Vue {
+  mounted(): void {
+    if(!localStorage.token && document.URL.split("/")[3] != '')
+      window.location.href = "/"
+  }
+}
+</script>
 <style>
 #st-1 .st-btn[data-network='sharethis'] {
   background-color: #1965FF !important;

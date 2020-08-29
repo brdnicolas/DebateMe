@@ -93,11 +93,6 @@ import DAO from "@/DAO";
 
 export default class Abonnements extends Vue {
 
-  // Fonction qui s'éxécute en même temps que le rendu du composant
-  mounted(): void {
-    this.checkToken();
-  }
-
   stripe: any;
   api = new DAO();
 
@@ -113,12 +108,6 @@ export default class Abonnements extends Vue {
     })
   }
 
-  // On vérifie que l'utilisateur est connécté
-  checkToken(): void {
-    if(localStorage.token === "") {
-      window.location.href = '/';
-    }
-  }
 }
 </script>
 
