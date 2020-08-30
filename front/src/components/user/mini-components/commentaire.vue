@@ -103,7 +103,6 @@
         // Fonction qui s'éxécute en même temps que le rendu du composant
         mounted(): void {
             this.getCurrentUser();
-            console.log(this.commentaire)
         }
 
         // Fonction permetter de report quelqu'un

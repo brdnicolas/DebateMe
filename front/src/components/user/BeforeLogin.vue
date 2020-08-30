@@ -177,11 +177,6 @@
   })
   export default class HomePage extends Vue {
 
-    // Fonction qui s'éxécute en même temps que le rendu du composant
-    mounted(): void {
-      this.checkToken();
-    }
-
     // Boolean activant ou non la pop up de connexion
     showModalLogin: boolean;
 
@@ -202,13 +197,6 @@
       this.showModalLogin= false;
       this.connexionEmail = "";
       this.connexionPassword = "";
-    }
-
-    // On vérifie que l'utilisateur est connécté
-    checkToken(): void {
-      if(localStorage.token != "") {
-        window.location.href = '/home';
-      }
     }
 
     // On affiche la pop up connexion

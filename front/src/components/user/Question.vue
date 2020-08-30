@@ -106,7 +106,6 @@
         // Fonction qui s'execute après le rendu.
         updated(): void {
             const scrollTo = document.URL.split("#")[1];
-            console.log(scrollTo);
             this.scrollToGoodComment(scrollTo);
         }
 
@@ -117,12 +116,10 @@
 
         scrollToGoodComment(id: string): void {
             const element = document.getElementById(id);
-            console.log(element);
             if(element) {
                 const offsets = element.getBoundingClientRect();
                 const top = offsets.top;
                 const left = offsets.left;
-                console.log(element);
                 window.scrollTo(left,top - 200)
             }
         }

@@ -3,8 +3,11 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-if(!localStorage.token && document.URL.split("/")[3] != '')
-    window.location.href = "/"
+if(!localStorage.token && document.URL.split("/")[3] != '') {
+    if(document.URL.split("/")[3] != 'inscription')
+        window.location.href = "/"
+
+}
 
 export default new Router({
     mode: 'history',

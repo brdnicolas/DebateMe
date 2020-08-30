@@ -16,26 +16,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import headerComponent from '@/components/user/mini-components/header.vue'
-import footerComponent from '@/components/user/mini-components/footer.vue'
-import commentaire from '@/components/user/mini-components/commentaire.vue'
-import switchComponent from "@/components/user/mini-components/switch.vue";
-import DAO from "@/DAO";
-import $ from 'jquery'
 
 @Component({
-  // Components : header, footer & les commentaires
-  components: {
-    headerComponent,
-    commentaire,
-    switchComponent,
-    footerComponent
-  },
+
 })
 export default class Question extends Vue {
   mounted(): void {
-    if(!localStorage.token && document.URL.split("/")[3] != '')
-      window.location.href = "/"
+    // eslint-disable-next-line no-undef
+    //console.log(this.$route.path)
+    /*if(!localStorage.token && this.$route.path != '/') {
+      if(this.$route.path != '/inscription')
+        //window.location.href = "/"
+    }
+
+     */
   }
 }
 </script>

@@ -37,12 +37,6 @@
 
     export default class Inscription extends Vue {
 
-
-        // Fonction qui s'éxécute en même temps que le rendu du composant
-        mounted(): void {
-            this.checkToken();
-        }
-
         // Adresse email de connexion
         connexionEmail: string;
 
@@ -89,13 +83,6 @@
             this.inscriptionFirstName = "";
             this.inscriptionLastName = "";
             this.errorConnexion = "";
-        }
-
-        // On vérifie que l'utilisateur soit connécté
-        checkToken(): void {
-            if (localStorage.token != "") {
-                window.location.href = '/home';
-            }
         }
 
         // Fonction permettant la connexion de l'utilisateur
