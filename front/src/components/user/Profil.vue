@@ -3,13 +3,13 @@
         <header-component/>
         <div class="top-profil">
             <img v-if="this.bannerPic" v-bind:src="this.user.img.banner"/>
-            <img v-else src="../assets/tmp/couverture.png"/>
+            <img v-else src="../../assets/tmp/couverture.png"/>
             <div class="photo-profil">
                 <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
-                <img class="profil_pic" v-else src="../assets/img/profile.png"/>
+                <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
               <div v-if="this.user.isPremium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
                 <h1>{{this.user.username}}</h1>
-                <img style="width:20px;height:20px" src="../assets/icon/Star.png"/>
+                <img style="width:20px;height:20px" src="../../assets/icon/Star.png"/>
               </div>
               <h1 v-else>{{this.user.username}}</h1>
             </div>
@@ -29,10 +29,10 @@
             </div>
         </div>
         <div class="profil-citation">
-            <img class="quoteleft" src="../assets/icon/quote_left.png"/>
+            <img class="quoteleft" src="../../assets/icon/quote_left.png"/>
             <p v-if="this.user.quote">{{this.user.quote}}</p>
             <p v-else>En panne d'inspiration ? Créez votre propre citation</p>
-            <img class="quoteright" src="../assets/icon/quote_right.png"/>
+            <img class="quoteright" src="../../assets/icon/quote_right.png"/>
         </div>
         <div class="liste-badge">
             <p v-if="this.achivments.length === 0">Aucune récompenses pour le moment..</p>
@@ -53,9 +53,9 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import headerComponent from "@/components/mini-components/header.vue";
-    import footerComponent from "@/components/mini-components/footer.vue";
-    import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
+    import headerComponent from "@/components/user/mini-components/header.vue";
+    import footerComponent from "@/components/user/mini-components/footer.vue";
+    import activiteCommentaire from "@/components/user/mini-components/activiteCommentaire.vue"
     import DAO from "@/DAO";
 
     @Component({
@@ -140,4 +140,4 @@
     }
 </script>
 
-<style scoped src="../css/Profil.css"/>
+<style scoped src="../../css/user/Profil.css"/>

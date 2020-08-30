@@ -2,7 +2,7 @@
     <div class="ContactUs">
         <header>
             <div class="leftHeader">
-                <img src="../../assets/img/logo2.png"/>
+                <img src="../../../assets/img/logo2.png"/>
                 <a href="/home" class="darkmode-ignore">Debate Me</a>
                 <div class="nav">
                     <a class="darkmode-ignore" href="/home" v-bind:class="{'current darkmode-ignore': this.currentPage === 'home'}">Accueil</a>
@@ -15,7 +15,7 @@
             <div class="rightHeader">
                 <a v-bind:class="{'current': this.currentPage === 'profil'}" href="/me">{{this.user.username}}</a>
                 <img class="profil_pic" v-if="this.profilPic" v-bind:src="this.profilPic"/>
-                <img class="profil_pic" v-else src="../../assets/img/profile.png"/>
+                <img class="profil_pic" v-else src="../../../assets/img/profile.png"/>
                 <button @click="visibleMenu=!visibleMenu" style="width:25px;height:22px;background:none;border:none;outline:none;margin-left:15px">
                     <svg viewBox="0 0 20 20" class="Menuicon">
                         <title>Menu</title>
@@ -24,19 +24,19 @@
                 </button>
                 <ul class="dropdown" v-if="this.visibleMenu">
                     <li @click="redirectTo('me')">
-                        <img src="../../assets/icon/Menu/user.png"/>
+                        <img src="../../../assets/icon/Menu/user.png"/>
                         <a>Mon Compte</a>
                     </li>
                     <li>
-                        <img src="../../assets/icon/Menu/params.png"/>
+                        <img src="../../../assets/icon/Menu/params.png"/>
                         <a>Paramètres</a>
                     </li>
                     <li @click="redirectTo('abonnement')">
-                        <img src="../../assets/icon/Menu/prix.png"/>
+                        <img src="../../../assets/icon/Menu/prix.png"/>
                         <a>Abonnement</a>
                     </li>
                     <li @click="deconnexion">
-                        <img src="../../assets/icon/Menu/deco.png"/>
+                        <img src="../../../assets/icon/Menu/deco.png"/>
                         <a>Deconnexion</a>
                     </li>
                 </ul>
@@ -105,4 +105,4 @@
     }
 </script>
 
-<style scoped src="../../css/mini-components/header.css"/>
+<style scoped src="../../../css/user/mini-components/header.css"/>

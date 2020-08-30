@@ -21,8 +21,8 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import headerComponent from "@/components/mini-components/header.vue";
-    import footerComponent from "@/components/mini-components/footer.vue";
+    import headerComponent from "@/components/user/mini-components/header.vue";
+    import footerComponent from "@/components/user/mini-components/footer.vue";
 
     @Component({
         // Importation des composants : header & footer
@@ -44,4 +44,4 @@
     }
 </script>
 
-<style scoped src="../css/About.css"/>
+<style scoped src="../../css/user/About.css"/>

@@ -16,10 +16,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import headerComponent from '@/components/mini-components/header.vue'
-import footerComponent from '@/components/mini-components/footer.vue'
-import commentaire from '@/components/mini-components/commentaire.vue'
-import switchComponent from "@/components/mini-components/switch.vue";
+import headerComponent from '@/components/user/mini-components/header.vue'
+import footerComponent from '@/components/user/mini-components/footer.vue'
+import commentaire from '@/components/user/mini-components/commentaire.vue'
+import switchComponent from "@/components/user/mini-components/switch.vue";
 import DAO from "@/DAO";
 import $ from 'jquery'
 

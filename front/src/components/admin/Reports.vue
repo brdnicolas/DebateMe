@@ -34,7 +34,7 @@
     // @ts-nocheck
     import { Component, Vue } from 'vue-property-decorator';
     import Menu from "@/components/admin/Menu.vue";
-    import Header from "@/components/mini-components/header.vue";
+    import Header from "@/components/user/mini-components/header.vue";
     import DAO from "@/DAO";
     import reportTAB from "@/components/admin/mini-components/reportTAB.vue"
     import moment from "moment"

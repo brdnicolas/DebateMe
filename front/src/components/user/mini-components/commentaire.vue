@@ -4,40 +4,40 @@
         <div class="top">
             <div class="left">
                 <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && user.img.profile_picture" :alt="user.username" v-bind:src="this.user.img.profile_picture"/>
-                <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && !user.img.profile_picture" :alt="user.username" src="../../assets/img/profile.png"/>
+                <img @click="showProfil(user.username)" v-if="!commentaire.isAnonym && !user.img.profile_picture" :alt="user.username" src="../../../assets/img/profile.png"/>
                 <div v-if="!commentaire.isAnonym">
                     <div v-if="this.user.isPremium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
-                        <img style="width:20px;height:20px" src="../../assets/icon/Star.png"/>
+                        <img style="width:20px;height:20px" src="../../../assets/icon/Star.png"/>
                         <h3>{{this.user.username}}</h3>
                     </div>
                     <h3 @click="showProfil(user.username)" class="username" v-else>{{this.user.username}}</h3>
                     <p class="citation">{{user.quote}}</p>
                 </div>
-                <img v-if="commentaire.isAnonym" :alt="user.username" src="../../assets/img/anonymous.png"/>
+                <img v-if="commentaire.isAnonym" :alt="user.username" src="../../../assets/img/anonymous.png"/>
                 <div v-if="commentaire.isAnonym">
                     <h3 class="username">Anonyme</h3>
                     <p class="citation">La célébrité n'est pas facile à assumer, je ne vois rien de pire, si peut-être, l'anonymat.</p>
                 </div>
             </div>
             <div class="right">
-                <img @click="sendReport" id="report" title="signaler" alt="signaler" src="../../assets/icon/report.png"/>
+                <img @click="sendReport" id="report" title="signaler" alt="signaler" src="../../../assets/icon/report.png"/>
             </div>
         </div>
         <p class="date darkmode-ignore">{{this.date}}</p>
         <p class="message">{{commentaire.content}}</p>
         <div class="bottom">
             <div class="upvote">
-                <img src="../../assets/icon/upvote.png"/>
+                <img src="../../../assets/icon/upvote.png"/>
                 <h2 class="darkmode-ignore" @click="upVote" >Upvoted</h2>
               <p><span class="darkmode-ignore">{{commentaire.up}}</span></p>
             </div>
             <div>
-                <img src="../../assets/icon/comment.png"/>
+                <img src="../../../assets/icon/comment.png"/>
                 <h2 class="darkmode-ignore">Comments</h2>
               <p><span class="darkmode-ignore">{{commentaire.down}}</span></p>
             </div>
             <div>
-                <img src="../../assets/icon/share.png"/>
+                <img src="../../../assets/icon/share.png"/>
                 <h2 class="darkmode-ignore">Share</h2>
             </div>
         </div>
@@ -211,4 +211,4 @@
 
 </script>
 
-<style scoped src="../../css/mini-components/commentaire.css"/>
+<style scoped src="../../../css/user/mini-components/commentaire.css"/>

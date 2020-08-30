@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import BeforeLogin from './components/BeforeLogin.vue';
 
 Vue.use(Router);
 
@@ -14,37 +13,37 @@ export default new Router({
         {
             path: '/home',
             name: 'Home',
-            component: () => import(/* webpackChunkName: "about" */ './components/Home.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/Home.vue'),
         },
         {
             path: '/',
             name: 'LandingPage',
-            component: BeforeLogin,
+            component: () => import(/* webpackChunkName: "about" */ './components/user/BeforeLogin.vue'),
         },
         {
             path: '/About',
             name: 'About',
-            component: () => import(/* webpackChunkName: "about" */ './components/About.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/About.vue'),
         },
         {
             path: '/me',
             name: 'Mon profile',
-            component: () => import(/* webpackChunkName: "about" */ './components/Me.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/Me.vue'),
         },
         {
             path: '/Contact',
             name: 'Contact',
-            component: () => import(/* webpackChunkName: "about" */ './components/ContactUs.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/ContactUs.vue'),
         },
         {
             path: '/Profil/:name',
             name: 'Profil',
-            component: () => import(/* webpackChunkName: "about" */ './components/Profil.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/Profil.vue'),
         },
         {
             path: '/Theme/:idTheme/Question/:idQuestion/',
             name: "Question",
-            component: () => import(/* webpackChunkName: "about" */ './components/Question.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/Question.vue'),
         },
         {
             path: '/panel',
@@ -59,12 +58,12 @@ export default new Router({
         {
             path: '/abonnement',
             name: "Abonnements",
-            component: () => import(/* webpackChunkName: "about" */ './components/Abonnements.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/Abonnements.vue'),
         },
         {
             path: '/inscription/',
             name: "Inscription",
-            component: () => import(/* webpackChunkName: "about" */ './components/Inscription.vue'),
+            component: () => import(/* webpackChunkName: "about" */ './components/user/Inscription.vue'),
         },
         {
             path: '/panel/debats',
@@ -78,15 +77,15 @@ export default new Router({
         },
         {
             path: "*",
-            component: () => import("./components/404notFound.vue")
+            component: () => import("./components/user/404notFound.vue")
         },
         {
             path: "/FAQ",
-            component: () => import("./components/FAQ.vue")
+            component: () => import("./components/user/FAQ.vue")
         },
         {
             path: "/equipe",
-            component: () => import("./components/Equipe.vue")
+            component: () => import("./components/user/Equipe.vue")
         }
     ],
 });

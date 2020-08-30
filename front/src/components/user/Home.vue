@@ -4,11 +4,11 @@
 
         <div class="explore-category">
           <div style="dispaly:flex;flex-direction: row;align-items: center;margin-top:20px;margin-left:13px">
-            <img src="../../src/assets/icon/explore.png" alt="explore" style="width:31px; height:31px; object-fit: cover;"/>
+            <img src="../../assets/icon/explore.png" alt="explore" style="width:31px; height:31px; object-fit: cover;"/>
             <h1 class="darkmode-ignore">Explorer</h1>
           </div>
             <div class="categories-container darkmode-ignore">
-                <img @click="SwipeLeft" alt="swipe-left" src="../assets/icon/row.png" />
+                <img @click="SwipeLeft" alt="swipe-left" src="../../assets/icon/row.png" />
                 <ul id="categories" class="categories">
                     <li style="padding-top:20px;padding-bottom:20px" v-for="item in this.themes" :key="item.created_at">
                         <div class="part" @click.capture="ChangeTheme($event,item.id)" style="background: #FFFFFF;
@@ -28,7 +28,7 @@ height: 50px;">
                         </div>
                     </li>
                 </ul>
-                <img @click="SwipeRight" alt="swipe-right" src="../assets/icon/row2.png" />
+                <img @click="SwipeRight" alt="swipe-right" src="../../assets/icon/row2.png" />
             </div>
           <svg class="darkmode-ignore" style="margin-left:12px;width:100vw;border-radius:50px" height="2">
             <rect width="300" height="2" style="fill:#F9803B;width:calc(80vw - 24px);border-radius:50px" />
@@ -72,9 +72,9 @@ height: 50px;">
 </template>
 <script lang="ts">
     import { Component, Vue, Watch } from 'vue-property-decorator'
-    import headerComponent from '@/components/mini-components/header.vue'
-    import footerComponent from '@/components/mini-components/footer.vue'
-    import cardComponent from '@/components/mini-components/card.vue'
+    import headerComponent from '@/components/user/mini-components/header.vue'
+    import footerComponent from '@/components/user/mini-components/footer.vue'
+    import cardComponent from '@/components/user/mini-components/card.vue'
     import DAO from "@/DAO";
     @Component({
         components: {
@@ -113,6 +113,7 @@ height: 50px;">
               window.location.href = '/abonnement'
               this.deleteCookies();
             }
+            console.log(localStorage.token)
         }
 
       // Fonction qui récupère les thèmes
@@ -193,4 +194,4 @@ height: 50px;">
     }
 </script>
 
-<style scoped src="../css/Home.css"/>
+<style scoped src="../../css/user/Home.css"/>

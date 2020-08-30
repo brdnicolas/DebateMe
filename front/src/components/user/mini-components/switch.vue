@@ -24,4 +24,4 @@
     }
 </script>
 
-<style scoped src="../../css/mini-components/switch.css"/>
+<style scoped src="../../../css/user/mini-components/switch.css"/>

@@ -48,4 +48,4 @@
     </div>
 </template>
 
-<style scoped src="../css/404notFound.css"/>
+<style scoped src="../../css/user/404notFound.css"/>

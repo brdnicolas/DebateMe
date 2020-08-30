@@ -3,7 +3,7 @@
         <div class="container">
             <div class="leftSide">
                 <div class="logo">
-                    <img src="../assets/img/logo.png"/>
+                    <img src="../../assets/img/logo.png"/>
                     <p>Debate me</p>
                 </div>
                 <h1>Bienvenue chez nous !</h1>
@@ -191,4 +191,4 @@
     }
 </script>
 
-<style scoped src="../css/Inscription.css"/>
+<style scoped src="../../css/user/Inscription.css"/>

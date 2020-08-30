@@ -33,8 +33,8 @@
 </template>
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
-    import headerComponent from '@/components/mini-components/header.vue'
-    import footerComponent from '@/components/mini-components/footer.vue'
+    import headerComponent from '@/components/user/mini-components/header.vue'
+    import footerComponent from '@/components/user/mini-components/footer.vue'
     @Component({
         // Importation des composants : header & footer
         components: {
@@ -55,4 +55,4 @@
     }
 </script>
 
-<style scoped src="../css/ContactUs.css"/>
+<style scoped src="../../css/user/ContactUs.css"/>

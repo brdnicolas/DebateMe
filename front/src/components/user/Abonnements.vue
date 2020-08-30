@@ -1,36 +1,36 @@
 <template>
   <div style="text-align:center;display: flex;flex-direction: row" class="main" v-if="checkToken">
-    <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back2.png"/>
+    <img @click="$router.go(-1)" class="back" alt="back" src="../../assets/icon/back2.png"/>
       <div class="left">
         <h1>Classique</h1>
         <h4>Gratuit</h4>
         <div class="liste">
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Thèmes de marques</p>
           </li>
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Avis expert</p>
           </li>
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Aucune publicité</p>
           </li>
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Thèmes illimités</p>
           </li>
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Possibilité de proposer un sujet / thème</p>
           </li>
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Accès au darkmode</p>
           </li>
           <li>
-            <img src="../assets/icon/uncheck2.png">
+            <img src="../../assets/icon/uncheck2.png">
             <p>Icon premium</p>
           </li>
         </div>
@@ -42,31 +42,31 @@
           <h4>9.99€ / mois</h4>
           <div class="liste">
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Thèmes de marques</p>
             </li>
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Avis expert</p>
             </li>
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Aucune publicité</p>
             </li>
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Thèmes illimités</p>
             </li>
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Possibilité de proposer un sujet / thème</p>
             </li>
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Accès au darkmode</p>
             </li>
             <li>
-              <img src="../assets/icon/check2.png">
+              <img src="../../assets/icon/check2.png">
               <p>Icon premium</p>
             </li>
           </div>
@@ -79,8 +79,8 @@
 <script lang="ts">
 // @ts-nocheck
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import headerComponent from "@/components/mini-components/header.vue";
-import footerComponent from "@/components/mini-components/footer.vue";
+import headerComponent from "@/components/user/mini-components/header.vue";
+import footerComponent from "@/components/user/mini-components/footer.vue";
 import DAO from "@/DAO";
 
 @Component({
@@ -116,4 +116,4 @@ export default class Abonnements extends Vue {
 }
 </script>
 
-<style scoped src="../css/Abonnements.css"/>
+<style scoped src="../../css/user/Abonnements.css"/>

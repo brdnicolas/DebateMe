@@ -5,7 +5,7 @@
     background :#0D0F11 !important;
 }
 .backgroundImage {
-    background-image: url('../assets/img/background.png');
+    background-image: url('../../assets/img/background.png');
     background-repeat:no-repeat;
     background-size:cover;
     display: flex;
@@ -95,13 +95,13 @@
     box-shadow: 0px 0px 3px -1px rgba(138,138,138,1);
 }
 #username {
-    background-image: url(../assets/icon/user.png);
+    background-image: url(../../assets/icon/user.png);
     background-position: 10px 13px;
     background-repeat: no-repeat;
     background-size: 15px;
 }
 #pass {
-    background-image: url(../assets/icon/password.png);
+    background-image: url(../../assets/icon/password.png);
     background-position: 10px 13px;
     background-repeat: no-repeat;
     background-size: 15px;
@@ -121,19 +121,19 @@
     background:#CFDFFF;
 }
 #email {
-    background-image: url(../assets/icon/email.png);
+    background-image: url(../../assets/icon/email.png);
     background-position: 10px 16px;
     background-repeat: no-repeat;
     background-size: 15px;
 }
 #password, #Cpassword {
-    background-image: url(../assets/icon/password.png);
+    background-image: url(../../assets/icon/password.png);
     background-position: 10px 13.5px;
     background-repeat: no-repeat;
     background-size: 15px;
 }
 #prenom, #nom, #pseudo {
-    background-image: url(../assets/icon/user.png);
+    background-image: url(../../assets/icon/user.png);
     background-position: 10px 13px;
     background-repeat: no-repeat;
     background-size: 15px;

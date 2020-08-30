@@ -3,22 +3,22 @@
         <header-component/>
         <div class="top-profil">
             <img v-if="this.bannerPic" v-bind:src="this.user.img.banner"/>
-            <img v-else src="../assets/tmp/couverture.png"/>
+            <img v-else src="../../assets/tmp/couverture.png"/>
             <input style="display:none" type="file"
                    id="bannerPicture" name="banner"
                    accept="image/png, image/jpeg"
                     @change="updatePicture">
-            <img @click="changeBannerPicture" class="modifyBanner" src="../assets/icon/modify.png"/>
+            <img @click="changeBannerPicture" class="modifyBanner" src="../../assets/icon/modify.png"/>
             <div class="photo-profil">
                 <input style="display:none" type="file"
                        id="profilePicture" name="profilePicture"
                        accept="image/png, image/jpeg"
                        @change="updatePicture">
                 <img @click="changeProfilePicture" class="profil_pic" v-if="this.profilPic" v-bind:src="this.user.img.profile_picture"/>
-                <img @click="changeProfilePicture" class="profil_pic" v-else src="../assets/img/profile.png"/>
+                <img @click="changeProfilePicture" class="profil_pic" v-else src="../../assets/img/profile.png"/>
                 <div v-if="this.user.isPremium" style="margin-left:20px;display: flex;flex-direction: row;justify-content: center">
                   <h1>{{this.user.username}}</h1>
-                  <img style="width:20px;height:20px" src="../assets/icon/Star.png"/>
+                  <img style="width:20px;height:20px" src="../../assets/icon/Star.png"/>
                 </div>
                 <h1 v-else>{{this.user.username}}</h1>
             </div>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="profil-citation">
-            <img class="quoteleft" src="../assets/icon/quote_left.png"/>
+            <img class="quoteleft" src="../../assets/icon/quote_left.png"/>
             <p id="citation">
                 <span v-if="this.user.quote">
                 {{this.user.quote}}
@@ -48,7 +48,7 @@
                 </span>
             </p>
             <textarea style="display: none" id="modifyQuote" type="text"/>
-            <img class="quoteright" src="../assets/icon/quote_right.png"/>
+            <img class="quoteright" src="../../assets/icon/quote_right.png"/>
         </div>
         <div style="display:flex;flex-direction: row;justify-content: center">
             <p @click="CSSModifyQuote" id="modifyBtn" style="text-align: center;color:#C1C1C1;text-decoration: underline;cursor:pointer">Modifier la citation</p>
@@ -75,9 +75,9 @@
 <script lang="ts">
     // @ts-nocheck
     import { Component, Vue } from 'vue-property-decorator';
-    import headerComponent from "@/components/mini-components/header.vue";
-    import footerComponent from "@/components/mini-components/footer.vue";
-    import activiteCommentaire from "@/components/mini-components/activiteCommentaire.vue"
+    import headerComponent from "@/components/user/mini-components/header.vue";
+    import footerComponent from "@/components/user/mini-components/footer.vue";
+    import activiteCommentaire from "@/components/user/mini-components/activiteCommentaire.vue"
     import Swal from 'sweetalert2/dist/sweetalert2.js'
     import DAO from "@/DAO"
 
@@ -268,4 +268,4 @@
     }
 </script>
 
-<style scoped src="../css/Me.css"/>
+<style scoped src="../../css/user/Me.css"/>

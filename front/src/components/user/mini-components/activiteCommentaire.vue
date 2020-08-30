@@ -10,11 +10,11 @@
 
             <div class="bottom">
                 <div class="time-comment">
-                    <img src="../../assets/icon/time.png"/>
+                    <img src="../../../assets/icon/time.png"/>
                     <p>{{this.dateFrom}}</p>
                 </div>
                 <div class="commentaire-comment">
-                    <img src="../../assets/icon/upvote.png"/>
+                    <img src="../../../assets/icon/upvote.png"/>
                     <p>{{this.up}}</p>
                 </div>
             </div>
@@ -78,4 +78,4 @@
     }
 </script>
 
-<style scoped src="../../css/mini-components/activiteCommentaire.css"/>
+<style scoped src="../../../css/user/mini-components/activiteCommentaire.css"/>

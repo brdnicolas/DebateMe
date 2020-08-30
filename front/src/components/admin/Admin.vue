@@ -14,11 +14,11 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import axios from "axios"
-    import Header from "@/components/mini-components/header.vue";
+    import { Component, Vue } from 'vue-property-decorator';
+    import Header from "@/components/user/mini-components/header.vue";
     import Menu from "@/components/admin/Menu.vue";
     import LineChart from './LineChart.js';
+    import DAO from "@/DAO";
 
     @Component({
         components: {
@@ -39,6 +39,9 @@
 
         // Données du graphique
         datacollection: object;
+
+        // DAO
+        api = new DAO();
 
         // On associe à chaque varialbe une valeur par défaut.
         constructor() {
@@ -66,19 +69,10 @@
 
         // On vérifie que l'user est admin
         async checkAdmin(): Promise<void> {
-            let rep = null;
-            await axios.get("https://api.hugovast.tech/users/me/profile",{
-                headers: {
-                    Authorization: localStorage.token //the token is a variable which holds the token
-                }
-            }).then(function(response) {
-                rep = response.data;
-                console.log(rep);
-            });
-            if (rep) {
-               if( !(rep as Record<string,any>).isAdmin )
-                   window.location.href = '/';
-            }
+            await this.api.getCurrentUser().then(datas => {
+              if( !(datas as Record<string,any>).isAdmin )
+                window.location.href = '/';
+            })
         }
     }
 </script>

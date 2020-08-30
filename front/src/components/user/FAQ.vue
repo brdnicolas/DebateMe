@@ -7,8 +7,8 @@
         <li v-for="(item, index) in this.QandR" :key="item.question">
           <div class="question">
             <h3 @click="toggleResponse($event)">Q{{index + 1}}. {{ item.question }}</h3>
-            <img style="display:block" @click="toggleResponse($event)" src="../assets/icon/plus.png"/>
-            <img style="display:none" @click="toggleResponse($event)" src="../assets/icon/minus.png"/>
+            <img style="display:block" @click="toggleResponse($event)" src="../../assets/icon/plus.png"/>
+            <img style="display:none" @click="toggleResponse($event)" src="../../assets/icon/minus.png"/>
           </div>
           <p class="reponse">{{ item.reponse }}</p>
         </li>
@@ -20,19 +20,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import headerComponent from '@/components/mini-components/header.vue'
-import footerComponent from '@/components/mini-components/footer.vue'
-import commentaire from '@/components/mini-components/commentaire.vue'
-import switchComponent from "@/components/mini-components/switch.vue";
-import DAO from "@/DAO";
+import headerComponent from '@/components/user/mini-components/header.vue'
+import footerComponent from '@/components/user/mini-components/footer.vue'
 import $ from 'jquery'
 
 @Component({
-  // Components : header, footer & les commentaires
+  // Components : header & footer
   components: {
     headerComponent,
-    commentaire,
-    switchComponent,
     footerComponent
   },
 })
@@ -85,4 +80,4 @@ export default class Question extends Vue {
 }
 </script>
 
-<style scoped src="../css/FAQ.css"/>
+<style scoped src="../../css/user/FAQ.css"/>

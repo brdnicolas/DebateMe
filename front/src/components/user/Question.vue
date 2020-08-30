@@ -1,8 +1,8 @@
 <template>
     <div class="post" v-if="checkToken">
-        <img @click="$router.go(-1)" class="back" alt="back" src="../assets/icon/back.png"/>
+        <img @click="$router.go(-1)" class="back" alt="back" src="../../assets/icon/back.png"/>
         <img v-if="question.image" class="image_poste" v-bind:src="question.image"/>
-        <img v-else class="image_poste" src="../assets/img/noImage.png"/>
+        <img v-else class="image_poste" src="../../assets/img/noImage.png"/>
         <div id="banner">
 
                 <h1 @click="scrollToGoodComment('commentairen3')" class="titre darkmode-ignore">{{question.title}}</h1>
@@ -10,8 +10,8 @@
             <div class="icons">
 
                 <div class="left">
-                    <div class="darkmode-ignore" @click="showDocu"><img src="../assets/icon/book.png"/> Documentation</div>
-                    <div class="darkmode-ignore"><img src="../assets/icon/comment.png"/> 532</div>
+                    <div class="darkmode-ignore" @click="showDocu"><img src="../../assets/icon/book.png"/> Documentation</div>
+                    <div class="darkmode-ignore"><img src="../../assets/icon/comment.png"/> 532</div>
                     <div class="sharethis-inline-share-buttons"></div>
                 </div>
                 <div class="right">
@@ -42,9 +42,9 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
-    import headerComponent from '@/components/mini-components/header.vue'
-    import commentaire from '@/components/mini-components/commentaire.vue'
-    import switchComponent from "@/components/mini-components/switch.vue";
+    import headerComponent from '@/components/user/mini-components/header.vue'
+    import commentaire from '@/components/user/mini-components/commentaire.vue'
+    import switchComponent from "@/components/user/mini-components/switch.vue";
     import DAO from "@/DAO";
 
     @Component({
@@ -243,4 +243,4 @@
     }
 </script>
 
-<style scoped src="../css/Question.css"/>
+<style scoped src="../../css/user/Question.css"/>

@@ -1,7 +1,7 @@
 <template>
     <div @click="RedirectToQuestion" class="card">
         <img v-if="this.image" v-bind:src="this.image"/>
-        <img v-else src="../../assets/img/noImage.png"/>
+        <img v-else src="../../../assets/img/noImage.png"/>
         <h3 class="darkmode-ignore">{{titre}}</h3>
         <div class="upvote">
             <div class="date-sujet">
@@ -51,4 +51,4 @@
     }
 </script>
 
-<style scoped src="../../css/mini-components/card.css"/>
+<style scoped src="../../../css/user/mini-components/card.css"/>

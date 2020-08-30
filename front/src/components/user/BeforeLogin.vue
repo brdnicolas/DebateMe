@@ -2,7 +2,7 @@
   <div id='hello'>
     <header>
       <div class="left">
-        <img class="logo" src="../assets/img/logo.png"/>
+        <img class="logo" src="../../assets/img/logo.png"/>
         <h3 class="name">Debate Me</h3>
       </div>
       <div class="right">
@@ -21,7 +21,7 @@
       <div v-on:click.self="hidePopUpLogin($event)" class="modal-overlayLogin" v-if="showModalLogin"  >
         <form class="logbox">
           <div class="topPop">
-            <img class="logoLogin" src="../assets/img/logo2.png" @click="showModalLogin = false"/>
+            <img class="logoLogin" src="../../assets/img/logo2.png" @click="showModalLogin = false"/>
             <h1>Debate Me</h1>
           </div>
           <div class="topPartError">
@@ -41,7 +41,7 @@
     <!-- POPUP -->
 
     <div class="cover">
-      <img class="background" src="../assets/struct/homepage.png"/>
+      <img class="background" src="../../assets/struct/homepage.png"/>
       <div class="left">
         <h3>DebateMe c'est quoi ?</h3>
         <br>
@@ -52,17 +52,17 @@
         </p>
       </div>
       <div class="right">
-        <img src="../assets/illustrations/homepage.png"/>
+        <img src="../../assets/illustrations/homepage.png"/>
       </div>
     </div>
     <div class="textcenter">
-      <img alt="scroll" class="scroll" src="../assets/icon/scroll.gif"/>
+      <img alt="scroll" class="scroll" src="../../assets/icon/scroll.gif"/>
     </div>
 
 
     <div class="part1">
       <div class="left">
-        <img src="../assets/illustrations/home1.gif"/>
+        <img src="../../assets/illustrations/home1.gif"/>
       </div>
       <div class="right">
         <h2>Créez <span>vous même</span> les sujets !</h2>
@@ -77,7 +77,7 @@
         <p>Au bout d'une semaine nous estimons que le débat puisse être clos. Nous mettons à votre disposition les informations liées à la question. Chaque sujet aura donc sa page statistique. Ces données seront de plusieurs natures, telles que: le nombre de participant, le nombre de participations à ce débat en moyenne par candidat, le taux de participation par tranche d'âge, le nombre de participants anonymes, le sexe des participants etc.</p>
       </div>
       <div class="right">
-        <img src="../assets/illustrations/work.gif"/>
+        <img src="../../assets/illustrations/work.gif"/>
       </div>
     </div>
 
@@ -85,11 +85,11 @@
     <div class="profil-card">
       <div class="card">
         <h2><span>Votre</span> profil</h2>
-        <img class="illustration-profil" src="../assets/illustrations/work2.gif" alt="image du profil"/>
+        <img class="illustration-profil" src="../../assets/illustrations/work2.gif" alt="image du profil"/>
         <p>Chaque utilisateur possède un espace personnel, c'est comme votre petit jardin. Sur cette page sont regroupés plusieurs éléments, dont certains personnalisables.
           DebateMe propose aussi un système de succès, des objectifs cachés vous récompensant de badge. Pour faire la course au badge il faut utiliser toutes les fonctionnalités de Debate Me... dans certaines conditions bien sûr !</p>
         <div class="bottom">
-          <img class="illustration-anonyme" src="../assets/illustrations/anonyme.png">
+          <img class="illustration-anonyme" src="../../assets/illustrations/anonyme.png">
           <div class="anonymetext">
             <h1>Soyez <span>Anonyme</span> !</h1>
             <p>Nous avons pensé à tout. Si vous voulez participer à un débat mais que vous avez peur que l'on vous reconnaisse ou que votre opinion ait de mauvaises répercussions sur votre vie. Nous vous permettons de participer au débat en tant qu'anonyme. Bien sûr, cela ne veut pas dire que vous pouvez faire n'importe quoi !</p>
@@ -106,23 +106,23 @@
           <h4>Gratuit</h4>
           <div class="liste">
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Thèmes de marques</p>
             </li>
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Avis expert</p>
             </li>
             <li>
-              <img src="../assets/icon/uncheck.png">
+              <img src="../../assets/icon/uncheck.png">
               <p>Aucune publicité</p>
             </li>
             <li>
-              <img src="../assets/icon/uncheck.png">
+              <img src="../../assets/icon/uncheck.png">
               <p>Thèmes illimités</p>
             </li>
             <li>
-              <img src="../assets/icon/uncheck.png">
+              <img src="../../assets/icon/uncheck.png">
               <p>Possibilité de proposer un sujet / thème</p>
             </li>
           </div>
@@ -133,23 +133,23 @@
           <h4>9.99€ / mois</h4>
           <div class="liste">
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Thèmes de marques</p>
             </li>
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Avis expert</p>
             </li>
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Aucune publicité</p>
             </li>
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Thèmes illimités</p>
             </li>
             <li>
-              <img src="../assets/icon/check.png">
+              <img src="../../assets/icon/check.png">
               <p>Possibilité de proposer un sujet / thème</p>
             </li>
           </div>
@@ -164,8 +164,8 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator'
-  import headerComponent from '@/components/mini-components/header.vue'
-  import footerComponent from '@/components/mini-components/footer.vue'
+  import headerComponent from '@/components/user/mini-components/header.vue'
+  import footerComponent from '@/components/user/mini-components/footer.vue'
   import DAO from "@/DAO";
 
   @Component({
@@ -281,4 +281,4 @@
   }
 </script>
 
-<style scoped src="../css/BeforeLogin.css"/>
+<style scoped src="../../css/user/BeforeLogin.css"/>

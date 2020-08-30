@@ -443,13 +443,13 @@ header .right {
     margin-left:30px;
 }
 #username {
-    background-image: url(../assets/icon/user.png);
+    background-image: url(../../assets/icon/user.png);
     background-position: 10px 13px;
     background-repeat: no-repeat;
     background-size: 15px;
 }
 #pass {
-    background-image: url(../assets/icon/password.png);
+    background-image: url(../../assets/icon/password.png);
     background-position: 10px 13px;
     background-repeat: no-repeat;
     background-size: 15px;
