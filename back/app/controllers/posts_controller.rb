@@ -69,7 +69,7 @@ class PostsController < ApplicationController
 
   def validation_content(content)
     # Call Azure API for verify if the post include some forbidden terms
-    validation = ValidationContent.get_corrected_text(content)
+    validation = ValidationContent.new(content).get_corrected_text
     if validation.class == Array
       json_response(validation, :partial_content)
     else
