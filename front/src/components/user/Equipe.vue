@@ -44,7 +44,7 @@ export default class Question extends Vue {
         image : require("../../assets/equipe/hugo.png"),
         nom : "Hugo Vast",
         role : "Développeur Back",
-        parole : "Je gère la caché du site, je travaille dans l'ombre."
+        parole : "Je gère la partie caché du site, je travaille dans l'ombre."
       },
       {
         image : require("../../assets/equipe/nico2.png"),
