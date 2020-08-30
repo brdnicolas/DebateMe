@@ -67,7 +67,7 @@ UserInfo.create!(user_id: User.last.id, firstname: 'admin', lastname: 'admin', u
 @users = User.all
 
 themes = %w[Science Écologie Politique Actualité Sports Musique Tech Gaming]
-themes_color = %w[#0cb1e6 65dc4a dee61f e6221f 454444 f02fa4 9ecc58 175cb8]
+themes_color = %w[#0cb1e6 #65dc4a #dee61f #e6221f #454444 #f02fa4 #9ecc58 #175cb8]
 themes_pic = %w[sciences.png earth.png democracy.png news.png gym.png music.png lightning.png games.png]
 puts "\n#{@users.size} users created"
 themes.each_with_index do |theme, i|
