@@ -33,10 +33,15 @@ achievements = [
     name: 'Influenceur',
     description: "L'avis des gens est important, oui, mais le vôtre un peu plus",
     goal: 'Avoir 15 sous commentaires sur un posts'
+  },
+  {
+    name: 'Abonné',
+    description: "C'est très gentil de soutenir la cause !",
+    goal: "S'abonner à DebateMe"
   }
 ]
 
-pics = %w[anonymous.png tick.png foot.png heart.png influence.png]
+pics = %w[anonymous.png tick.png foot.png heart.png influence.png premium.png]
 i = 0
 achievements.each do |achievement|
   a = Achievement.create(achievement)
@@ -79,8 +84,8 @@ puts "\n#{@themes.size} themes created"
   5.times do
     theme.questions.create!(title: Faker::Lorem.question,
                             documentation: Faker::Lorem.paragraphs,
-                            start_time: '2020-05-23 16:15:40',
-                            end_time: '2020-05-23 17:15:40')
+                            start_time: DateTime.now.to_date,
+                            end_time: DateTime.now.to_date + 7.days)
     print '.'
   end
   print ' x '

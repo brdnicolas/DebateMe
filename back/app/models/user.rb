@@ -23,6 +23,11 @@ class User < ApplicationRecord
     h.merge(posts: posts.reduce([]) { |memo, acc| memo << acc.attributes.merge(theme_id: acc.question.theme.id) })
   end
 
+  def set_premuim
+    update!(isPremium: true)
+    add_achievement('Abonné')
+  end
+
   def check_achievements
     check_anonym
     check_validate

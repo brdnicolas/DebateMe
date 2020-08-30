@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_theme
   skip_before_action :set_theme, only: %i[get_posts]
-  skip_before_action :authorize_request
   before_action :set_theme_question, only: %i[show update destroy]
 
   # GET /themes/:id/questions
@@ -12,6 +11,7 @@ class QuestionsController < ApplicationController
   # POST /themes/:id/questions
   def create
     q_params = question_params
+    q_params['start_time'] = DateTime.now.to_date if q_params.nil?
     q_params['end_time'] = q_params['start_time'].to_date + 7.day rescue nil
     @theme.questions.create!(q_params)
     json_response(@theme.get_theme_image, :created)
@@ -36,7 +36,6 @@ class QuestionsController < ApplicationController
 
   # DELETE /themes/:id/questions/:id
   def destroy
-    @theme.logo.purge if @theme.logo.attached?
     @question.destroy
     head :no_content
   end

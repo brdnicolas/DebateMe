@@ -36,7 +36,7 @@ class PostsController < ApplicationController
   # GET /posts/:id/vote
   def vote
     @post = Post.find(params[:id])
-    vote = UserHasVote.records(current_user.id, @post.id)
+    vote = UserHasVote.find_vote(current_user.id, @post.id)
     vote.count.zero? ? create_vote : destroy_vote(vote.first)
   end
 
@@ -68,12 +68,12 @@ class PostsController < ApplicationController
   end
 
   def validation_content(content)
-    validation = ValidationContent.new(content).get_corrected_text
+    # Call Azure API for verify if the post include some forbidden terms
+    validation = ValidationContent.get_corrected_text(content)
     if validation.class == Array
       json_response(validation, :partial_content)
     else
-      @post = current_user.posts.create!(post_params)
-      json_response(@post, :created)
+      json_response(current_user.posts.create!(post_params), :created)
     end
   end
 

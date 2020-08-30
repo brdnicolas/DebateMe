@@ -14,16 +14,12 @@ class Question < ApplicationRecord
   end
 
   def update(attributes = {})
-    if attributes[:image]
-      image.purge if image.attached?
-    end
+    image.purge if attributes[:image] && image.attached?
     super(attributes)
   end
 
   def update!(attributes = {})
-    if attributes[:image]
-      image.purge if image.attached?
-    end
+    image.purge if attributes[:image] && image.attached?
     super(attributes)
   end
 

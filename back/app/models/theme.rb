@@ -20,16 +20,12 @@ class Theme < ApplicationRecord
   end
 
   def update(attributes = {})
-    if attributes[:logo]
-      logo.purge if logo.attached?
-    end
+    image.purge if attributes[:logo] && logo.attached?
     super(attributes)
   end
 
   def update!(attributes = {})
-    if attributes[:logo]
-      logo.purge if logo.attached?
-    end
+    image.purge if attributes[:logo] && logo.attached?
     super(attributes)
   end
 end

@@ -1,7 +1,6 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[update destroy show]
   before_action :admin?, except: %i[create update get_reasons]
-  skip_before_action :admin?
 
   # GET /reports
   def index
