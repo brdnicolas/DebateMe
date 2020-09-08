@@ -11,7 +11,7 @@
 
                 <div class="left">
                     <div class="darkmode-ignore" @click="showDocu"><img src="../../assets/icon/book.png"/> Documentation</div>
-                    <div class="darkmode-ignore"><img src="../../assets/icon/comment.png"/> 532</div>
+                    <div class="darkmode-ignore"><img src="../../assets/icon/comment.png"/> {{ this.posts.length }}</div>
                     <div class="sharethis-inline-share-buttons"></div>
                 </div>
                 <div class="right">

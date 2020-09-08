@@ -43,7 +43,7 @@
                 <p id="activité"><span v-if="this.posts.length === 0">Aucune </span>Activité</p>
             </div>
             <div class="liste">
-                <activiteCommentaire v-for="item2 in this.user.posts" :key="item2.id" :id="item2.id" :theme_id="item2.theme_id" :date="item2.updated_at" :question_id="item2.question_id" :message="item2.content" :up="item2.up" :picture="user.profile_pic"/>
+                <activiteCommentaire style="cursor:pointer" v-for="item2 in this.user.posts" :key="item2.id" :id="item2.id" :theme_id="item2.theme_id" :date="item2.updated_at" :question_id="item2.question_id" :message="item2.content" :up="item2.up" :picture="user.profile_pic"/>
             </div>
         </div>
         <footer-component/>
@@ -116,14 +116,16 @@
             // Requete axios avec le nom d'utilisateur permettant de récupérer son id
             this.api.getUserByName(profilToFind).then(data => {
                 if ( data && (data as Record<string, any>).length > 0)
-                    this.userFound((data[0] as Record<string, any>).id);
+                    this.userFound((data[0] as Record<string, any>).user_id);
+                if (data[0] == null)
+                  window.location.href = "/404";
             })
             // Si erreur, on retourne en arrière
             .catch(error => {
                 this.$router.go(-1)
             })
-            if (this.user[0] == null)
-                window.location.href = "/404";
+
+
         }
 
         // Recherche de l'utilisateur via son ID
