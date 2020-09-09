@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="@hugovast.tech" uuid="a239e8ba-aad2-4145-95d0-745c29487875">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="DebateMe@hugovast.tech" uuid="87b7a9ae-55d9-4bf9-800f-69c7ef4d571d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://hugovast.tech:3306/DebateMe</jdbc-url>
+    </data-source>
+  </component>
+</project>
