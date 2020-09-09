@@ -99,6 +99,7 @@
         deconnexion(): void {
             localStorage.token = "";
             sessionStorage.token = "";
+            localStorage.premium = false;
             window.location.href = '/';
         }
     }
