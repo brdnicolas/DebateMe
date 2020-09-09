@@ -34,7 +34,7 @@
             <div>
                 <img src="../../../assets/icon/comment.png"/>
                 <h2 class="darkmode-ignore">Comments</h2>
-              <p><span class="darkmode-ignore">{{commentaire.down}}</span></p>
+              <p><span class="darkmode-ignore">0</span></p>
             </div>
             <div>
                 <img src="../../../assets/icon/share.png"/>

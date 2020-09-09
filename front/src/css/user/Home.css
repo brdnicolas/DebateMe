@@ -64,6 +64,7 @@
     width:80vw;
     min-width: 80vw;
     margin-left:10vw;
+    margin-top:70px;
 }
 .explore-category > div > h1 {
     font-style: normal;
@@ -71,7 +72,7 @@
     font-size: 20px;
     color: #F9813B;
     margin-left:10px;
-    margin-top:50px;
+    margin-top:10px;
 
 }
 .categories-container {

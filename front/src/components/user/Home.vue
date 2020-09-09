@@ -3,7 +3,7 @@
         <headerComponent />
 
         <div class="explore-category">
-          <div style="dispaly:flex;flex-direction: row !important;align-items: center;margin-top:20px;margin-left:13px">
+          <div style="display:flex;flex-direction: row !important;align-items: center;margin-top:20px;margin-left:13px">
             <img src="../../assets/icon/explore.png" alt="explore" style="width:31px; height:31px; object-fit: cover;"/>
             <h1 class="darkmode-ignore">Explorer</h1>
           </div>

@@ -6,9 +6,8 @@
                 <a href="/home" class="darkmode-ignore">Debate Me</a>
                 <div class="nav">
                     <a class="darkmode-ignore" href="/home" v-bind:class="{'current darkmode-ignore': this.currentPage === 'home'}">Accueil</a>
-                    <a class="darkmode-ignore" href="/message" v-bind:class="{'current darkmode-ignore': this.currentPage === 'message'}">Messages</a>
                     <a class="darkmode-ignore" href="/about" v-bind:class="{'current darkmode-ignore': this.currentPage === 'about'}">A propos</a>
-                    <a class="darkmode-ignore" href="/notifications" v-bind:class="{'current darkmode-ignore': this.currentPage === 'notifications'}">Notifications (53)</a>
+                    <a class="darkmode-ignore" href="/contact" v-bind:class="{'current darkmode-ignore': this.currentPage === 'contact'}">Contactez-nous</a>
                     <a class="darkmode-ignore" v-if="this.user.isAdmin" style="color:#EFA1A1" href="/panel" v-bind:class="{'currentAdmin': this.currentPage === 'panel'}">Modération</a>
                 </div>
             </div>

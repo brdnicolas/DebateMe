@@ -62,6 +62,7 @@ class DAO {
     }
 
     async getUserByName(profilName) {
+        console.log(profilName);
         let rep = {};
         await this.axios.get("users/search/" + profilName).then((response: { data: any}) =>  {
             rep =  response.data;
